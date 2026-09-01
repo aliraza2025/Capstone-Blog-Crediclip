@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ali Raza — Projects</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Tokens ─────────────────────────────────────────────────── */
+    :root {
+      --bg-0:        #0b0720;
+      --bg-1:        #120a2b;
+      --bg-2:        #1a0f3a;
+      --text:        #cbd5e1;
+      --text-strong: #e5e7eb;
+      --muted:       #94a3b8;
+      --line:        rgba(255,255,255,.10);
+      --accent:      #ff2d8d;
+      --accent-2:    #ff4aa3;
+    }
+
+    /* ─── Reset ──────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background:
+        radial-gradient(1200px 700px at 50% 10%, rgba(255,45,141,.09), transparent 60%),
+        linear-gradient(180deg, var(--bg-0), var(--bg-1));
+      background-attachment: fixed;
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ─── Nav ────────────────────────────────────────────────────── */
+    .site-nav {
+      background: transparent;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 62px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      flex-shrink: 0;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav-toggle {
+      position: absolute;
+      opacity: 0;
+      width: 1px;
+      height: 1px;
+      pointer-events: none;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px 4px;
+      border: none;
+      background: none;
+      z-index: 10;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 20px;
+      height: 1.5px;
+      background: var(--text-strong);
+      border-radius: 1px;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .nav-toggle:checked + .hamburger span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle:checked + .hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-toggle:checked + .hamburger span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.25rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+      padding: 0.2rem 0;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -6px; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform 0.18s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--text-strong); }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { transform: scaleX(1); }
+
+    /* ─── Hero ───────────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .page-hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 2rem 3.5rem;
+    }
+
+    .page-hero-tag {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+      animation: fadeUp 0.4s ease both 0.05s;
+    }
+
+    .page-hero-title {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text-strong);
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+      animation: fadeUp 0.45s ease both 0.12s;
+    }
+
+    .page-hero-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 48ch;
+      line-height: 1.7;
+      margin-bottom: 1.75rem;
+      animation: fadeUp 0.45s ease both 0.22s;
+    }
+
+    .page-hero-actions {
+      display: flex;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      animation: fadeUp 0.45s ease both 0.3s;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #fff;
+      background: var(--accent);
+      border: 1.5px solid var(--accent);
+      border-radius: 12px;
+      padding: 0.7rem 1.4rem;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(255,45,141,.18);
+      transition: background 0.18s, border-color 0.18s, transform 0.18s, box-shadow 0.18s;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-2);
+      border-color: var(--accent-2);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 36px rgba(255,45,141,.28);
+    }
+
+    .btn-primary:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    /* ─── Controls bar ───────────────────────────────────────────── */
+    .controls-bar {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem 2rem;
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .search-wrap svg {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 15px;
+      height: 15px;
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--text-strong);
+      font-family: inherit;
+      font-size: 0.875rem;
+      padding: 0.62rem 1rem 0.62rem 2.4rem;
+      outline: none;
+      transition: border-color 0.18s;
+    }
+
+    .search-input::placeholder { color: var(--muted); }
+
+    .search-input:focus {
+      border-color: rgba(255,45,141,.5);
+      background: rgba(255,255,255,.07);
+    }
+
+    .sort-select,
+    .filter-btn {
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.875rem;
+      padding: 0.62rem 1rem;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.18s, background 0.15s;
+      white-space: nowrap;
+    }
+
+    .sort-select:focus,
+    .filter-btn:hover {
+      border-color: rgba(255,45,141,.5);
+      background: rgba(255,255,255,.08);
+    }
+
+    /* "Include forks" toggle */
+    .fork-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.825rem;
+      color: var(--muted);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .fork-toggle input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 34px;
+      height: 18px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .fork-toggle input[type="checkbox"]::after {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: var(--muted);
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .fork-toggle input[type="checkbox"]:checked {
+      background: rgba(255,45,141,.3);
+      border-color: var(--accent);
+    }
+
+    .fork-toggle input[type="checkbox"]:checked::after {
+      transform: translateX(16px);
+      background: var(--accent);
+    }
+
+    /* ─── Stats bar ─────────────────────────────────────────────── */
+    .stats-bar {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem 1.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .stats-bar strong { color: var(--text-strong); }
+
+    /* ─── Repo grid ──────────────────────────────────────────────── */
+    .repo-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem 5rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    /* ─── Repo card image ───────────────────────────────────────── */
+    .repo-card-img-wrap {
+      margin: -1.4rem -1.4rem 1rem;
+      border-radius: 13px 13px 0 0;
+      overflow: hidden;
+      height: 158px;
+      background: rgba(255,255,255,.04);
+      flex-shrink: 0;
+    }
+
+    .repo-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .repo-card:hover .repo-card-img { transform: scale(1.04); }
+
+    /* ─── Repo card ──────────────────────────────────────────────── */
+    .repo-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.4rem 1.4rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      position: relative;
+      overflow: hidden;
+      transition:
+        transform 0.22s cubic-bezier(0.34,1.56,0.64,1),
+        box-shadow 0.22s ease,
+        border-color 0.22s ease;
+    }
+
+    .repo-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.28s ease;
+      border-radius: 14px 14px 0 0;
+    }
+
+    .repo-card:hover {
+      border-color: rgba(255,45,141,.5);
+      box-shadow: 0 16px 40px rgba(0,0,0,.32);
+      transform: translateY(-3px);
+    }
+
+    .repo-card:hover::before { transform: scaleX(1); }
+
+    /* Card top row: name + fork badge */
+    .repo-name-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .repo-name {
+      font-size: 0.925rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      flex: 1;
+      transition: color 0.15s;
+    }
+
+    .repo-name:hover { color: var(--accent); }
+
+    .badge-fork {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: rgba(255,255,255,.07);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.15rem 0.5rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Description */
+    .repo-desc {
+      font-size: 0.825rem;
+      color: var(--muted);
+      line-height: 1.55;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .repo-desc.no-desc {
+      font-style: italic;
+      opacity: 0.5;
+    }
+
+    /* Meta row: language + stars */
+    .repo-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+
+    .lang-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .lang-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .stars {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .stars svg {
+      width: 13px;
+      height: 13px;
+      color: #f59e0b;
+    }
+
+    .updated {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-left: auto;
+    }
+
+    /* Card action buttons */
+    .repo-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+      flex-wrap: wrap;
+    }
+
+    .repo-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: inherit;
+      font-size: 0.775rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 7px;
+      padding: 0.38rem 0.85rem;
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: rgba(255,255,255,.04);
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+      white-space: nowrap;
+    }
+
+    .repo-btn svg {
+      width: 12px;
+      height: 12px;
+      opacity: 0.75;
+    }
+
+    .repo-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(255,45,141,.06);
+    }
+
+    .repo-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .repo-btn.live {
+      border-color: rgba(255,45,141,.4);
+      color: var(--accent-2);
+    }
+
+    .repo-btn.live:hover {
+      background: rgba(255,45,141,.10);
+      border-color: var(--accent);
+    }
+
+    /* ─── States: loading / empty / error ───────────────────────── */
+    .state-box {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+    }
+
+    .state-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      min-height: 260px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.02);
+      color: var(--muted);
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .state-inner svg {
+      width: 40px;
+      height: 40px;
+      opacity: 0.4;
+    }
+
+    .state-inner p {
+      font-size: 0.9rem;
+      max-width: 36ch;
+      line-height: 1.6;
+    }
+
+    .state-inner strong {
+      color: var(--text-strong);
+      font-size: 1.05rem;
+    }
+
+    /* Spinner */
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid rgba(255,45,141,.2);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    /* ─── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .repo-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+
+      .nav-inner {
+        position: relative;
+        height: auto;
+        min-height: 62px;
+        padding: 0 1.25rem;
+        gap: 0;
+        align-items: center;
+      }
+
+      .logo { height: 62px; display: flex; align-items: center; }
+      .hamburger { height: 62px; align-items: center; }
+
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        padding: 0.75rem 0 1rem;
+        border-top: 1px solid var(--line);
+        background: rgba(18,10,43,.92);
+        border-radius: 0 0 14px 14px;
+      }
+
+      .nav-links a::after { display: none; }
+      .nav-links li { width: 100%; }
+
+      .nav-links a {
+        display: block;
+        padding: 0.75rem 1.25rem;
+        font-size: 0.9rem;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+      }
+
+      .nav-links li:last-child a { border-bottom: none; }
+      .nav-toggle:checked ~ .nav-links { display: flex; }
+
+      .page-hero { padding: 3.5rem 1.25rem 2.5rem; }
+      .controls-bar { padding: 0 1.25rem 1.5rem; }
+      .stats-bar { padding: 0 1.25rem 1.25rem; }
+      .repo-grid { padding: 0 1.25rem 4rem; }
+      .state-box { padding: 0 1.25rem 3rem; }
+    }
+
+    @media (max-width: 560px) {
+      .repo-grid { grid-template-columns: 1fr; }
+      .controls-bar { flex-direction: column; align-items: stretch; }
+      .search-wrap { min-width: unset; }
+    }
+
+    /* ─── Reduced motion ─────────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .page-hero-tag, .page-hero-title, .page-hero-sub, .page-hero-actions {
+        animation: none; opacity: 1; transform: none;
+      }
+      .repo-card, .repo-card::before, .btn-primary, .repo-btn,
+      .repo-name, .hamburger span { transition: none; }
+      .spinner { animation: none; }
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────────── */
+    .site-footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.775rem;
+      color: var(--muted);
+    }
+
+    .site-footer a { color: var(--muted); text-decoration: none; }
+    .site-footer a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ─────────────────────────────────────────────── -->
+  <nav class="site-nav" aria-label="Site navigation">
+    <div class="nav-inner">
+      <a href="index.html#hero" class="logo">Ali <span>Raza</span></a>
+
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" />
+      <label for="nav-toggle" class="hamburger" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+
+      <ul class="nav-links" role="list">
+        <li><a href="index.html#portfolio">Work</a></li>
+        <li><a href="projects.html" class="active" aria-current="page">Projects</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── Page Hero ──────────────────────────────────────────────── -->
+  <header class="page-hero">
+    <span class="page-hero-tag">GitHub</span>
+    <h1 class="page-hero-title">Projects</h1>
+    <p class="page-hero-sub">
+      A selection of repositories and builds from my GitHub.
+    </p>
+    <div class="page-hero-actions">
+      <a
+        href="https://github.com/aliraza2025"
+        class="btn-primary"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="View GitHub Profile — opens in new tab"
+      >
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+        </svg>
+        View GitHub Profile
+      </a>
+    </div>
+  </header>
+
+  <!-- ── Controls ───────────────────────────────────────────────── -->
+  <div class="controls-bar" role="search" aria-label="Filter and sort repositories">
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input
+        id="search-input"
+        class="search-input"
+        type="search"
+        placeholder="Search repos…"
+        aria-label="Search repositories"
+        autocomplete="off"
+      />
+    </div>
+
+    <select id="sort-select" class="sort-select" aria-label="Sort repositories">
+      <option value="updated">Recently updated</option>
+      <option value="stars">Most stars</option>
+      <option value="name">Name A–Z</option>
+    </select>
+
+    <label class="fork-toggle" aria-label="Toggle fork visibility">
+      <input type="checkbox" id="fork-toggle" />
+      Include forks
+    </label>
+  </div>
+
+  <!-- ── Stats bar ──────────────────────────────────────────────── -->
+  <div class="stats-bar" id="stats-bar" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ── Repo grid / state ──────────────────────────────────────── -->
+  <main id="main-content">
+    <div class="state-box" id="state-box">
+      <div class="state-inner">
+        <div class="spinner" role="status" aria-label="Loading repositories"></div>
+        <strong>Loading repositories…</strong>
+        <p>Fetching from GitHub API</p>
+      </div>
+    </div>
+    <div class="repo-grid" id="repo-grid" aria-label="Repository list"></div>
+  </main>
+
+  <!-- ── Footer ─────────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <p>Ali Raza · <a href="index.html">Portfolio</a> · 2026</p>
+  </footer>
+
+  <script src="projects.js"></script>
+  <script>
+    // Close mobile nav on link click
+    document.querySelector('.nav-links').addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') {
+        document.getElementById('nav-toggle').checked = false;
+      }
+    });
+  </script>
+</body>
+</html>

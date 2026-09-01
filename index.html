@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ali Raza — Product Manager · Analyst · Builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Design tokens ─────────────────────────────────────────── */
+    :root {
+      --bg-0:        #0b0720;
+      --bg-1:        #120a2b;
+      --bg-2:        #1a0f3a;
+      --text:        #cbd5e1;
+      --text-strong: #e5e7eb;
+      --muted:       #94a3b8;
+      --line:        rgba(255,255,255,.10);
+      --accent:      #ff2d8d;
+      --accent-2:    #ff4aa3;
+      /* legacy aliases used by section/card rules below */
+      --bg:      var(--bg-1);
+      --surface: var(--bg-2);
+    }
+
+    /* ─── Reset & Base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background:
+        radial-gradient(900px 500px at 50% 0%, rgba(255,45,141,.06), transparent 55%),
+        linear-gradient(180deg, var(--bg-0), var(--bg-1));
+      background-attachment: fixed;
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ─── Navigation ───────────────────────────────────────────── */
+    .site-nav {
+      background: transparent;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 62px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      flex-shrink: 0;
+    }
+
+    .logo span { color: var(--accent); }
+
+    .nav-toggle {
+      position: absolute;
+      opacity: 0;
+      width: 1px;
+      height: 1px;
+      pointer-events: none;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px 4px;
+      border: none;
+      background: none;
+      z-index: 10;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 20px;
+      height: 1.5px;
+      background: var(--text-strong);
+      border-radius: 1px;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .nav-toggle:checked + .hamburger span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle:checked + .hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-toggle:checked + .hamburger span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.25rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+      padding: 0.2rem 0;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -6px; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform 0.18s ease;
+    }
+
+    .nav-links a:hover { color: var(--text-strong); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    /* ─── Hero ──────────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-section {
+      background: transparent;
+      border-bottom: none;
+      padding: 6rem 2rem 4.5rem;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 3rem;
+      text-align: left;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-eyebrow {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 0.9rem;
+      letter-spacing: 0.02em;
+      animation: fadeUp 0.45s ease both;
+      animation-delay: 0.05s;
+    }
+
+    .hero-headline {
+      font-size: clamp(3rem, 7vw, 5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text-strong);
+      line-height: 1.03;
+      margin-bottom: 0.85rem;
+      animation: fadeUp 0.5s ease both;
+      animation-delay: 0.15s;
+    }
+
+    .hero-headline em {
+      font-style: normal;
+      color: var(--accent);
+      -webkit-text-fill-color: var(--accent);
+      background: none;
+    }
+
+    .hero-role {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      font-weight: 600;
+      color: var(--text-strong);
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+      animation: fadeUp 0.5s ease both;
+      animation-delay: 0.25s;
+    }
+
+    .hero-subheadline {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 40ch;
+      margin: 0 0 2.25rem;
+      line-height: 1.7;
+      animation: fadeUp 0.5s ease both;
+      animation-delay: 0.33s;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.85rem;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      animation: fadeUp 0.5s ease both;
+      animation-delay: 0.43s;
+    }
+
+    /* Avatar / visual slot */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 320px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      overflow: hidden;
+      animation: fadeUp 0.55s ease both;
+      animation-delay: 0.2s;
+    }
+
+    .hero-visual img,
+    .hero-gif {
+      width: min(420px, 85%);
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,.45));
+      border-radius: 18px;
+    }
+
+    /* ─── Buttons ───────────────────────────────────────────────── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #fff;
+      background: var(--accent);
+      border: 1.5px solid var(--accent);
+      border-radius: 12px;
+      padding: 0.72rem 1.5rem;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(255,45,141,.20);
+      transition: background 0.18s, border-color 0.18s, transform 0.18s ease, box-shadow 0.18s;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-2);
+      border-color: var(--accent-2);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 36px rgba(255,45,141,.30);
+    }
+
+    .btn-primary:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-strong);
+      background: transparent;
+      border: 1.5px solid rgba(255,45,141,.55);
+      border-radius: 12px;
+      padding: 0.72rem 1.5rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color 0.18s, color 0.18s;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn-ghost:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .btn-icon {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      opacity: 0.85;
+    }
+
+    /* ─── Shared section wrapper ─────────────────────────────────── */
+    .portfolio-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem 5rem;
+    }
+
+    /* ─── Section header ────────────────────────────────────────── */
+    .section-header { margin-bottom: 2.5rem; }
+
+    .section-tag {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: none;
+      border: none;
+      padding: 0;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text-strong);
+      line-height: 1.2;
+      margin-bottom: 0.65rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 55ch;
+      line-height: 1.7;
+    }
+
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--line);
+      margin-top: 1.75rem;
+    }
+
+    /* ─── Portfolio cards (dark surface boxes) ───────────────────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .portfolio-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+      outline: none;
+      transition:
+        transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.22s ease,
+        border-color 0.22s ease;
+    }
+
+    .portfolio-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.28s ease;
+      border-radius: 14px 14px 0 0;
+    }
+
+    .portfolio-card:hover,
+    .portfolio-card:focus-visible {
+      border-color: rgba(255,45,141,.55);
+      box-shadow: 0 16px 40px rgba(0,0,0,.35);
+      transform: translateY(-4px);
+    }
+
+    .portfolio-card:hover::before,
+    .portfolio-card:focus-visible::before { transform: scaleX(1); }
+
+    .portfolio-card:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .card-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(255,45,141,.10);
+      border: 1px solid rgba(255,45,141,.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .card-icon svg {
+      width: 17px;
+      height: 17px;
+      color: var(--accent);
+    }
+
+    .card-body { flex: 1; }
+
+    .card-title {
+      font-size: 0.925rem;
+      font-weight: 600;
+      color: var(--text-strong);
+      margin-bottom: 0.2rem;
+      letter-spacing: -0.01em;
+      transition: color 0.15s;
+    }
+
+    .portfolio-card:hover .card-title { color: var(--accent); }
+
+    .card-description {
+      font-size: 0.825rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .card-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin-top: auto;
+    }
+
+    .card-arrow svg {
+      width: 14px;
+      height: 14px;
+      color: rgba(203,213,225,.45);
+      transition: transform 0.18s ease, color 0.15s;
+    }
+
+    .portfolio-card:hover .card-arrow svg {
+      transform: translate(3px, -3px);
+      color: var(--accent);
+    }
+
+    /* ─── Impact strip ──────────────────────────────────────────── */
+    .impact-strip {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.02);
+    }
+
+    .impact-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .impact-stat {
+      text-align: center;
+    }
+
+    .impact-value {
+      display: block;
+      font-size: clamp(1.4rem, 3vw, 1.85rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text-strong);
+      margin-bottom: 0.25rem;
+    }
+
+    .impact-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    /* ─── Case studies ────────────────────────────────────────────── */
+    .case-studies {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .case-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+
+    .case-card:hover {
+      border-color: rgba(255,45,141,.4);
+      box-shadow: 0 12px 36px rgba(0,0,0,.28);
+    }
+
+    .case-card.featured {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 0;
+    }
+
+    .case-card.featured:hover {
+      transform: translateY(-3px);
+    }
+
+    .case-featured-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(255,45,141,.1);
+      border: 1px solid rgba(255,45,141,.25);
+      border-radius: 999px;
+      padding: 0.25rem 0.65rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .case-img-wrap {
+      min-height: 220px;
+      background: rgba(255,255,255,.04);
+      overflow: hidden;
+    }
+
+    .case-card.featured .case-img-wrap {
+      min-height: 100%;
+    }
+
+    .case-img {
+      width: 100%;
+      height: 100%;
+      min-height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .case-body {
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .case-card.featured .case-body {
+      padding: 2rem 2rem 2rem 1.75rem;
+      justify-content: center;
+    }
+
+    .case-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .case-tag {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.2rem 0.55rem;
+    }
+
+    .case-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .case-card.featured .case-title {
+      font-size: clamp(1.35rem, 2.5vw, 1.65rem);
+    }
+
+    .case-block {
+      margin-bottom: 0.85rem;
+    }
+
+    .case-block-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
+
+    .case-block p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .case-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1.25rem;
+    }
+
+    .case-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 10px;
+      padding: 0.55rem 1rem;
+      transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s;
+    }
+
+    .case-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .case-btn-primary {
+      color: #fff;
+      background: var(--accent);
+      border: 1.5px solid var(--accent);
+    }
+
+    .case-btn-primary:hover {
+      background: var(--accent-2);
+      border-color: var(--accent-2);
+      transform: translateY(-1px);
+    }
+
+    .case-btn-ghost {
+      color: var(--text-strong);
+      background: transparent;
+      border: 1.5px solid rgba(255,45,141,.45);
+    }
+
+    .case-btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .case-btn svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .case-num {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.65rem;
+    }
+
+    .case-card.compact .case-body {
+      padding: 1.4rem;
+    }
+
+    .case-card.compact .case-title {
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .case-card.compact .case-block {
+      margin-bottom: 0.65rem;
+    }
+
+    .case-card.compact .case-block p {
+      font-size: 0.82rem;
+    }
+
+    /* ─── Bento skills ────────────────────────────────────────────── */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .bento-tile {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.35rem;
+      transition: border-color 0.2s;
+    }
+
+    .bento-tile:hover {
+      border-color: rgba(255,45,141,.35);
+    }
+
+    .bento-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.85rem;
+    }
+
+    .bento-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .bento-tag {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text);
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0.3rem 0.6rem;
+    }
+
+    /* ─── About ─────────────────────────────────────────────────── */
+    .about-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .about-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .about-text p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 68ch;
+    }
+
+    .about-skills {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .about-skills li {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text);
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .about-skills svg {
+      width: 13px;
+      height: 13px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ─── Contact ───────────────────────────────────────────────── */
+    .contact-section {
+      background: transparent;
+      border-top: 1px solid var(--line);
+      padding: 4.5rem 2rem 5.5rem;
+    }
+
+    .contact-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .contact-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 560px;
+      border-top: 1px solid var(--line);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--line);
+      padding: 1.2rem 0;
+      text-decoration: none;
+      color: inherit;
+      outline: none;
+    }
+
+    .contact-item:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
+
+    .contact-icon {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-icon svg {
+      width: 16px;
+      height: 16px;
+      color: var(--muted);
+      transition: color 0.15s;
+    }
+
+    .contact-item:hover .contact-icon svg { color: var(--accent); }
+
+    .contact-label {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .contact-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-strong);
+      letter-spacing: -0.01em;
+      transition: color 0.15s;
+    }
+
+    .contact-item:hover .contact-title { color: var(--accent); }
+
+    .contact-handle {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .contact-arrow {
+      width: 14px;
+      height: 14px;
+      color: rgba(203,213,225,.3);
+      flex-shrink: 0;
+      transition: transform 0.18s ease, color 0.15s;
+    }
+
+    .contact-item:hover .contact-arrow {
+      transform: translate(2px, -2px);
+      color: var(--accent);
+    }
+
+    /* ─── Responsive ────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2.5rem;
+      }
+      .hero-actions { justify-content: center; }
+      .hero-subheadline { max-width: 100%; }
+      .hero-visual { order: -1; min-height: 220px; }
+    }
+
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+
+      .nav-inner {
+        position: relative;
+        height: auto;
+        min-height: 62px;
+        padding: 0 1.25rem;
+        gap: 0;
+        align-items: center;
+      }
+
+      .logo { height: 62px; display: flex; align-items: center; }
+      .hamburger { height: 62px; align-items: center; }
+
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        padding: 0.75rem 0 1rem;
+        border-top: 1px solid var(--line);
+        background: rgba(18,10,43,.92);
+        border-radius: 0 0 14px 14px;
+      }
+
+      .nav-links a::after { display: none; }
+      .nav-links li { width: 100%; }
+
+      .nav-links a {
+        display: block;
+        padding: 0.75rem 1.25rem;
+        font-size: 0.9rem;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+      }
+
+      .nav-links li:last-child a { border-bottom: none; }
+      .nav-toggle:checked ~ .nav-links { display: flex; }
+
+      .hero-section { padding: 3.5rem 1.5rem 3rem; }
+      .card-grid { grid-template-columns: 1fr; }
+      .impact-inner { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+      .case-card.featured { grid-template-columns: 1fr; }
+      .case-grid { grid-template-columns: 1fr; }
+      .bento-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .impact-inner { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .portfolio-section { padding: 3rem 1.25rem 4rem; }
+      .contact-section   { padding: 3rem 1.25rem 4rem; }
+      .hero-section      { padding: 2.75rem 1.25rem 2.5rem; }
+      .hero-actions      { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+    }
+
+    /* ─── Reduced motion ───────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-eyebrow, .hero-headline, .hero-role,
+      .hero-subheadline, .hero-actions, .hero-visual {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+
+      .btn-primary, .btn-ghost,
+      .hamburger span,
+      .nav-links a::after,
+      .portfolio-card, .portfolio-card::before,
+      .case-card, .bento-tile,
+      .card-title, .card-arrow svg,
+      .contact-icon svg, .contact-title, .contact-arrow {
+        transition: none;
+      }
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────────── */
+    .demo-footer {
+      text-align: center;
+      padding: 2rem 2rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.775rem;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ─────────────────────────────────────────────── -->
+  <nav class="site-nav" aria-label="Site navigation">
+    <div class="nav-inner">
+      <a href="#hero" class="logo">Ali <span>Raza</span></a>
+
+      <!-- CSS-only hamburger toggle (no JS) -->
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" />
+      <label for="nav-toggle" class="hamburger" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
+      <ul class="nav-links" role="list">
+        <li><a href="#portfolio">Work</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── Hero Section ────────────────────────────────────────────── -->
+  <section class="hero-section" id="hero" aria-labelledby="hero-heading">
+    <div class="hero-inner">
+
+      <!-- Left: text content -->
+      <div class="hero-left">
+        <span class="hero-eyebrow">Hi there,</span>
+
+        <h1 class="hero-headline" id="hero-heading">
+          I'm <em>Ali</em><br>Raza
+        </h1>
+
+        <p class="hero-role">Product Manager · Analyst · Builder</p>
+
+        <p class="hero-subheadline">
+          I bridge data, strategy, and execution — from Python analytics and shipped MVPs to product launches across global tech brands.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#portfolio" class="btn-primary" aria-label="View case studies — scroll to work">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/>
+            </svg>
+            View Case Studies
+          </a>
+          <a href="experience.html" class="btn-ghost" aria-label="View experience page">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+            </svg>
+            View Experience
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: avatar / visual slot -->
+      <div class="hero-visual" aria-hidden="true">
+        <img
+          src="assets/ali-typing.gif"
+          alt="Ali Raza typing at a laptop"
+          class="hero-gif"
+          onerror="this.style.display='none'"
+        />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Impact strip ─────────────────────────────────────────────── -->
+  <div class="impact-strip" aria-label="Career impact highlights">
+    <div class="impact-inner">
+      <div class="impact-stat">
+        <span class="impact-value">70M+</span>
+        <span class="impact-label">Impressions delivered</span>
+      </div>
+      <div class="impact-stat">
+        <span class="impact-value">25%</span>
+        <span class="impact-label">Demand-gen lift</span>
+      </div>
+      <div class="impact-stat">
+        <span class="impact-value">$205K</span>
+        <span class="impact-label">Campaign managed</span>
+      </div>
+      <div class="impact-stat">
+        <span class="impact-value">118M</span>
+        <span class="impact-label">Users reached</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Case Studies ─────────────────────────────────────────────── -->
+  <section class="portfolio-section" id="portfolio" aria-labelledby="portfolio-heading">
+
+    <header class="section-header">
+      <span class="section-tag">Work</span>
+      <h2 class="section-title" id="portfolio-heading">Case Studies</h2>
+      <p class="section-subtitle">
+        Product and growth work at the intersection of data, strategy, and execution —
+        from shipped MVPs to campaigns at global scale.
+      </p>
+      <div class="section-divider" aria-hidden="true"></div>
+    </header>
+
+    <div class="case-studies">
+
+      <!-- Featured: CrediClip -->
+      <article class="case-card featured">
+        <div class="case-img-wrap">
+          <img
+            src="assets/crediclip-preview.png"
+            alt="CrediClip — AI credibility scoring for short-form video"
+            class="case-img"
+            loading="lazy"
+          />
+        </div>
+        <div class="case-body">
+          <span class="case-featured-badge">Featured · Case Study 01</span>
+          <div class="case-tags">
+            <span class="case-tag">Product Management</span>
+            <span class="case-tag">Python</span>
+            <span class="case-tag">AI / ML</span>
+            <span class="case-tag">0 → 1 MVP</span>
+          </div>
+          <h3 class="case-title">CrediClip</h3>
+
+          <div class="case-block">
+            <p class="case-block-label">Problem</p>
+            <p>Short-form video platforms lack transparent credibility signals — viewers can't easily assess whether content is trustworthy, and creators have no standardized way to communicate source quality.</p>
+          </div>
+          <div class="case-block">
+            <p class="case-block-label">My role</p>
+            <p>Product Manager &amp; Builder — led end-to-end from problem discovery and user research through architecture, Python backend, and a shipped live MVP.</p>
+          </div>
+          <div class="case-block">
+            <p class="case-block-label">Result</p>
+            <p>Launched a live AI credibility scoring product for TikTok, Instagram, and YouTube Shorts — users paste a video URL and receive an instant credibility analysis with a dashboard view.</p>
+          </div>
+
+          <div class="case-actions">
+            <a
+              href="https://crediclip-axraza-msba.fly.dev/"
+              class="case-btn case-btn-primary"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View CrediClip live demo — opens in new tab"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              Live Demo
+            </a>
+            <a
+              href="https://app.chroniclehq.com/3048b981-38cd-4b9e-86f9-67e4f7080caa/document/fe85f416-b3b7-438e-8944-f80e85029093"
+              class="case-btn case-btn-ghost"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Read CrediClip case study document — opens in new tab"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+              </svg>
+              Case Study Doc
+            </a>
+            <a
+              href="https://github.com/aliraza2025/CrediClip"
+              class="case-btn case-btn-ghost"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View CrediClip on GitHub — opens in new tab"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Case studies 02–05 -->
+      <div class="case-grid">
+
+        <article class="case-card compact">
+          <div class="case-body">
+            <span class="case-num">Case Study 02</span>
+            <div class="case-tags">
+              <span class="case-tag">Product Marketing</span>
+              <span class="case-tag">AI</span>
+            </div>
+            <h3 class="case-title">AtlasNova AI</h3>
+            <div class="case-block">
+              <p class="case-block-label">Problem</p>
+              <p>Complex AI workflows were hard for prospects to understand and act on.</p>
+            </div>
+            <div class="case-block">
+              <p class="case-block-label">Result</p>
+              <p>25% demand-gen lift via simplified messaging, campaign playbooks, and GTM frameworks.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="case-card compact">
+          <div class="case-body">
+            <span class="case-num">Case Study 03</span>
+            <div class="case-tags">
+              <span class="case-tag">Python</span>
+              <span class="case-tag">YouTube Analytics</span>
+            </div>
+            <h3 class="case-title">MrBeast YouTube Analytics</h3>
+            <div class="case-block">
+              <p class="case-block-label">Problem</p>
+              <p>What drives engagement on a 200M+ subscriber YouTube channel at scale?</p>
+            </div>
+            <div class="case-block">
+              <p class="case-block-label">Result</p>
+              <p>Modeled upload timing, video length, and title patterns to predict audience reach and interaction.</p>
+            </div>
+            <div class="case-actions">
+              <a
+                href="https://github.com/aliraza2025/MrBeast-as-a-Case-Study"
+                class="case-btn case-btn-ghost"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View MrBeast case study on GitHub"
+              >
+                GitHub
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article class="case-card compact">
+          <div class="case-body">
+            <span class="case-num">Case Study 04</span>
+            <div class="case-tags">
+              <span class="case-tag">Optimization</span>
+              <span class="case-tag">Python</span>
+            </div>
+            <h3 class="case-title">Burrito Game: Logistics Optimization</h3>
+            <div class="case-block">
+              <p class="case-block-label">Problem</p>
+              <p>Maximize profit in a constrained food-truck distribution network under real operational limits.</p>
+            </div>
+            <div class="case-block">
+              <p class="case-block-label">Result</p>
+              <p>Built an integer programming model with sensitivity analysis to find optimal routes and allocation.</p>
+            </div>
+            <div class="case-actions">
+              <a
+                href="https://github.com/aliraza2025/-Burrito-Game-Analysis-Logistics-Optimization-Sensitivity-Study"
+                class="case-btn case-btn-ghost"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View Burrito Game project on GitHub"
+              >
+                GitHub
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article class="case-card compact">
+          <div class="case-body">
+            <span class="case-num">Case Study 05+</span>
+            <div class="case-tags">
+              <span class="case-tag">Data Science</span>
+              <span class="case-tag">More</span>
+            </div>
+            <h3 class="case-title">More Projects</h3>
+            <div class="case-block">
+              <p class="case-block-label">Includes</p>
+              <p>Taiwan 2005 Credit Card Crisis, Statistical Modeling, Data Mining, and additional analytics builds.</p>
+            </div>
+            <div class="case-actions">
+              <a href="projects.html" class="case-btn case-btn-primary" aria-label="View all projects">
+                View All Projects
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── About Section ──────────────────────────────────────────── -->
+  <section id="about" class="portfolio-section" aria-labelledby="about-heading">
+    <header class="section-header">
+      <span class="section-tag">About</span>
+      <h2 id="about-heading" class="section-title">Product-minded builder</h2>
+      <div class="section-divider" aria-hidden="true"></div>
+    </header>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm Ali Raza — a product-minded builder with a background in growth analytics,
+          product marketing, and technical execution. I work at the intersection of data
+          and strategy: turning complex problems into shipped products and measurable outcomes.
+        </p>
+        <p>
+          From leading a 0→1 AI MVP (CrediClip) to 25% demand-gen lift at AtlasNova AI,
+          I bring a rare mix of Python fluency, product rigor, and cross-functional leadership
+          that helps teams move from insight to impact.
+        </p>
+      </div>
+
+      <div class="bento-grid" aria-label="Skills and tools">
+        <div class="bento-tile">
+          <p class="bento-label">Technical</p>
+          <div class="bento-tags">
+            <span class="bento-tag">Python</span>
+            <span class="bento-tag">SQL</span>
+            <span class="bento-tag">Jupyter</span>
+            <span class="bento-tag">Tableau</span>
+            <span class="bento-tag">Git</span>
+            <span class="bento-tag">GitHub</span>
+          </div>
+        </div>
+        <div class="bento-tile">
+          <p class="bento-label">Product</p>
+          <div class="bento-tags">
+            <span class="bento-tag">Roadmapping</span>
+            <span class="bento-tag">A/B Testing</span>
+            <span class="bento-tag">PRDs</span>
+            <span class="bento-tag">User Research</span>
+            <span class="bento-tag">Sprint Planning</span>
+          </div>
+        </div>
+        <div class="bento-tile">
+          <p class="bento-label">Growth</p>
+          <div class="bento-tags">
+            <span class="bento-tag">GTM Strategy</span>
+            <span class="bento-tag">Paid Media</span>
+            <span class="bento-tag">Campaign Analytics</span>
+            <span class="bento-tag">Influencer</span>
+            <span class="bento-tag">Content</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Contact Section ─────────────────────────────────────────── -->
+  <section id="contact" class="contact-section" aria-labelledby="contact-heading">
+    <div class="contact-inner">
+      <header class="section-header">
+        <span class="section-tag">Contact</span>
+        <h2 id="contact-heading" class="section-title">Get in Touch</h2>
+        <p class="section-subtitle">
+          Open to collaborations, creative projects, and new opportunities.
+          The best way to reach me is through LinkedIn or email.
+        </p>
+        <div class="section-divider" aria-hidden="true"></div>
+      </header>
+
+      <ul class="contact-links" aria-label="Contact methods">
+        <li>
+          <a
+            href="https://www.linkedin.com/in/ali-raza-2548880/"
+            class="contact-item"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn — opens in new tab"
+          >
+            <span class="contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </span>
+            <span class="contact-label">
+              <span class="contact-title">LinkedIn</span>
+              <span class="contact-handle">ali-raza-2548880</span>
+            </span>
+            <svg class="contact-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://github.com/aliraza2025"
+            class="contact-item"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub — opens in new tab"
+          >
+            <span class="contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            </span>
+            <span class="contact-label">
+              <span class="contact-title">GitHub</span>
+              <span class="contact-handle">aliraza2025</span>
+            </span>
+            <svg class="contact-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+        </li>
+        <li>
+          <a href="mailto:axraza55@gmail.com" class="contact-item" aria-label="Send email to axraza55@gmail.com">
+            <span class="contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+            </span>
+            <span class="contact-label">
+              <span class="contact-title">Email</span>
+              <span class="contact-handle">axraza55@gmail.com</span>
+            </span>
+            <svg class="contact-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+        </li>
+        <li>
+          <a href="tel:+15102948666" class="contact-item" aria-label="Call 510-294-8666">
+            <span class="contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.58a16 16 0 0 0 5.51 5.51l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </span>
+            <span class="contact-label">
+              <span class="contact-title">Phone</span>
+              <span class="contact-handle">510-294-8666</span>
+            </span>
+            <svg class="contact-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="demo-footer">
+    <p>Ali Raza · Portfolio · 2026</p>
+  </footer>
+
+  <script>
+    // Close the mobile nav after clicking any nav link
+    document.querySelector('.nav-links').addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') {
+        document.getElementById('nav-toggle').checked = false;
+      }
+    });
+  </script>
+</body>
+</html>

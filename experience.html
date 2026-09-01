@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ali Raza — Experience</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-0:        #0b0720;
+      --bg-1:        #120a2b;
+      --bg-2:        #1a0f3a;
+      --text:        #cbd5e1;
+      --text-strong: #e5e7eb;
+      --muted:       #94a3b8;
+      --line:        rgba(255,255,255,.10);
+      --accent:      #ff2d8d;
+      --accent-2:    #ff4aa3;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background:
+        radial-gradient(900px 500px at 50% 0%, rgba(255,45,141,.06), transparent 55%),
+        linear-gradient(180deg, var(--bg-0), var(--bg-1));
+      background-attachment: fixed;
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ─── Nav ─────────────────────────────────────────────────────── */
+    .site-nav {
+      background: transparent;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 62px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .logo span { color: var(--accent); }
+
+    .nav-toggle {
+      position: absolute;
+      opacity: 0;
+      width: 1px;
+      height: 1px;
+      pointer-events: none;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px 4px;
+      border: none;
+      background: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 20px;
+      height: 1.5px;
+      background: var(--text-strong);
+      border-radius: 1px;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .nav-toggle:checked + .hamburger span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle:checked + .hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-toggle:checked + .hamburger span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav-links { display: flex; gap: 2.25rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+      padding: 0.2rem 0;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -6px; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform 0.18s ease;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--text-strong); }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { transform: scaleX(1); }
+
+    /* ─── Hero ────────────────────────────────────────────────────── */
+    .page-hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 2rem 3rem;
+    }
+
+    .page-hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 3rem;
+      align-items: end;
+    }
+
+    .page-hero-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .page-hero-title {
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text-strong);
+      line-height: 1.08;
+      margin-bottom: 1rem;
+    }
+
+    .page-hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 48ch;
+      line-height: 1.65;
+    }
+
+    .hero-edu-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1.5rem 1.6rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .hero-edu-card:hover {
+      border-color: rgba(255,45,141,.35);
+      box-shadow: 0 12px 32px rgba(0,0,0,.25);
+    }
+
+    .edu-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+
+    .edu-school {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      letter-spacing: -0.01em;
+      margin-bottom: 0.25rem;
+    }
+
+    .edu-degree {
+      font-size: 0.85rem;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+
+    .edu-dates {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* ─── Impact strip ────────────────────────────────────────────── */
+    .impact-strip {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.02);
+    }
+
+    .impact-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .impact-stat { text-align: center; }
+
+    .impact-value {
+      display: block;
+      font-size: clamp(1.35rem, 3vw, 1.75rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text-strong);
+      margin-bottom: 0.2rem;
+    }
+
+    .impact-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    /* ─── Logo strip ──────────────────────────────────────────────── */
+    .logo-strip-wrap {
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.015);
+    }
+
+    .logo-strip-label {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.75rem 2rem 0;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .logo-strip {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.25rem 2rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .logo-strip::-webkit-scrollbar { display: none; }
+
+    .logo-chip {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.55rem 1rem;
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      opacity: 0.7;
+      transition: opacity 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .logo-chip:hover {
+      opacity: 1;
+      border-color: rgba(255,45,141,.4);
+      transform: translateY(-2px);
+    }
+
+    .logo-chip img {
+      height: 20px;
+      width: auto;
+      display: block;
+    }
+
+    .logo-chip-name {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-strong);
+      white-space: nowrap;
+    }
+
+    .logo-pill {
+      display: none;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-strong);
+    }
+    .logo-chip img.broken { display: none; }
+    .logo-chip img.broken + .logo-pill { display: inline; }
+
+    /* ─── Timeline ────────────────────────────────────────────────── */
+    .experience-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 2rem 5rem;
+    }
+
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2rem;
+    }
+
+    .timeline {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    /* vertical spine */
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 24px;
+      bottom: 24px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent), rgba(255,45,141,.15));
+      border-radius: 2px;
+    }
+
+    .exp-entry {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 0 1.5rem;
+      position: relative;
+    }
+
+    .exp-dot {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--bg-1);
+      border: 2px solid rgba(255,45,141,.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--accent);
+      flex-shrink: 0;
+      z-index: 1;
+      transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .exp-entry:hover .exp-dot {
+      background: rgba(255,45,141,.12);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(255,45,141,.1);
+    }
+
+    .exp-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1.5rem 1.6rem;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    }
+
+    .exp-entry:hover .exp-card {
+      border-color: rgba(255,45,141,.38);
+      box-shadow: 0 14px 40px rgba(0,0,0,.3);
+      transform: translateY(-2px);
+    }
+
+    .exp-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .exp-company {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.2rem;
+    }
+
+    .exp-role {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    .exp-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.35rem;
+      flex-shrink: 0;
+    }
+
+    .exp-date-pill {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-strong);
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.25rem 0.7rem;
+      white-space: nowrap;
+    }
+
+    .exp-location {
+      font-size: 0.75rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .exp-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 1rem;
+    }
+
+    .exp-tag {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.2rem 0.55rem;
+    }
+
+    .exp-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .exp-bullets li {
+      font-size: 0.875rem;
+      color: var(--text);
+      line-height: 1.65;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .exp-bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* ─── Skills strip ────────────────────────────────────────────── */
+    .skills-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .skill-tile {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.35rem;
+      transition: border-color 0.2s;
+    }
+    .skill-tile:hover { border-color: rgba(255,45,141,.35); }
+
+    .skill-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.85rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .skill-tag {
+      font-size: 0.76rem;
+      font-weight: 500;
+      color: var(--text);
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0.28rem 0.55rem;
+    }
+
+    /* ─── Footer ──────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* ─── Responsive ──────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .page-hero-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .impact-inner { grid-template-columns: repeat(2, 1fr); }
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .hamburger { display: flex; }
+
+      .nav-inner {
+        position: relative;
+        height: auto;
+        min-height: 62px;
+        padding: 0 1.25rem;
+        align-items: center;
+      }
+      .logo { height: 62px; display: flex; align-items: center; }
+      .hamburger { height: 62px; align-items: center; }
+
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        border-top: 1px solid var(--line);
+        background: rgba(18,10,43,.92);
+        border-radius: 0 0 14px 14px;
+      }
+      .nav-links a::after { display: none; }
+      .nav-links li { width: 100%; }
+      .nav-links a {
+        display: block;
+        padding: 0.75rem 1.25rem;
+        font-size: 0.9rem;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+      }
+      .nav-links li:last-child a { border-bottom: none; }
+      .nav-toggle:checked ~ .nav-links { display: flex; }
+
+      .page-hero { padding: 3.5rem 1.5rem 2.5rem; }
+      .experience-section,
+      .skills-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+
+      .timeline::before { left: 15px; }
+      .exp-entry { grid-template-columns: 32px 1fr; gap: 0 1rem; }
+      .exp-dot { width: 32px; height: 32px; font-size: 0.62rem; }
+      .exp-meta { align-items: flex-start; }
+      .exp-card-top { flex-direction: column; gap: 0.75rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .logo-chip, .exp-card, .exp-dot, .hero-edu-card, .skill-tile, .hamburger span { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="logo" aria-label="Ali Raza — home">Ali <span>Raza</span></a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" />
+      <label for="nav-toggle" class="hamburger" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html#portfolio">Work</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="experience.html" class="active" aria-current="page">Experience</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="page-hero">
+    <div class="page-hero-grid">
+      <div>
+        <p class="page-hero-eyebrow">Career</p>
+        <h1 class="page-hero-title">Experience</h1>
+        <p class="page-hero-sub">Product management, analytics, and go-to-market across global tech brands.</p>
+      </div>
+      <div class="hero-edu-card">
+        <p class="edu-label">Education</p>
+        <p class="edu-school">California State University, East Bay</p>
+        <p class="edu-degree">M.S. Business Analytics · STEM-designated</p>
+        <p class="edu-dates">Aug 2024 – Dec 2026</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="impact-strip" aria-label="Career highlights">
+    <div class="impact-inner">
+      <div class="impact-stat">
+        <span class="impact-value">6+</span>
+        <span class="impact-label">Years in product &amp; growth</span>
+      </div>
+      <div class="impact-stat">
+        <span class="impact-value">118M</span>
+        <span class="impact-label">Users reached</span>
+      </div>
+      <div class="impact-stat">
+        <span class="impact-value">60M+</span>
+        <span class="impact-label">Impressions generated</span>
+      </div>
+      <div class="impact-stat">
+        <span class="impact-value">2</span>
+        <span class="impact-label">PM internships (AI &amp; hardware)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="logo-strip-wrap">
+    <p class="logo-strip-label">Companies I've worked with</p>
+    <div class="logo-strip" role="list">
+      <div class="logo-chip" role="listitem">
+        <img src="assets/logos/analogic.svg" alt="" onerror="this.classList.add('broken')" />
+        <span class="logo-pill">Analogic</span>
+        <span class="logo-chip-name">Analogic</span>
+      </div>
+      <div class="logo-chip" role="listitem">
+        <img src="assets/logos/atlasnova.svg" alt="" onerror="this.classList.add('broken')" />
+        <span class="logo-pill">AtlasNova</span>
+        <span class="logo-chip-name">AtlasNova AI</span>
+      </div>
+      <div class="logo-chip" role="listitem">
+        <img src="assets/logos/tecno.svg" alt="" onerror="this.classList.add('broken')" />
+        <span class="logo-pill">TECNO</span>
+        <span class="logo-chip-name">TECNO Mobile</span>
+      </div>
+      <div class="logo-chip" role="listitem">
+        <img src="assets/logos/telenor.svg" alt="" onerror="this.classList.add('broken')" />
+        <span class="logo-pill">Telenor</span>
+        <span class="logo-chip-name">Telenor</span>
+      </div>
+      <div class="logo-chip" role="listitem">
+        <img src="assets/logos/garena.svg" alt="" onerror="this.classList.add('broken')" />
+        <span class="logo-pill">Garena</span>
+        <span class="logo-chip-name">Garena Free Fire</span>
+      </div>
+      <div class="logo-chip" role="listitem">
+        <img src="assets/logos/oppo.svg" alt="" onerror="this.classList.add('broken')" />
+        <span class="logo-pill">OPPO</span>
+        <span class="logo-chip-name">OPPO Mobile</span>
+      </div>
+    </div>
+  </div>
+
+  <main class="experience-section" aria-label="Work experience">
+    <p class="section-label">Work History</p>
+
+    <div class="timeline">
+
+      <article class="exp-entry">
+        <div class="exp-dot" aria-hidden="true">1</div>
+        <div class="exp-card">
+          <div class="exp-card-top">
+            <div>
+              <p class="exp-company">Analogic</p>
+              <p class="exp-role">Product Management Intern</p>
+            </div>
+            <div class="exp-meta">
+              <span class="exp-date-pill">Aug 2025 – May 2026</span>
+              <span class="exp-location">Boston, MA</span>
+            </div>
+          </div>
+          <div class="exp-tags">
+            <span class="exp-tag">GTM</span>
+            <span class="exp-tag">Hardware</span>
+            <span class="exp-tag">SEMICON</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Translated hardware product lines, including RF generators, gradient amplifiers, and precision motion drives, into customer-facing launch materials for the AVA RF plasma generator go-to-market.</li>
+            <li>Built technical launch assets for SEMICON West 2025, giving semiconductor buyers clearer product context and supporting customer-facing product conversations.</li>
+            <li>Worked cross-functionally with engineering and sales to translate complex product capabilities into clear positioning, use cases, and customer-facing narratives.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="exp-entry">
+        <div class="exp-dot" aria-hidden="true">2</div>
+        <div class="exp-card">
+          <div class="exp-card-top">
+            <div>
+              <p class="exp-company">AtlasNova AI</p>
+              <p class="exp-role">Product Management Intern</p>
+            </div>
+            <div class="exp-meta">
+              <span class="exp-date-pill">Feb 2025 – Jun 2025</span>
+              <span class="exp-location">Berkeley, CA</span>
+            </div>
+          </div>
+          <div class="exp-tags">
+            <span class="exp-tag">AI</span>
+            <span class="exp-tag">SkyDeck</span>
+            <span class="exp-tag">Positioning</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Conducted market research and competitive analysis to inform product positioning and go-to-market strategy for an AI-native marketing automation platform.</li>
+            <li>Built customer-facing content and launch materials and supported investor relations and pitch preparation for UC Berkeley SkyDeck Investor Month.</li>
+            <li>Worked cross-functionally with product and engineering to translate customer feedback and market insights into product positioning and workflow decisions.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="exp-entry">
+        <div class="exp-dot" aria-hidden="true">3</div>
+        <div class="exp-card">
+          <div class="exp-card-top">
+            <div>
+              <p class="exp-company">TECNO Mobile</p>
+              <p class="exp-role">Product Development Manager</p>
+            </div>
+            <div class="exp-meta">
+              <span class="exp-date-pill">Jun 2023 – Aug 2024</span>
+            </div>
+          </div>
+          <div class="exp-tags">
+            <span class="exp-tag">Analytics</span>
+            <span class="exp-tag">KPI Dashboards</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Analyzed user and engagement data to inform product and campaign decisions, translating findings into KPI dashboards for cross-functional stakeholders.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="exp-entry">
+        <div class="exp-dot" aria-hidden="true">4</div>
+        <div class="exp-card">
+          <div class="exp-card-top">
+            <div>
+              <p class="exp-company">Telenor</p>
+              <p class="exp-role">Digital Product Manager</p>
+            </div>
+            <div class="exp-meta">
+              <span class="exp-date-pill">Jan 2023 – Jun 2023</span>
+            </div>
+          </div>
+          <div class="exp-tags">
+            <span class="exp-tag">Conversion</span>
+            <span class="exp-tag">Dashboards</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Built KPI and performance dashboards to identify conversion gaps and inform product and channel decisions.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="exp-entry">
+        <div class="exp-dot" aria-hidden="true">5</div>
+        <div class="exp-card">
+          <div class="exp-card-top">
+            <div>
+              <p class="exp-company">Garena Free Fire</p>
+              <p class="exp-role">Product Associate</p>
+            </div>
+            <div class="exp-meta">
+              <span class="exp-date-pill">Jan 2022 – Dec 2022</span>
+            </div>
+          </div>
+          <div class="exp-tags">
+            <span class="exp-tag">Gaming</span>
+            <span class="exp-tag">118M users</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Analyzed community and campaign data to support content and product strategy decisions, reaching 118M users and generating 18M engagements.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="exp-entry">
+        <div class="exp-dot" aria-hidden="true">6</div>
+        <div class="exp-card">
+          <div class="exp-card-top">
+            <div>
+              <p class="exp-company">OPPO Mobile</p>
+              <p class="exp-role">Product Associate</p>
+            </div>
+            <div class="exp-meta">
+              <span class="exp-date-pill">Jan 2020 – Jan 2022</span>
+            </div>
+          </div>
+          <div class="exp-tags">
+            <span class="exp-tag">Creator Workflows</span>
+            <span class="exp-tag">60M+ impressions</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Translated product launch goals into creator workflows and cross-platform campaign systems that generated 60M+ impressions and 1.5M+ engagements.</li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <section class="skills-section" aria-label="Skills from CV">
+    <p class="section-label">Core Skills</p>
+    <div class="skills-grid">
+      <div class="skill-tile">
+        <p class="skill-label">Product &amp; AI</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Product management</span>
+          <span class="skill-tag">Customer discovery</span>
+          <span class="skill-tag">PRDs</span>
+          <span class="skill-tag">AI prototyping</span>
+          <span class="skill-tag">LLM workflows</span>
+        </div>
+      </div>
+      <div class="skill-tile">
+        <p class="skill-label">Analytics</p>
+        <div class="skill-tags">
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Tableau</span>
+          <span class="skill-tag">KPI reporting</span>
+          <span class="skill-tag">Funnel analysis</span>
+          <span class="skill-tag">A/B testing</span>
+        </div>
+      </div>
+      <div class="skill-tile">
+        <p class="skill-label">Technical</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Next.js</span>
+          <span class="skill-tag">GitHub</span>
+          <span class="skill-tag">Cursor</span>
+          <span class="skill-tag">Claude Code</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Ali Raza · Built with care</p>
+  </footer>
+
+  <script>
+    document.querySelector('.nav-links').addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') {
+        document.getElementById('nav-toggle').checked = false;
+      }
+    });
+  </script>
+
+</body>
+</html>

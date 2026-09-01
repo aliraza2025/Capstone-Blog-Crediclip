@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ali Raza — Contact</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Design tokens ─────────────────────────────────────────── */
+    :root {
+      --bg-0:        #0b0720;
+      --bg-1:        #120a2b;
+      --bg-2:        #1a0f3a;
+      --text:        #cbd5e1;
+      --text-strong: #e5e7eb;
+      --muted:       #94a3b8;
+      --line:        rgba(255,255,255,.10);
+      --accent:      #ff2d8d;
+      --accent-2:    #ff4aa3;
+    }
+
+    /* ─── Reset ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background:
+        radial-gradient(1200px 700px at 50% 10%, rgba(255,45,141,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg-0), var(--bg-1));
+      background-attachment: fixed;
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ─── Navigation ─────────────────────────────────────────────── */
+    .site-nav {
+      background: transparent;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 62px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      flex-shrink: 0;
+    }
+    .logo span { color: var(--accent); }
+
+    .nav-toggle {
+      position: absolute;
+      opacity: 0;
+      width: 1px;
+      height: 1px;
+      pointer-events: none;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px 4px;
+      border: none;
+      background: none;
+      z-index: 10;
+    }
+    .hamburger span {
+      display: block;
+      width: 20px;
+      height: 1.5px;
+      background: var(--text-strong);
+      border-radius: 1px;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .nav-toggle:checked + .hamburger span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle:checked + .hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-toggle:checked + .hamburger span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.25rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+      padding: 0.2rem 0;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -6px; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform 0.18s ease;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--text-strong); }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { transform: scaleX(1); }
+
+    /* ─── Hero ───────────────────────────────────────────────────── */
+    .page-hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 2rem 3.5rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .page-hero-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .page-hero-title {
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text-strong);
+      line-height: 1.08;
+      margin-bottom: 1rem;
+    }
+
+    .page-hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 46ch;
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-location {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .hero-location svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    /* ─── Two-column layout ──────────────────────────────────────── */
+    .contact-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    /* ─── Shared card ────────────────────────────────────────────── */
+    .contact-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 2.25rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .contact-card:hover {
+      border-color: rgba(255,45,141,.35);
+      box-shadow: 0 16px 48px rgba(0,0,0,.35);
+      transform: translateY(-2px);
+    }
+
+    .card-heading {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      letter-spacing: -0.01em;
+      margin-bottom: 1.75rem;
+    }
+
+    /* ─── Form ───────────────────────────────────────────────────── */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group:last-of-type { margin-bottom: 1.5rem; }
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.7rem 0.9rem;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--text-strong);
+      transition: border-color 0.15s, box-shadow 0.15s;
+      outline: none;
+      resize: vertical;
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    input::placeholder,
+    textarea::placeholder { color: var(--muted); opacity: 0.7; }
+
+    input:focus-visible,
+    textarea:focus-visible {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(255,45,141,.18);
+    }
+
+    textarea { min-height: 130px; }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #fff;
+      border: 1.5px solid var(--accent);
+      border-radius: 12px;
+      padding: 0.72rem 1.5rem;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 8px 24px rgba(255,45,141,.2);
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      background: var(--accent-2);
+      border-color: var(--accent-2);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(255,45,141,.3);
+    }
+    .btn-primary:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+    .btn-primary:active { transform: translateY(0); }
+
+    .form-note {
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* Inline feedback message */
+    .form-feedback {
+      display: none;
+      margin-top: 1rem;
+      padding: 0.85rem 1rem;
+      background: rgba(255,45,141,.08);
+      border: 1px solid rgba(255,45,141,.3);
+      border-radius: 10px;
+      font-size: 0.85rem;
+      color: var(--text-strong);
+      line-height: 1.55;
+    }
+    .form-feedback.visible  { display: block; }
+    .form-feedback.error {
+      background: rgba(239,68,68,.08);
+      border-color: rgba(239,68,68,.35);
+    }
+
+    /* Button loading state */
+    .btn-primary .btn-spinner {
+      display: none;
+      width: 15px;
+      height: 15px;
+      border: 2px solid rgba(255,255,255,.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.65s linear infinite;
+    }
+    .btn-primary.loading .btn-spinner { display: block; }
+    .btn-primary.loading .btn-icon    { display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── Social links card ──────────────────────────────────────── */
+    .social-link-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.1rem;
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      margin-bottom: 0.85rem;
+      transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
+      text-decoration: none;
+      position: relative;
+    }
+    .social-link-row:last-of-type { margin-bottom: 0; }
+    .social-link-row:hover {
+      border-color: rgba(255,45,141,.5);
+      box-shadow: 0 8px 28px rgba(0,0,0,.3);
+      transform: translateY(-2px);
+    }
+    .social-link-row:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .social-icon-wrap {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,45,141,.10);
+      border: 1px solid rgba(255,45,141,.2);
+      border-radius: 10px;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+    .social-icon-wrap svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .social-link-body {
+      flex: 1;
+      min-width: 0;
+    }
+    .social-link-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-strong);
+      display: block;
+    }
+    .social-link-url {
+      font-size: 0.75rem;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+    }
+
+    .social-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .ext-arrow {
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      transition: color 0.15s;
+    }
+    .social-link-row:hover .ext-arrow { color: var(--accent); }
+    .ext-arrow svg { width: 16px; height: 16px; }
+
+    .copy-btn {
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .copy-btn:hover {
+      background: rgba(255,45,141,.12);
+      color: var(--accent);
+      border-color: rgba(255,45,141,.35);
+    }
+    .copy-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .copy-btn.copied {
+      background: rgba(255,45,141,.15);
+      color: var(--accent);
+      border-color: rgba(255,45,141,.4);
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* ─── Responsive ─────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .logo { height: 62px; display: flex; align-items: center; }
+      .hamburger { display: flex; height: 62px; align-items: center; }
+
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        border-top: 1px solid var(--line);
+        background: rgba(18,10,43,.92);
+        border-radius: 0 0 14px 14px;
+      }
+      .nav-links a::after { display: none; }
+      .nav-links li { width: 100%; }
+      .nav-links a {
+        display: block;
+        padding: 0.75rem 1.25rem;
+        font-size: 0.9rem;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+      }
+      .nav-links li:last-child a { border-bottom: none; }
+      .nav-toggle:checked ~ .nav-links { display: flex; }
+
+      .page-hero { padding: 3.5rem 1.5rem 2.5rem; }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        padding: 3rem 1.5rem 5rem;
+        gap: 1.5rem;
+      }
+    }
+
+    /* ─── Reduced motion ─────────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .contact-card,
+      .social-link-row,
+      .btn-primary,
+      .copy-btn,
+      .hamburger span { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ───────────────────────────────────────────────────────── -->
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="logo" aria-label="Ali Raza — home">Ali <span>Raza</span></a>
+
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" />
+      <label for="nav-toggle" class="hamburger" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+
+      <ul class="nav-links" role="list">
+        <li><a href="index.html#portfolio">Work</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="contact.html" class="active" aria-current="page">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── Page Hero ─────────────────────────────────────────────────── -->
+  <header class="page-hero">
+    <p class="page-hero-eyebrow">Get in touch</p>
+    <h1 class="page-hero-title">Contact</h1>
+    <p class="page-hero-sub">Let's build something — reach out anytime.</p>
+    <span class="hero-location">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+        <circle cx="12" cy="10" r="3"/>
+      </svg>
+      San Francisco Bay Area, USA
+    </span>
+  </header>
+
+  <!-- ── Two-column contact grid ───────────────────────────────────── -->
+  <main class="contact-grid">
+
+    <!-- LEFT: Contact form -->
+    <div class="contact-card" role="region" aria-labelledby="form-heading">
+      <h2 class="card-heading" id="form-heading">Send a message</h2>
+
+      <!-- ⚠️  SETUP: replace YOUR_ACCESS_KEY_HERE with the key from https://web3forms.com -->
+      <form id="contact-form" novalidate>
+        <input type="hidden" name="access_key" value="cd67444f-d9e5-4065-871d-f55a38a50872" />
+        <input type="hidden" name="subject"    value="New message from aliraza.me" />
+        <input type="hidden" name="from_name"  value="Portfolio Contact Form" />
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Your name"
+            autocomplete="name"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="your@email.com"
+            autocomplete="email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            placeholder="What's on your mind?"
+            required
+          ></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary" id="submit-btn">
+          <span class="btn-spinner" aria-hidden="true"></span>
+          <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+          Send message
+        </button>
+
+        <div class="form-feedback" id="form-feedback" role="alert" aria-live="polite"></div>
+
+        <p class="form-note">
+          Prefer email or DM? Use the links on the right.
+        </p>
+      </form>
+    </div>
+
+    <!-- RIGHT: Social links -->
+    <div class="contact-card" role="region" aria-labelledby="social-heading">
+      <h2 class="card-heading" id="social-heading">Find me online</h2>
+
+      <!-- LinkedIn -->
+      <a
+        href="https://www.linkedin.com/in/ali-raza-2548880/"
+        class="social-link-row"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="LinkedIn profile — opens in new tab"
+      >
+        <div class="social-icon-wrap" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect x="2" y="9" width="4" height="12"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+        </div>
+        <div class="social-link-body">
+          <span class="social-link-label">LinkedIn</span>
+          <span class="social-link-url">linkedin.com/in/ali-raza-2548880</span>
+        </div>
+        <div class="social-actions">
+          <button
+            class="copy-btn"
+            data-url="https://www.linkedin.com/in/ali-raza-2548880/"
+            aria-label="Copy LinkedIn URL"
+            onclick="copyLink(event, this)"
+          >Copy</button>
+          <span class="ext-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- GitHub -->
+      <a
+        href="https://github.com/aliraza2025"
+        class="social-link-row"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub profile — opens in new tab"
+      >
+        <div class="social-icon-wrap" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483
+                 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466
+                 -.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832
+                 .092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688
+                 -.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844
+                 c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651
+                 .64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855
+                 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017
+                 C22 6.484 17.522 2 12 2z"/>
+          </svg>
+        </div>
+        <div class="social-link-body">
+          <span class="social-link-label">GitHub</span>
+          <span class="social-link-url">github.com/aliraza2025</span>
+        </div>
+        <div class="social-actions">
+          <button
+            class="copy-btn"
+            data-url="https://github.com/aliraza2025"
+            aria-label="Copy GitHub URL"
+            onclick="copyLink(event, this)"
+          >Copy</button>
+          <span class="ext-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+          </span>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <!-- ── Footer ─────────────────────────────────────────────────────── -->
+  <footer>
+    <p>© 2026 Ali Raza · Built with care</p>
+  </footer>
+
+  <script>
+    // ── Mobile nav close ─────────────────────────────────────────
+    document.querySelector('.nav-links').addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') {
+        document.getElementById('nav-toggle').checked = false;
+      }
+    });
+
+    // ── Form: submit to Web3Forms ────────────────────────────────
+    document.getElementById('contact-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const form     = this;
+      const btn      = document.getElementById('submit-btn');
+      const feedback = document.getElementById('form-feedback');
+      const data     = Object.fromEntries(new FormData(form));
+
+      // Basic client-side validation
+      if (!data.name.trim() || !data.email.trim() || !data.message.trim()) {
+        feedback.className = 'form-feedback error visible';
+        feedback.textContent = 'Please fill in all fields before sending.';
+        return;
+      }
+
+      // Loading state
+      btn.classList.add('loading');
+      btn.disabled = true;
+      feedback.className = 'form-feedback';
+
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body:    JSON.stringify(data),
+        });
+
+        const json = await res.json();
+
+        if (res.ok && json.success) {
+          // ✅ Success
+          feedback.className = 'form-feedback visible';
+          feedback.innerHTML = '✓ &nbsp;Message sent! I\'ll get back to you at <strong>' +
+            escHtml(data.email) + '</strong> soon.';
+          form.querySelectorAll('input:not([type=hidden]), textarea').forEach(el => {
+            el.value   = '';
+            el.disabled = true;
+            el.style.opacity = '0.45';
+          });
+          btn.textContent = 'Sent ✓';
+        } else {
+          throw new Error(json.message || 'Submission failed');
+        }
+
+      } catch (err) {
+        // ❌ Error — re-enable so they can retry
+        feedback.className = 'form-feedback error visible';
+        feedback.innerHTML = 'Something went wrong — please email me directly at ' +
+          '<a href="mailto:axraza55@gmail.com" style="color:var(--accent);font-weight:600;">axraza55@gmail.com</a>.';
+        btn.classList.remove('loading');
+        btn.disabled = false;
+      }
+    });
+
+    function escHtml(str) {
+      return String(str)
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    // ── Copy to clipboard ────────────────────────────────────────
+    function copyLink(e, btn) {
+      e.preventDefault();
+      e.stopPropagation();
+      const url = btn.dataset.url;
+      navigator.clipboard.writeText(url).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      }).catch(() => {
+        // Fallback for browsers that block clipboard without HTTPS
+        btn.textContent = 'Copy link above';
+        setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+      });
+    }
+  </script>
+
+</body>
+</html>

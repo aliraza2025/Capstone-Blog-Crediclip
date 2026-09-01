@@ -1,0 +1,284 @@
+<!--
+  ══════════════════════════════════════════════════════════════════
+  PORTFOLIO & WORK — Embeddable Section Component
+  ══════════════════════════════════════════════════════════════════
+  Drop the <style> block into your site's global CSS (or <head>),
+  and paste the <section> markup wherever you want it to appear.
+  ══════════════════════════════════════════════════════════════════
+-->
+
+<!-- ── Scoped CSS (copy to your stylesheet) ─────────────────────── -->
+<style>
+  /* Import Inter if not already present in your project */
+  /* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'); */
+
+  .portfolio-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5rem 2rem 6rem;
+  }
+
+  .section-header {
+    margin-bottom: 3rem;
+  }
+
+  .section-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #2563EB;
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-radius: 999px;
+    padding: 0.25rem 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: #111827;
+    line-height: 1.2;
+    margin-bottom: 0.85rem;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+    color: #6B7280;
+    max-width: 560px;
+    line-height: 1.65;
+  }
+
+  .section-divider {
+    width: 48px;
+    height: 3px;
+    background: #2563EB;
+    border-radius: 999px;
+    margin-top: 1.5rem;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .portfolio-card {
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 14px;
+    padding: 1.5rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+    transition:
+      transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.22s ease,
+      border-color 0.22s ease;
+    outline: none;
+  }
+
+  .portfolio-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #2563EB, #60A5FA);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.28s ease;
+    border-radius: 999px 999px 0 0;
+  }
+
+  .portfolio-card:hover,
+  .portfolio-card:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px -4px rgba(0,0,0,0.10), 0 4px 10px -2px rgba(0,0,0,0.06);
+    border-color: #BFDBFE;
+  }
+
+  .portfolio-card:hover::before,
+  .portfolio-card:focus-visible::before {
+    transform: scaleX(1);
+  }
+
+  .portfolio-card:focus-visible {
+    outline: 2px solid #2563EB;
+    outline-offset: 3px;
+  }
+
+  .card-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+
+  .portfolio-card:hover .card-icon { background: #DBEAFE; }
+
+  .card-icon svg {
+    width: 20px;
+    height: 20px;
+    color: #2563EB;
+  }
+
+  .card-body { flex: 1; }
+
+  .card-title {
+    font-size: 0.975rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.01em;
+  }
+
+  .card-description {
+    font-size: 0.825rem;
+    color: #6B7280;
+    line-height: 1.55;
+  }
+
+  .card-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+  }
+
+  .card-arrow svg {
+    width: 15px;
+    height: 15px;
+    color: #9CA3AF;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .portfolio-card:hover .card-arrow svg {
+    transform: translate(3px, -3px);
+    color: #2563EB;
+  }
+
+  @media (max-width: 768px) {
+    .card-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 480px) {
+    .card-grid { grid-template-columns: 1fr; }
+    .portfolio-section { padding: 3.5rem 1.25rem 5rem; }
+  }
+</style>
+
+<!-- ── Section Markup ────────────────────────────────────────────── -->
+<section class="portfolio-section" id="portfolio" aria-labelledby="portfolio-heading">
+
+  <header class="section-header">
+    <span class="section-tag">Portfolio</span>
+    <h2 class="section-title" id="portfolio-heading">Selected Work &amp; Profiles</h2>
+    <p class="section-subtitle">
+      A curated collection of my professional, creative, and technical work —
+      from written essays and video projects to code repositories and social media campaigns.
+    </p>
+    <div class="section-divider" aria-hidden="true"></div>
+  </header>
+
+  <div class="card-grid">
+
+    <!-- LinkedIn -->
+    <a href="https://www.linkedin.com/in/ali-raza-2548880/"
+       class="portfolio-card"
+       target="_blank" rel="noopener noreferrer"
+       aria-label="LinkedIn Profile — opens in new tab">
+      <div class="card-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </div>
+      <div class="card-body">
+        <p class="card-title">LinkedIn Profile</p>
+        <p class="card-description">Professional résumé, experience, and connections.</p>
+      </div>
+      <div class="card-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </div>
+    </a>
+
+    <!-- Creative Blog -->
+    <a href="https://alirazacreativeblog.home.blog/category/major-study/page/3/"
+       class="portfolio-card"
+       target="_blank" rel="noopener noreferrer"
+       aria-label="Creative Blog — opens in new tab">
+      <div class="card-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </div>
+      <div class="card-body">
+        <p class="card-title">Creative Blog</p>
+        <p class="card-description">Written creative work and essays.</p>
+      </div>
+      <div class="card-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </div>
+    </a>
+
+    <!-- Video Portfolio -->
+    <a href="https://vimeo.com/757493318"
+       class="portfolio-card"
+       target="_blank" rel="noopener noreferrer"
+       aria-label="Video Portfolio — opens in new tab">
+      <div class="card-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+      </div>
+      <div class="card-body">
+        <p class="card-title">Video Portfolio</p>
+        <p class="card-description">Collection of video projects.</p>
+      </div>
+      <div class="card-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </div>
+    </a>
+
+    <!-- Social Media Portfolio -->
+    <a href="https://tinyurl.com/AliRazaSMPortfolio"
+       class="portfolio-card"
+       target="_blank" rel="noopener noreferrer"
+       aria-label="Social Media Portfolio — opens in new tab">
+      <div class="card-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </div>
+      <div class="card-body">
+        <p class="card-title">Social Media Portfolio</p>
+        <p class="card-description">Best social media work samples.</p>
+      </div>
+      <div class="card-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </div>
+    </a>
+
+    <!-- GitHub -->
+    <a href="https://github.com/aliraza2025"
+       class="portfolio-card"
+       target="_blank" rel="noopener noreferrer"
+       aria-label="GitHub Portfolio — opens in new tab">
+      <div class="card-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      </div>
+      <div class="card-body">
+        <p class="card-title">GitHub Portfolio</p>
+        <p class="card-description">Code repositories and technical projects.</p>
+      </div>
+      <div class="card-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </div>
+    </a>
+
+  </div>
+</section>
