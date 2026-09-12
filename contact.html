@@ -515,7 +515,7 @@
         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
         <circle cx="12" cy="10" r="3"/>
       </svg>
-      San Francisco Bay Area, USA
+      Hayward Bay Area, CA
     </span>
   </header>
 
@@ -524,13 +524,13 @@
 
     <!-- LEFT: Contact form -->
     <div class="contact-card" role="region" aria-labelledby="form-heading">
-      <h2 class="card-heading" id="form-heading">Send a message</h2>
+      <h2 class="card-heading" id="form-heading">Leave a message</h2>
 
-      <!-- ⚠️  SETUP: replace YOUR_ACCESS_KEY_HERE with the key from https://web3forms.com -->
       <form id="contact-form" novalidate>
         <input type="hidden" name="access_key" value="cd67444f-d9e5-4065-871d-f55a38a50872" />
-        <input type="hidden" name="subject"    value="New message from aliraza.me" />
-        <input type="hidden" name="from_name"  value="Portfolio Contact Form" />
+        <input type="hidden" name="subject"    value="Portfolio contact — message for axraza55@gmail.com" />
+        <input type="hidden" name="from_name"  value="Ali Raza Portfolio" />
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
         <div class="form-group">
           <label for="name">Name</label>
           <input
@@ -560,7 +560,7 @@
           <textarea
             id="message"
             name="message"
-            placeholder="What's on your mind?"
+            placeholder="Leave a message — it goes straight to my inbox."
             required
           ></textarea>
         </div>
@@ -579,7 +579,8 @@
         <div class="form-feedback" id="form-feedback" role="alert" aria-live="polite"></div>
 
         <p class="form-note">
-          Prefer email or DM? Use the links on the right.
+          Messages are forwarded to <strong style="color:var(--text-strong);">axraza55@gmail.com</strong>.
+          Prefer DM? Use the links on the right.
         </p>
       </form>
     </div>
@@ -587,6 +588,37 @@
     <!-- RIGHT: Social links -->
     <div class="contact-card" role="region" aria-labelledby="social-heading">
       <h2 class="card-heading" id="social-heading">Find me online</h2>
+
+      <a
+        href="assets/Ali-Raza-CV-2026.pdf"
+        class="social-link-row"
+        download="Ali-Raza-CV-2026.pdf"
+        aria-label="Download Ali Raza CV PDF"
+      >
+        <div class="social-icon-wrap" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+        </div>
+        <div class="social-link-body">
+          <span class="social-link-label">Download CV</span>
+          <span class="social-link-url">Ali-Raza-CV-2026.pdf</span>
+        </div>
+        <div class="social-actions">
+          <span class="ext-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+          </span>
+        </div>
+      </a>
 
       <!-- LinkedIn -->
       <a

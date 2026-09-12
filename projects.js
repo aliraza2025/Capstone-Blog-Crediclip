@@ -16,9 +16,15 @@ const REPO_OVERRIDES = {
   'CrediClip': {
     title: 'CrediClip',
     description:
-      'AI credibility scoring for TikTok, Instagram, and YouTube Shorts — shipped MVP from problem discovery to live product.',
+      'AI credibility analysis MVP for TikTok, Instagram, and YouTube Shorts — FastAPI workflow with OCR/ASR, queue processing, and claim-level trust scores.',
     image: 'assets/crediclip-preview.png',
     homepage: 'https://crediclip-axraza-msba.fly.dev/',
+  },
+  '-Burrito-Game-Analysis-Logistics-Optimization-Sensitivity-Study': {
+    title: 'Burrito Game: Logistics Optimization',
+    description:
+      'Python integer-programming model optimizing pricing, fleet deployment, routing, and demand coverage — with sensitivity analysis for operational decisions.',
+    image: 'assets/burrito-logistics-preview.png',
   },
   'Statistical-Modeling': {
     title: 'Statistical Modeling',
@@ -37,12 +43,6 @@ const REPO_OVERRIDES = {
     description:
       "Python analysis of MrBeast's 200M+ subscriber channel — modeling upload timing, video length, title patterns, and audience engagement metrics.",
     image: 'assets/mrbeast-analytics-preview.png',
-  },
-  '-Burrito-Game-Analysis-Logistics-Optimization-Sensitivity-Study': {
-    title: 'Burrito Game: Logistics Optimization',
-    description:
-      'Integer programming project maximizing profit in a constrained food-truck distribution network — includes sensitivity analysis and scenario modeling.',
-    image: 'assets/burrito-logistics-preview.png',
   },
   'Case-Study-Taiwan-2005-Credit-Card-Crisis-Analysis': {
     title: 'Taiwan 2005 Credit Card Crisis',
