@@ -708,6 +708,84 @@
       font-size: 0.82rem;
     }
 
+    /* ─── Creative portfolio ──────────────────────────────────────── */
+    .creative-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .creative-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.35rem;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    .creative-card:hover {
+      border-color: rgba(255,45,141,.4);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0,0,0,.28);
+    }
+
+    .creative-card:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .creative-card-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(255,45,141,.1);
+      border: 1px solid rgba(255,45,141,.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+    }
+
+    .creative-card-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .creative-card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      letter-spacing: -0.01em;
+    }
+
+    .creative-card:hover .creative-card-title { color: var(--accent); }
+
+    .creative-card-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .creative-card-cta {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .creative-card-cta svg {
+      width: 13px;
+      height: 13px;
+    }
+
     /* ─── Bento skills ────────────────────────────────────────────── */
     .bento-grid {
       display: grid;
@@ -1028,6 +1106,7 @@
       .impact-inner { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
       .case-card.featured { grid-template-columns: 1fr; }
       .case-grid { grid-template-columns: 1fr; }
+      .creative-grid { grid-template-columns: 1fr; }
       .bento-grid { grid-template-columns: 1fr; }
     }
 
@@ -1092,6 +1171,7 @@
 
       <ul class="nav-links" role="list">
         <li><a href="#portfolio">Work</a></li>
+        <li><a href="#creative">Creative</a></li>
         <li><a href="projects.html">Projects</a></li>
         <li><a href="experience.html">Experience</a></li>
         <li><a href="#about">About</a></li>
@@ -1367,6 +1447,91 @@
         </article>
 
       </div>
+    </div>
+  </section>
+
+  <!-- ── Creative Portfolio ───────────────────────────────────────── -->
+  <section class="portfolio-section" id="creative" aria-labelledby="creative-heading">
+    <header class="section-header">
+      <span class="section-tag">Creative</span>
+      <h2 class="section-title" id="creative-heading">Creative Portfolio</h2>
+      <p class="section-subtitle">
+        Selected creative work across social campaigns, video, and writing.
+        These samples show how I shape brand stories and audience engagement beyond product builds.
+      </p>
+      <div class="section-divider" aria-hidden="true"></div>
+    </header>
+
+    <div class="creative-grid">
+      <a
+        href="https://tinyurl.com/AliRazaSMPortfolio"
+        class="creative-card"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Social Media Portfolio - opens in new tab"
+      >
+        <div class="creative-card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+          </svg>
+        </div>
+        <p class="creative-card-title">Social Media Portfolio</p>
+        <p class="creative-card-desc">Best social media work samples across campaigns, content systems, and platform-native storytelling.</p>
+        <span class="creative-card-cta">
+          View portfolio
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+          </svg>
+        </span>
+      </a>
+
+      <a
+        href="https://vimeo.com/757493318"
+        class="creative-card"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Video Portfolio - opens in new tab"
+      >
+        <div class="creative-card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="23 7 16 12 23 17 23 7"/>
+            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+          </svg>
+        </div>
+        <p class="creative-card-title">Video Portfolio</p>
+        <p class="creative-card-desc">A collection of video projects covering narrative, brand, and campaign-led storytelling.</p>
+        <span class="creative-card-cta">
+          Watch on Vimeo
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+          </svg>
+        </span>
+      </a>
+
+      <a
+        href="https://alirazacreativeblog.home.blog/category/major-study/page/3/"
+        class="creative-card"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Creative Blog - opens in new tab"
+      >
+        <div class="creative-card-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h9"/>
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+          </svg>
+        </div>
+        <p class="creative-card-title">Creative Blog</p>
+        <p class="creative-card-desc">Written creative work and essays from major study and personal creative practice.</p>
+        <span class="creative-card-cta">
+          Read writing
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+          </svg>
+        </span>
+      </a>
     </div>
   </section>
 
