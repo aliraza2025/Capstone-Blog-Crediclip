@@ -1,5 +1,5 @@
 /**
- * projects.js — GitHub repo fetcher, filter, sort, and renderer
+ * projects.js: GitHub repo fetcher, filter, sort, and renderer
  */
 
 const GITHUB_USER = 'aliraza2025';
@@ -16,14 +16,14 @@ const REPO_OVERRIDES = {
   'CrediClip': {
     title: 'CrediClip',
     description:
-      'AI credibility analysis MVP for TikTok, Instagram, and YouTube Shorts — FastAPI workflow with OCR/ASR, queue processing, and claim-level trust scores.',
+      'AI credibility analysis MVP for TikTok, Instagram, and YouTube Shorts: FastAPI workflow with OCR/ASR, queue processing, and claim-level trust scores.',
     image: 'assets/crediclip-preview.png',
     homepage: 'https://crediclip-axraza-msba.fly.dev/',
   },
   '-Burrito-Game-Analysis-Logistics-Optimization-Sensitivity-Study': {
     title: 'Burrito Game: Logistics Optimization',
     description:
-      'Python integer-programming model optimizing pricing, fleet deployment, routing, and demand coverage — with sensitivity analysis for operational decisions.',
+      'Python integer-programming model optimizing pricing, fleet deployment, routing, and demand coverage, with sensitivity analysis for operational decisions.',
     image: 'assets/burrito-logistics-preview.png',
   },
   'Statistical-Modeling': {
@@ -41,13 +41,13 @@ const REPO_OVERRIDES = {
   'MrBeast-as-a-Case-Study': {
     title: 'MrBeast YouTube Analytics',
     description:
-      "Python analysis of MrBeast's 200M+ subscriber channel — modeling upload timing, video length, title patterns, and audience engagement metrics.",
+      "Python analysis of MrBeast's 200M+ subscriber channel, modeling upload timing, video length, title patterns, and audience engagement metrics.",
     image: 'assets/mrbeast-analytics-preview.png',
   },
   'Case-Study-Taiwan-2005-Credit-Card-Crisis-Analysis': {
     title: 'Taiwan 2005 Credit Card Crisis',
     description:
-      'Financial case study analyzing the 2005 Taiwan credit card crisis — data modeling, trend identification, and risk indicator analysis.',
+      'Financial case study analyzing the 2005 Taiwan credit card crisis: data modeling, trend identification, and risk indicator analysis.',
     image: 'assets/taiwan-crisis-preview.png',
   },
   'aliraza2025': {
