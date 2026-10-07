@@ -19,6 +19,7 @@ const REPO_OVERRIDES = {
       'AI credibility analysis MVP for TikTok, Instagram, and YouTube Shorts: FastAPI workflow with OCR/ASR, queue processing, and claim-level trust scores.',
     image: 'assets/crediclip-preview.png',
     homepage: 'https://crediclip-axraza-msba.fly.dev/',
+    caseStudy: 'crediclip.html',
   },
   '-Burrito-Game-Analysis-Logistics-Optimization-Sensitivity-Study': {
     title: 'Burrito Game: Logistics Optimization',
@@ -181,7 +182,8 @@ function buildCard(repo) {
   const stars     = repo.stargazers_count || 0;
   const updated   = timeAgo(repo.pushed_at);
   const repoUrl   = escHtml(repo.html_url);
-  const homepage  = repo.homepage ? escHtml(repo.homepage.trim()) : null;
+  const rawHome   = override.homepage || repo.homepage;
+  const homepage  = rawHome ? escHtml(rawHome.trim()) : null;
   const isFork    = repo.fork;
   const langColor = lang ? (LANG_COLORS[lang] || DEFAULT_LANG_COLOR) : null;
 
@@ -224,6 +226,18 @@ function buildCard(repo) {
           <line x1="10" y1="14" x2="21" y2="3"/>
         </svg>
         Live
+       </a>`
+    : '';
+
+  const caseBtn = override.caseStudy
+    ? `<a href="${escHtml(override.caseStudy)}" class="repo-btn live"
+          aria-label="Read the ${escHtml(displayTitle)} case study">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+        </svg>
+        Case study
        </a>`
     : '';
 
@@ -271,6 +285,7 @@ function buildCard(repo) {
           Repo
         </a>
         ${liveBtn}
+        ${caseBtn}
       </div>
     </article>`;
 }
