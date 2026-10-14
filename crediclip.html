@@ -752,6 +752,10 @@
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
         LinkedIn post
       </a>
+      <a class="btn" href="https://aliraza2025.github.io/CrediClip/" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Engineering notes
+      </a>
       <button class="btn" type="button" id="copy-link">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
         Copy link
@@ -765,6 +769,8 @@
       <a class="mention" href="https://github.com/aliraza2025/CrediClip" target="_blank" rel="noopener noreferrer">@GitHub · CrediClip</a>
       <a class="mention" href="https://crediclip-axraza-msba.fly.dev/" target="_blank" rel="noopener noreferrer">@CrediClip Live</a>
       <a class="mention" href="https://www.linkedin.com/posts/ali-raza-2548880_crediclip-readme-ugcPost-7513719100645249024-AzNs/" target="_blank" rel="noopener noreferrer">@LinkedIn Post</a>
+      <a class="mention" href="https://aliraza2025.github.io/CrediClip/" target="_blank" rel="noopener noreferrer">@CrediClip Engineering Notes</a>
+      <a class="mention" href="https://aliraza2025.github.io/CrediClip/data-plane/" target="_blank" rel="noopener noreferrer">@Data Plane Deep Dive</a>
       <a class="mention" href="https://chroniclehq.com/" target="_blank" rel="noopener noreferrer">@Chronicle</a>
       <a class="mention" href="projects.html">@Projects</a>
       <a class="mention" href="experience.html">@Experience</a>
@@ -992,6 +998,16 @@
           all platforms shared one worker, a single stuck YouTube job blocked Instagram and TikTok behind it. Moving YouTube to a
           dedicated lane (Lane C) and running two parallel lanes for the other platforms removed that head-of-line blocking.
         </p>
+
+        <div class="callout">
+          <p class="callout-label">Go deeper: engineering notes</p>
+          <p>
+            For the code-level version of this section, including atomic job claiming with <code>BEGIN IMMEDIATE</code>, platform
+            routing filters, adapter interfaces, and stale-job recovery, read
+            <a href="https://aliraza2025.github.io/CrediClip/data-plane/" target="_blank" rel="noopener noreferrer">Building a Multi-Lane Data Plane for Short-Form Video Credibility Analysis</a><sup class="cite"><a href="#ref-13">[13]</a></sup>
+            on the <a class="mention" href="https://aliraza2025.github.io/CrediClip/" target="_blank" rel="noopener noreferrer">@CrediClip Engineering Notes</a> blog.
+          </p>
+        </div>
 
         <figure>
           <img src="assets/crediclip/slide-06.jpg" alt="System architecture slide showing the Fly.io control plane with FastAPI, SQLite queue, and scoring engine above three Oracle worker lanes feeding a results dashboard" loading="lazy" width="1400" height="788" />
@@ -1408,6 +1424,8 @@
           <li id="ref-10">Raza, A. (2026). <em>CrediClip: Multi-platform credibility analysis for short-form video</em> [Source code and benchmark reports]. GitHub. <a href="https://github.com/aliraza2025/CrediClip" target="_blank" rel="noopener noreferrer">https://github.com/aliraza2025/CrediClip</a></li>
           <li id="ref-11">Raza, A. (2026). <em>CrediClip: AI-powered credibility analysis for short-form video</em> [Presentation]. Chronicle. <a href="https://app.chroniclehq.com/3048b981-38cd-4b9e-86f9-67e4f7080caa/document/fe85f416-b3b7-438e-8944-f80e85029093" target="_blank" rel="noopener noreferrer">Chronicle deck</a></li>
           <li id="ref-12">Raza, A. (2026). <em>CrediClip</em> [LinkedIn post]. LinkedIn. <a href="https://www.linkedin.com/posts/ali-raza-2548880_crediclip-readme-ugcPost-7513719100645249024-AzNs/" target="_blank" rel="noopener noreferrer">linkedin.com/posts/ali-raza-2548880_crediclip-readme</a></li>
+          <li id="ref-13">Raza, A. (2026, October 14). Building a multi-lane data plane for short-form video credibility analysis. <em>CrediClip Engineering Notes</em>. <a href="https://aliraza2025.github.io/CrediClip/data-plane/" target="_blank" rel="noopener noreferrer">https://aliraza2025.github.io/CrediClip/data-plane/</a></li>
+          <li id="ref-14">Raza, A. (2026). <em>CrediClip Engineering Notes</em> [Technical blog]. GitHub Pages. <a href="https://aliraza2025.github.io/CrediClip/" target="_blank" rel="noopener noreferrer">https://aliraza2025.github.io/CrediClip/</a></li>
         </ol>
       </section>
 
@@ -1439,6 +1457,8 @@
 
         <h3>Related</h3>
         <div class="related">
+          <a href="https://aliraza2025.github.io/CrediClip/data-plane/" target="_blank" rel="noopener noreferrer"><b>Data plane deep dive</b><span>Engineering note: multi-lane workers, queue, and recovery</span></a>
+          <a href="https://aliraza2025.github.io/CrediClip/" target="_blank" rel="noopener noreferrer"><b>CrediClip Engineering Notes</b><span>Technical writing on the CrediClip system</span></a>
           <a href="index.html#portfolio"><b>All case studies</b><span>Back to the portfolio work section</span></a>
           <a href="projects.html"><b>Projects</b><span>Every public GitHub repository</span></a>
           <a href="experience.html"><b>Experience</b><span>Product and analytics roles</span></a>

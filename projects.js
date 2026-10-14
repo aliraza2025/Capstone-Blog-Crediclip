@@ -20,6 +20,7 @@ const REPO_OVERRIDES = {
     image: 'assets/crediclip-preview.png',
     homepage: 'https://crediclip-axraza-msba.fly.dev/',
     caseStudy: 'crediclip.html',
+    notes: 'https://aliraza2025.github.io/CrediClip/',
   },
   '-Burrito-Game-Analysis-Logistics-Optimization-Sensitivity-Study': {
     title: 'Burrito Game: Logistics Optimization',
@@ -241,6 +242,17 @@ function buildCard(repo) {
        </a>`
     : '';
 
+  const notesBtn = override.notes
+    ? `<a href="${escHtml(override.notes)}" class="repo-btn" target="_blank" rel="noopener noreferrer"
+          aria-label="Engineering notes for ${escHtml(displayTitle)}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+        </svg>
+        Notes
+       </a>`
+    : '';
+
   return `
     <article class="repo-card">
       <div class="repo-card-img-wrap">
@@ -286,6 +298,7 @@ function buildCard(repo) {
         </a>
         ${liveBtn}
         ${caseBtn}
+        ${notesBtn}
       </div>
     </article>`;
 }
