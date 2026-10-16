@@ -45,12 +45,24 @@ const REPO_OVERRIDES = {
     description:
       "Python analysis of MrBeast's 200M+ subscriber channel, modeling upload timing, video length, title patterns, and audience engagement metrics.",
     image: 'assets/mrbeast-analytics-preview.png',
+    slides: 'presentations.html#mrbeast',
+  },
+  'AVA-RF-Plasma-Generator-Website': {
+    title: 'AVA RF Plasma Generators Website',
+    description:
+      'Next.js marketing website for Analogic’s AVA RF plasma generators, built from the AVA brand positioning, datasheets, and UI/UX wireframes I developed as a product management intern.',
+    homepage: 'https://ava-website-liart.vercel.app/',
+    slides: 'presentations.html#analogic',
   },
   'Case-Study-Taiwan-2005-Credit-Card-Crisis-Analysis': {
     title: 'Taiwan 2005 Credit Card Crisis',
     description:
       'Financial case study analyzing the 2005 Taiwan credit card crisis: data modeling, trend identification, and risk indicator analysis.',
     image: 'assets/taiwan-crisis-preview.png',
+  },
+  'bowc-incident-report': {
+    description:
+      'Internal incident report system for Blue Ocean Window Cleaning, built on Google Forms and Sheets.',
   },
   'aliraza2025': {
     hide: true,
@@ -242,6 +254,17 @@ function buildCard(repo) {
        </a>`
     : '';
 
+  const slidesBtn = override.slides
+    ? `<a href="${escHtml(override.slides)}" class="repo-btn live"
+          aria-label="View the ${escHtml(displayTitle)} presentation">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+        </svg>
+        Slides
+       </a>`
+    : '';
+
   const notesBtn = override.notes
     ? `<a href="${escHtml(override.notes)}" class="repo-btn" target="_blank" rel="noopener noreferrer"
           aria-label="Engineering notes for ${escHtml(displayTitle)}">
@@ -298,6 +321,7 @@ function buildCard(repo) {
         </a>
         ${liveBtn}
         ${caseBtn}
+        ${slidesBtn}
         ${notesBtn}
       </div>
     </article>`;

@@ -471,6 +471,28 @@
       background: var(--accent);
     }
 
+    .exp-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.1rem;
+    }
+
+    .exp-link {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-strong);
+      text-decoration: none;
+      border: 1.5px solid rgba(255,45,141,.45);
+      border-radius: 9px;
+      padding: 0.42rem 0.85rem;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .exp-link:hover { border-color: var(--accent); color: var(--accent); }
+    .exp-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .exp-link-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .exp-link-primary:hover { background: var(--accent-2); border-color: var(--accent-2); color: #fff; }
+
     /* ─── Skills strip ────────────────────────────────────────────── */
     .skills-section {
       max-width: 1100px;
@@ -708,12 +730,18 @@
             <span class="exp-tag">GTM</span>
             <span class="exp-tag">Hardware</span>
             <span class="exp-tag">SEMICON</span>
+            <span class="exp-tag">Brand Identity</span>
           </div>
           <ul class="exp-bullets">
             <li>Translated complex semiconductor hardware products, including RF generators, gradient amplifiers, and precision motion drives, into customer-facing launch narratives for the AVA RF plasma generator GTM.</li>
             <li>Partnered with engineering and sales to clarify product capabilities, use cases, and buyer-facing positioning for SEMICON West 2025.</li>
-            <li>Built technical launch assets that helped customers understand product value, constraints, and application fit.</li>
+            <li>Built the AVA visual identity and launch kit (logo, banners, tri-fold brochure, datasheets, booth concepts, LinkedIn plan), supporting 170+ booth demos, 60+ product-info requests, and 20+ high-priority partnership leads.</li>
+            <li>Planned Phase 2 for 2026: an AVA website roadmap and wireframes, a competitive web audit, and a brand video, podcast, and newsletter content engine.</li>
           </ul>
+          <div class="exp-links">
+            <a href="presentations.html#analogic" class="exp-link exp-link-primary">View presentation</a>
+            <a href="https://ava-website-liart.vercel.app/" class="exp-link" target="_blank" rel="noopener noreferrer">AVA website</a>
+          </div>
         </div>
       </article>
 
