@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Presentations · Ali Raza</title>
-  <meta name="description" content="Selected presentations by Ali Raza: Analogic AVA RF generator launch and brand strategy, a 49ers global creative content pitch, and a MrBeast YouTube engagement analysis." />
+  <meta name="description" content="Selected presentations by Ali Raza: Analogic AVA RF generator launch and brand strategy, a 49ers global creative content pitch, a Deel Local XI B2B growth proposal, and a MrBeast YouTube engagement analysis." />
   <link rel="canonical" href="https://alirazaportfolio2026.netlify.app/presentations" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Presentations · Ali Raza" />
-  <meta property="og:description" content="Hardware product management at Analogic, creative brand strategy for the 49ers, and YouTube engagement analytics." />
+  <meta property="og:description" content="Hardware product management at Analogic, creative brand strategy for the 49ers, a growth proposal for Deel, and YouTube engagement analytics." />
   <meta property="og:url" content="https://alirazaportfolio2026.netlify.app/presentations" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -84,7 +84,7 @@
 
     .jump {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 0.75rem;
       margin-top: 2rem;
     }
@@ -156,6 +156,18 @@
     .embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
     .embed-caption { font-size: 0.78rem; color: var(--muted); margin-top: 0.7rem; }
 
+    .preview {
+      display: block;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: 0 24px 60px rgba(0,0,0,.4);
+      transition: border-color .15s, transform .15s;
+    }
+    .preview:hover { border-color: rgba(255,45,141,.45); transform: translateY(-2px); }
+    .preview:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .preview img { display: block; width: 100%; height: auto; }
+
     .actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.25rem; }
     .btn {
       display: inline-flex; align-items: center; gap: 0.45rem;
@@ -182,8 +194,16 @@
 
     footer { border-top: 1px solid var(--line); padding: 2rem; text-align: center; font-size: 0.8rem; color: var(--muted); }
 
+    @media (max-width: 1100px) {
+      .jump { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
     @media (max-width: 900px) {
       .deck-head, .cols, .jump { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .preview { transition: none; }
     }
 
     @media (max-width: 768px) {
@@ -232,12 +252,13 @@
     <p class="eyebrow">Selected decks</p>
     <h1 class="page-title">Presentations</h1>
     <p class="page-sub">
-      Three decks that show how I work across hardware go-to-market, creative brand strategy, and data analytics.
-      Each section summarizes the work and includes the full interactive deck.
+      Decks and brand proposals that show how I work across hardware go-to-market, creative brand and growth strategy,
+      and data analytics. Each section summarizes the work and links to the full deck or proposal.
     </p>
     <nav class="jump" aria-label="Jump to presentation">
       <a href="#analogic"><b>Analogic · AVA RF Launch</b><span>Hardware product management &amp; GTM</span></a>
       <a href="#49ers"><b>49ers · Global Content Ideas</b><span>Creative product &amp; brand strategy</span></a>
+      <a href="#deel"><b>Deel · Local XI Proposal</b><span>B2B growth experiment</span></a>
       <a href="#mrbeast"><b>MrBeast · YouTube Engagement</b><span>Predictive analytics &amp; SHAP</span></a>
     </nav>
   </header>
@@ -383,11 +404,77 @@
     </div>
   </section>
 
+  <!-- ── Deel ─────────────────────────────────────────────────────── -->
+  <section class="deck" id="deel" aria-labelledby="deel-title">
+    <div class="deck-head">
+      <div>
+        <p class="deck-num">03 · Growth Marketing Proposal</p>
+        <h2 class="deck-title" id="deel-title">Deel Local XI: Turning Football Partnerships into Qualified B2B Meetings</h2>
+        <p class="deck-context">
+          An independent growth proposal for Deel. Deel already has Arsenal on the world stage; this concept tests whether
+          one Bay Area community football club could connect that sporting energy with local employers who have a real
+          Deel use case, measured in qualified meetings rather than impressions.
+        </p>
+      </div>
+      <dl class="deck-meta">
+        <dt>Type</dt><dd>Independent growth proposal</dd>
+        <dt>Focus</dt><dd>Bay Area B2B pipeline</dd>
+        <dt>Format</dt><dd>Interactive one-page site</dd>
+      </dl>
+    </div>
+
+    <div class="tags">
+      <span class="tag">Growth Marketing</span>
+      <span class="tag">B2B</span>
+      <span class="tag">Sports Partnerships</span>
+      <span class="tag">AI-Assisted GTM</span>
+      <span class="tag">Experiment Design</span>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><span class="stat-value">6 weeks</span><span class="stat-label">pilot with one community club partner</span></div>
+      <div class="stat"><span class="stat-value">50</span><span class="stat-label">fit-screened target businesses (illustrative)</span></div>
+      <div class="stat"><span class="stat-value">5–8</span><span class="stat-label">sales-accepted qualified meetings (illustrative target)</span></div>
+      <div class="stat"><span class="stat-value">$3K–$5K</span><span class="stat-label">initial cash budget concept</span></div>
+    </div>
+
+    <div class="cols">
+      <div class="panel">
+        <p class="panel-label">The pilot</p>
+        <ul>
+          <li><strong>Week 1, Qualify:</strong> research suitable community clubs and permission-based ways to reach relevant businesses.</li>
+          <li><strong>Weeks 2–3, Design:</strong> with an approved club partner, plan a compact founders, HR, and operations event tied to a game or five-a-side tournament.</li>
+          <li><strong>Weeks 3–5, Activate:</strong> invite well-matched businesses, run targeted invitations and local social assets, and offer a Deel conversation only when relevant.</li>
+          <li><strong>Week 6, Decide:</strong> judge meeting quality, economics, opt-in interest, and qualified pipeline, then repeat, change, or stop.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="panel-label">Measurement &amp; guardrails</p>
+        <ul>
+          <li><strong>North-star KPI:</strong> all-in cost per sales-accepted qualified meeting.</li>
+          <li><strong>Where AI helps:</strong> find Deel-fit signals in public business data, score fit with human review before outreach, draft personalized creative, and report on qualified pipeline.</li>
+          <li><strong>Guardrails:</strong> opt-in communication, quality over quantity, no outreach to youth participants, and no sponsorship unless the economics and club terms work.</li>
+          <li><strong>Clubs to explore:</strong> San Francisco Glens SC and San Francisco City FC, both with published sponsorship information. No agreement or contact is assumed.</li>
+        </ul>
+      </div>
+    </div>
+
+    <a class="preview" href="https://ali-raza-deel-local-growth-hack.netlify.app/" target="_blank" rel="noopener noreferrer" aria-label="Open the Deel Local XI proposal site">
+      <img src="assets/deel/deel-local-xi.png" alt="Deel Local XI proposal: what if football partnerships generated qualified meetings, not just impressions?" width="1200" height="630" loading="lazy" />
+    </a>
+    <p class="embed-caption">Independent concept, not affiliated with or endorsed by Deel, Arsenal FC, SF Glens SC, or SF City FC. Scorecard figures are illustrative assumptions, not results.</p>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="https://ali-raza-deel-local-growth-hack.netlify.app/" target="_blank" rel="noopener noreferrer">Open the proposal</a>
+      <a class="btn" href="#49ers">See the 49ers pitch</a>
+    </div>
+  </section>
+
   <!-- ── MrBeast ──────────────────────────────────────────────────── -->
   <section class="deck" id="mrbeast" aria-labelledby="mrbeast-title">
     <div class="deck-head">
       <div>
-        <p class="deck-num">03 · Data Analytics</p>
+        <p class="deck-num">04 · Data Analytics</p>
         <h2 class="deck-title" id="mrbeast-title">MrBeast: Predicting YouTube Engagement from Metadata</h2>
         <p class="deck-context">
           Can a creator predict engagement before uploading, using only things they control, such as title, length, and
