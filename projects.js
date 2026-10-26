@@ -20,7 +20,13 @@ const REPO_OVERRIDES = {
     image: 'assets/crediclip-preview.png',
     homepage: 'https://crediclip-axraza-msba.fly.dev/',
     caseStudy: 'crediclip.html',
-    notes: 'https://aliraza2025.github.io/CrediClip/',
+    notes: 'https://aliraza2025.github.io/CrediClip/data-plane/',
+  },
+  'bowc-estimate-tool': {
+    title: 'Blue Ocean Price Estimator',
+    description:
+      'Next.js quoting tool for Blue Ocean Window Cleaning: a Housecall Pro data pipeline, San Diego parcel enrichment, and an explainable regression-and-comps pricing engine.',
+    notes: 'https://aliraza2025.github.io/bowc-estimate-tool-notes/data-plane/',
   },
   '-Burrito-Game-Analysis-Logistics-Optimization-Sensitivity-Study': {
     title: 'Burrito Game: Logistics Optimization',
