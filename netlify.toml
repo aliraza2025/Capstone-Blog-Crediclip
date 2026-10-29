@@ -6,3 +6,18 @@
   [headers.values]
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/portfolio-section.html"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/google715ebba8b613028b.html"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/BingSiteAuth.xml"
+  [headers.values]
+    X-Robots-Tag = "noindex"
