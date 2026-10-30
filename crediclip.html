@@ -36,6 +36,8 @@
       --line:        rgba(255,255,255,.10);
       --accent:      #ff2d8d;
       --accent-2:    #ff4aa3;
+      --accent-solid: #db0070;
+      --accent-solid-hover: #c2005f;
       --good:        #34d399;
       --warn:        #fbbf24;
       --bad:         #f87171;
@@ -207,8 +209,8 @@
     .btn:hover { border-color: rgba(255,45,141,.5); transform: translateY(-1px); }
     .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     .btn svg { width: 15px; height: 15px; flex-shrink: 0; }
-    .btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-    .btn-primary:hover { background: var(--accent-2); border-color: var(--accent-2); }
+    .btn-primary { background: var(--accent-solid); border-color: var(--accent-solid); color: #fff; }
+    .btn-primary:hover { background: var(--accent-solid-hover); border-color: var(--accent-solid-hover); }
 
     .tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
     .mention, .hashtag {
@@ -688,15 +690,44 @@
       html { scroll-behavior: auto; }
       .btn, .mention, .tool, .related a, .toast, .hamburger span { transition: none; }
     }
+
+    /* ─── Shared accessibility and text wrapping ─────────────────── */
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -100px;
+      z-index: 300;
+      padding: 0.6rem 1rem;
+      border-radius: 10px;
+      background: var(--accent-solid);
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .skip-link:focus { top: 0.75rem; }
+    .skip-link:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    .nav-toggle { display: none; }
+    .nav-toggle:focus-visible + .hamburger {
+      outline: 2px solid var(--accent);
+      outline-offset: -4px;
+      border-radius: 8px;
+    }
+    @media (max-width: 768px) {
+      .nav-toggle { display: block; }
+      .hamburger { justify-content: center; }
+    }
+    h1, h2, h3 { text-wrap: balance; }
+    p, li { text-wrap: pretty; }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <div class="progress" id="progress" aria-hidden="true"></div>
 
   <nav class="site-nav" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="index.html" class="logo" aria-label="Ali Raza - home">Ali <span>Raza</span></a>
-      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" />
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Navigation menu" />
       <label for="nav-toggle" class="hamburger" aria-label="Toggle navigation menu">
         <span></span><span></span><span></span>
       </label>
@@ -710,6 +741,8 @@
       </ul>
     </div>
   </nav>
+
+  <main id="main">
 
   <header class="post-hero">
     <p class="breadcrumb"><a href="index.html">Home</a> / <a href="index.html#portfolio">Work</a> / CrediClip</p>
@@ -1468,6 +1501,8 @@
 
     </article>
   </div>
+
+  </main>
 
   <footer>
     <p>© 2026 Ali Raza · Built with care</p>

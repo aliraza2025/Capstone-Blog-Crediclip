@@ -26,11 +26,16 @@
       --line:        rgba(255,255,255,.10);
       --accent:      #ff2d8d;
       --accent-2:    #ff4aa3;
+      --accent-solid: #db0070;
+      --accent-solid-hover: #c2005f;
     }
 
     /* ─── Reset ──────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-padding-top: 80px; }
+    @media (prefers-reduced-motion: no-preference) {
+      html { scroll-behavior: smooth; }
+    }
 
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -196,8 +201,8 @@
       font-size: 0.9rem;
       font-weight: 600;
       color: #fff;
-      background: var(--accent);
-      border: 1.5px solid var(--accent);
+      background: var(--accent-solid);
+      border: 1.5px solid var(--accent-solid);
       border-radius: 12px;
       padding: 0.7rem 1.4rem;
       text-decoration: none;
@@ -207,8 +212,8 @@
     }
 
     .btn-primary:hover {
-      background: var(--accent-2);
-      border-color: var(--accent-2);
+      background: var(--accent-solid-hover);
+      border-color: var(--accent-solid-hover);
       transform: translateY(-2px);
       box-shadow: 0 14px 36px rgba(255,45,141,.28);
     }
@@ -692,16 +697,45 @@
 
     .site-footer a { color: var(--muted); text-decoration: none; }
     .site-footer a:hover { color: var(--accent); }
+
+    /* ─── Shared accessibility and text wrapping ─────────────────── */
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -100px;
+      z-index: 300;
+      padding: 0.6rem 1rem;
+      border-radius: 10px;
+      background: var(--accent-solid);
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .skip-link:focus { top: 0.75rem; }
+    .skip-link:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    .nav-toggle { display: none; }
+    .nav-toggle:focus-visible + .hamburger {
+      outline: 2px solid var(--accent);
+      outline-offset: -4px;
+      border-radius: 8px;
+    }
+    @media (max-width: 768px) {
+      .nav-toggle { display: block; }
+      .hamburger { justify-content: center; }
+    }
+    h1, h2, h3 { text-wrap: balance; }
+    p, li { text-wrap: pretty; }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
   <!-- ── Navigation ─────────────────────────────────────────────── -->
   <nav class="site-nav" aria-label="Site navigation">
     <div class="nav-inner">
       <a href="index.html#hero" class="logo">Ali <span>Raza</span></a>
 
-      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" />
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Navigation menu" />
       <label for="nav-toggle" class="hamburger" aria-label="Toggle navigation menu">
         <span></span><span></span><span></span>
       </label>

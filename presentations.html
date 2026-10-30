@@ -24,6 +24,8 @@
       --line:        rgba(255,255,255,.10);
       --accent:      #ff2d8d;
       --accent-2:    #ff4aa3;
+      --accent-solid: #db0070;
+      --accent-solid-hover: #c2005f;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -117,7 +119,7 @@
       font-size: 0.66rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
     }
     .index-type { color: var(--accent); }
-    .index-new { color: #fff; background: var(--accent); border-radius: 999px; padding: 0.12rem 0.5rem; }
+    .index-new { color: #fff; background: var(--accent-solid); border-radius: 999px; padding: 0.12rem 0.5rem; }
     .index-title { font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.3; color: var(--text-strong); }
     .index-sub { font-size: 0.82rem; line-height: 1.5; color: var(--muted); }
     .index-cta { margin-top: auto; padding-top: 0.6rem; font-size: 0.8rem; font-weight: 600; color: var(--accent); }
@@ -207,8 +209,8 @@
     .btn:hover { border-color: var(--accent); color: var(--accent); }
     .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     .btn svg { width: 14px; height: 14px; flex-shrink: 0; }
-    .btn-primary { color: #fff; background: var(--accent); border-color: var(--accent); }
-    .btn-primary:hover { color: #fff; background: var(--accent-2); border-color: var(--accent-2); transform: translateY(-1px); }
+    .btn-primary { color: #fff; background: var(--accent-solid); border-color: var(--accent-solid); }
+    .btn-primary:hover { color: #fff; background: var(--accent-solid-hover); border-color: var(--accent-solid-hover); transform: translateY(-1px); }
 
     .note {
       font-size: 0.8rem;
@@ -269,14 +271,43 @@
       html { scroll-behavior: auto; }
       .btn, .hamburger span { transition: none; }
     }
+
+    /* ─── Shared accessibility and text wrapping ─────────────────── */
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -100px;
+      z-index: 300;
+      padding: 0.6rem 1rem;
+      border-radius: 10px;
+      background: var(--accent-solid);
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .skip-link:focus { top: 0.75rem; }
+    .skip-link:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    .nav-toggle { display: none; }
+    .nav-toggle:focus-visible + .hamburger {
+      outline: 2px solid var(--accent);
+      outline-offset: -4px;
+      border-radius: 8px;
+    }
+    @media (max-width: 768px) {
+      .nav-toggle { display: block; }
+      .hamburger { justify-content: center; }
+    }
+    h1, h2, h3 { text-wrap: balance; }
+    p, li { text-wrap: pretty; }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <nav class="site-nav" aria-label="Main navigation">
     <div class="nav-inner">
       <a href="index.html" class="logo" aria-label="Ali Raza - home">Ali <span>Raza</span></a>
-      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" />
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Navigation menu" />
       <label for="nav-toggle" class="hamburger" aria-label="Toggle navigation menu">
         <span></span><span></span><span></span>
       </label>
@@ -290,6 +321,8 @@
       </ul>
     </div>
   </nav>
+
+  <main id="main">
 
   <header class="page-hero">
     <p class="breadcrumb"><a href="index.html">Home</a> / <a href="index.html#portfolio">Work</a> / Presentations</p>
@@ -621,6 +654,8 @@
       <a class="btn" href="index.html#creative">More creative work</a>
     </div>
   </section>
+
+  </main>
 
   <footer>
     <p>© 2026 Ali Raza · Built with care</p>
