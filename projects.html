@@ -698,6 +698,47 @@
     .site-footer a { color: var(--muted); text-decoration: none; }
     .site-footer a:hover { color: var(--accent); }
 
+    /* ─── Ventures ───────────────────────────────────────────────── */
+    .section-heading {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem 1rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      letter-spacing: -0.01em;
+    }
+    .ventures-grid { padding-bottom: 2.5rem; }
+    .venture-card { grid-column: span 2; }
+    .venture-card .repo-card-img-wrap { height: 200px; }
+    .venture-card .repo-desc { display: block; -webkit-line-clamp: unset; overflow: visible; flex: none; }
+    .venture-card .badge-fork { color: var(--accent-2); border-color: rgba(255,45,141,.4); text-transform: none; letter-spacing: 0; }
+    .venture-tag {
+      font-size: 0.75rem;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.15rem 0.6rem;
+    }
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    @media (max-width: 768px) {
+      .section-heading { padding: 0 1.25rem 1rem; }
+    }
+    @media (max-width: 560px) {
+      .venture-card { grid-column: auto; }
+      .venture-card .repo-card-img-wrap { height: 140px; }
+    }
+
     /* ─── Shared accessibility and text wrapping ─────────────────── */
     .skip-link {
       position: absolute;
@@ -753,10 +794,10 @@
 
   <!-- ── Page Hero ──────────────────────────────────────────────── -->
   <header class="page-hero">
-    <span class="page-hero-tag">GitHub</span>
+    <span class="page-hero-tag">Builds</span>
     <h1 class="page-hero-title">Projects</h1>
     <p class="page-hero-sub">
-      A selection of repositories and builds from my GitHub.
+      My venture work, plus a selection of repositories and builds from my GitHub.
     </p>
     <div class="page-hero-actions">
       <a
@@ -773,6 +814,59 @@
       </a>
     </div>
   </header>
+
+  <main id="main-content">
+
+  <!-- ── Ventures ───────────────────────────────────────────────── -->
+  <section class="ventures" aria-labelledby="ventures-heading">
+    <h2 id="ventures-heading" class="section-heading">Ventures</h2>
+    <div class="repo-grid ventures-grid">
+      <article class="repo-card venture-card">
+        <div class="repo-card-img-wrap">
+          <img
+            src="assets/irha-preview.webp"
+            alt="irha.ai homepage: Never Miss a Call Again"
+            class="repo-card-img"
+            width="1200"
+            height="434"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="repo-name-row">
+          <a href="https://irha.ai/" class="repo-name" target="_blank" rel="noopener noreferrer">irha.ai<span class="visually-hidden"> (opens in new tab)</span></a>
+          <span class="badge-fork">Co-founder, Product</span>
+        </div>
+
+        <p class="repo-desc">AI receptionist for service businesses. It answers calls 24/7, books and confirms jobs, captures and qualifies leads, and hands off to Housecall Pro, Jobber, and ServiceTitan.</p>
+        <p class="repo-desc">I lead product strategy and roadmap, voice agent and call flow design, CRM integrations, positioning and pricing, the website and demo, and customer discovery and sales.</p>
+
+        <div class="repo-meta">
+          <span class="venture-tag">AI voice agent</span>
+          <span class="venture-tag">B2B SaaS</span>
+          <span class="venture-tag">Early access</span>
+        </div>
+
+        <div class="repo-actions">
+          <a href="https://irha.ai/" class="repo-btn live" target="_blank" rel="noopener noreferrer" aria-label="Website: irha.ai - opens in new tab">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+            Website
+          </a>
+          <a href="https://www.linkedin.com/company/irha-ai" class="repo-btn" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn: irha.ai - opens in new tab">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <h2 class="section-heading repos-heading">GitHub repositories</h2>
 
   <!-- ── Controls ───────────────────────────────────────────────── -->
   <div class="controls-bar" role="search" aria-label="Filter and sort repositories">
@@ -806,7 +900,6 @@
   <div class="stats-bar" id="stats-bar" aria-live="polite" aria-atomic="true"></div>
 
   <!-- ── Repo grid / state ──────────────────────────────────────── -->
-  <main id="main-content">
     <div class="state-box" id="state-box">
       <div class="state-inner">
         <div class="spinner" role="status" aria-label="Loading repositories"></div>
