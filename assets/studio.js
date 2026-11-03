@@ -3,7 +3,7 @@
   if (!studio || !studio.classList.contains("studio")) return;
 
   var PREFS_KEY = "studio-prefs";
-  var GREETING = "Hi, I’m Ali’s AI. I’m an assistant, not Ali, and I answer from this site and his CV. Ask me about a project, his background, or how to reach him.";
+  var GREETING = "Hi, I’m Ali’s AI, an assistant, not Ali. I answer from this site and his CV. Ask me about his work.";
   var THINKING = "Let me check Ali’s pages…";
   var MALE_VOICES = [/guy/i, /andrew/i, /davis/i, /christopher/i, /eric/i, /uk english male/i, /aaron/i, /alex\b/i, /daniel/i, /david/i, /fred/i];
 
@@ -36,6 +36,7 @@
       b.setAttribute("aria-pressed", prefs[b.dataset.pref] ? "true" : "false");
     });
     if (!prefs.voice || prefs.hideAvatar) stopSpeaking();
+    if (typeof updateCovered === "function") requestAnimationFrame(updateCovered);
   }
 
   studio.querySelectorAll("[data-pref]").forEach(function (b) {
@@ -59,10 +60,47 @@
     if (e.animationName === "studioHello") avatar.classList.remove("is-hello");
   });
 
-  function setBubble(text) {
+  var hotspots = studio.querySelectorAll(".hotspot");
+
+  // Labels the bubble would overlap fade out until the bubble closes.
+  function updateCovered() {
+    var b = bubble.hidden || prefs.hideAvatar ? null : bubble.getBoundingClientRect();
+    hotspots.forEach(function (h) {
+      h.classList.remove("is-covered");
+      if (!b || !b.width) return;
+      var r = h.getBoundingClientRect();
+      var overlap = r.width && r.left < b.right + 4 && r.right > b.left - 4 && r.top < b.bottom + 4 && r.bottom > b.top - 4;
+      h.classList.toggle("is-covered", !!overlap);
+    });
+  }
+
+  var bubbleTimer = null;
+
+  function setBubble(text, autoCloseMs) {
+    clearTimeout(bubbleTimer);
     bubbleText.textContent = text;
     bubble.hidden = false;
+    requestAnimationFrame(updateCovered);
+    if (autoCloseMs) {
+      bubbleTimer = setTimeout(function () {
+        if (synth && synth.speaking) return;
+        hideBubble();
+      }, autoCloseMs);
+    }
   }
+
+  function hideBubble() {
+    clearTimeout(bubbleTimer);
+    bubble.hidden = true;
+    updateCovered();
+  }
+
+  bubble.querySelector(".avatar-bubble-close").addEventListener("click", function () {
+    stopSpeaking();
+    hideBubble();
+  });
+
+  window.addEventListener("resize", function () { requestAnimationFrame(updateCovered); });
 
   function plain(text) {
     return String(text || "")
@@ -141,7 +179,7 @@
 
   function greet(withVoice) {
     showAvatar(true);
-    setBubble(GREETING);
+    setBubble(GREETING, withVoice ? 0 : 8000);
     if (withVoice) speak(GREETING);
   }
 
@@ -238,8 +276,5 @@
   }
 
   applyPrefs();
-  setTimeout(function () {
-    showAvatar(true);
-    setBubble(GREETING);
-  }, prefs.paused ? 0 : 700);
+  setTimeout(function () { greet(false); }, prefs.paused ? 0 : 700);
 })();

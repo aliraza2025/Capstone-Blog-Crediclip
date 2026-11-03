@@ -383,11 +383,11 @@
 
     .avatar-bubble {
       position: absolute;
-      left: 56.5%;
-      top: 62.5%;
+      left: 56%;
+      bottom: 7.6rem; /* clears the search bar, which sits above the stage */
       z-index: 3;
-      width: min(16rem, 16.5%);
-      padding: .65rem .8rem;
+      width: clamp(13rem, 19%, 17rem);
+      padding: .65rem 2rem .7rem .8rem;
       border: 1px solid rgba(255,45,141,.35);
       border-radius: 4px 14px 14px 14px;
       background: rgba(14,9,36,.92);
@@ -401,6 +401,26 @@
     .avatar-bubble[hidden] { display: none; }
     .avatar-bubble-name { display: block; font-size: .68rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--accent); margin-bottom: .2rem; }
     .avatar-bubble p { display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
+
+    .avatar-bubble-close {
+      position: absolute;
+      top: .35rem;
+      right: .35rem;
+      width: 24px; height: 24px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .avatar-bubble-close:hover { color: var(--text-strong); background: rgba(255,255,255,.08); }
+    .avatar-bubble-close:focus-visible { outline: 2px solid #fff; outline-offset: 1px; }
+
+    .hotspot.is-covered { opacity: 0; pointer-events: none; }
+    .hotspot.is-covered:focus-visible { opacity: 1; }
 
     .studio-ask {
       position: absolute;
@@ -595,7 +615,7 @@
       .studio-controls { order: 10; flex-direction: row; flex-wrap: wrap; justify-content: center; }
 
       .hotspot { display: none; }
-      .avatar-bubble { left: auto; right: 3%; top: 6%; width: 44%; font-size: .74rem; padding: .5rem .6rem; }
+      .avatar-bubble { left: auto; right: 3%; top: 6%; bottom: auto; width: 46%; font-size: .74rem; padding: .5rem 1.7rem .55rem .6rem; }
       .avatar-bubble p { -webkit-line-clamp: 4; }
 
       .studio-links {
@@ -1643,9 +1663,12 @@
           <img class="avatar-talk" src="assets/ali-avatar-talk.webp" width="359" height="840" alt="">
         </div>
       </div>
-      <div class="avatar-bubble" aria-hidden="true" hidden>
+      <div class="avatar-bubble" hidden>
         <span class="avatar-bubble-name">Ali’s AI</span>
         <p></p>
+        <button type="button" class="avatar-bubble-close" aria-label="Close message">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
       </div>
     </div>
 
@@ -2279,23 +2302,6 @@
             <span class="contact-label">
               <span class="contact-title">Book a call</span>
               <span class="contact-handle">30 minutes on Calendly</span>
-            </span>
-            <svg class="contact-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-          </a>
-        </li>
-        <li>
-          <a
-            href="assets/Ali-Raza-CV-2026.pdf"
-            class="contact-item"
-            download="Ali-Raza-CV-2026.pdf"
-            aria-label="Download CV (PDF)"
-          >
-            <span class="contact-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M21 15v4a2 2 0 0 1-2 2H5"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            </span>
-            <span class="contact-label">
-              <span class="contact-title">Download CV</span>
-              <span class="contact-handle">Ali-Raza-CV-2026.pdf</span>
             </span>
             <svg class="contact-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
           </a>
