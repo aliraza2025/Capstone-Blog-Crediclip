@@ -12,7 +12,7 @@ const API_URL =
 const REPO_OVERRIDES = {
   'Capstone-Blog-Crediclip': { hide: true },
   'ask-ali': { title: 'Ask Ali', description: 'Portfolio assistant retrieving source passages and returning cited answers, with explicit limits and a live portfolio integration.', homepage: 'https://alirazaai.page/', stage: 'Portfolio integration' },
-  'bowc-estimate-tool-notes': { title: 'Blue Ocean Estimator Engineering Notes', homepage: null, notes: 'https://aliraza2025.github.io/bowc-estimate-tool-notes/data-plane/' },
+  'bowc-estimate-tool-notes': { title: 'Blue Ocean Estimator Engineering Notes', homepage: null, notes: 'notes/estimator-data-plane.html' },
   'Resume-CV': {
     hide: true,
   },
@@ -23,13 +23,13 @@ const REPO_OVERRIDES = {
     image: 'assets/crediclip-preview.png',
     homepage: 'https://crediclip-axraza-msba.fly.dev/',
     caseStudy: 'crediclip.html',
-    notes: 'https://aliraza2025.github.io/CrediClip/data-plane/',
+    notes: 'notes/crediclip-data-plane.html',
   },
   'bowc-estimate-tool': {
     title: 'Blue Ocean Price Estimator',
     description:
       'Next.js quoting tool for Blue Ocean Window Cleaning: a Housecall Pro data pipeline, San Diego parcel enrichment, and an explainable regression-and-comps pricing engine.',
-    notes: 'https://aliraza2025.github.io/bowc-estimate-tool-notes/data-plane/',
+    notes: 'notes/estimator-data-plane.html',
   },
   '-Burrito-Game-Analysis-Logistics-Optimization-Sensitivity-Study': {
     title: 'Burrito Game: Logistics Optimization',

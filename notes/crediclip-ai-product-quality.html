@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What 780 completed video jobs taught me about AI product quality · Field notes · Ali Raza</title>
+  <meta name="description" content="How evidence coverage, readiness benchmarks, and explicit uncertainty shaped the CrediClip roadmap." />
+  <meta name="author" content="Ali Raza" />
+  <link rel="canonical" href="https://alirazaai.page/notes/crediclip-ai-product-quality" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Ali Raza · Portfolio" />
+  <meta property="og:title" content="What 780 completed video jobs taught me about AI product quality · Field notes · Ali Raza" />
+  <meta property="og:description" content="How evidence coverage, readiness benchmarks, and explicit uncertainty shaped the CrediClip roadmap." />
+  <meta property="og:url" content="https://alirazaai.page/notes/crediclip-ai-product-quality" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="article:published_time" content="2026-10-26" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "What 780 completed video jobs taught me about AI product quality", "description": "How evidence coverage, readiness benchmarks, and explicit uncertainty shaped the CrediClip roadmap.", "datePublished": "2026-10-26", "author": {"@type": "Person", "name": "Ali Raza", "url": "https://alirazaai.page/"}, "url": "https://alirazaai.page/notes/crediclip-ai-product-quality", "mainEntityOfPage": "https://alirazaai.page/notes/crediclip-ai-product-quality", "keywords": ["AI Product Management", "Evaluation", "Evidence Extraction", "FastAPI"], "isPartOf": {"@type": "Blog", "name": "Field notes", "url": "https://alirazaai.page/notes/"}}</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/notes.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/index.html" class="logo" aria-label="Ali Raza - home">Ali <span>Raza</span></a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Navigation menu" />
+      <label for="nav-toggle" class="hamburger" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+      <ul class="nav-links" role="list">
+        <li><a href="/index.html#portfolio">Work</a></li>
+        <li><a href="/projects.html">Projects</a></li>
+        <li><a href="/experience.html">Experience</a></li>
+        <li><a href="/notes/" aria-current="page">Notes</a></li>
+        <li><a href="/index.html#about">About</a></li>
+        <li><a href="/index.html#creative">Creative</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main" class="note">
+    <header class="note-hero">
+      <p class="breadcrumb"><a href="/index.html">Home</a> / <a href="/notes/">Notes</a> / CrediClip</p>
+      <p class="eyebrow">AI product evaluation · CrediClip</p>
+      <h1>What 780 completed video jobs taught me about AI product quality</h1>
+      <p class="dek">How evidence coverage, readiness benchmarks, and explicit uncertainty shaped the CrediClip roadmap.</p>
+      <dl class="note-meta">
+        <div><dt>Author</dt><dd>Ali Raza</dd></div>
+        <div><dt>Published</dt><dd><time datetime="2026-10-26">October 26, 2026</time></dd></div>
+        <div><dt>Reading time</dt><dd>6 min read</dd></div>
+      </dl>
+      <ul class="tag-list" aria-label="Topics"><li>AI Product Management</li><li>Evaluation</li><li>Evidence Extraction</li><li>FastAPI</li></ul>
+    </header>
+
+    <div class="note-shell">
+      <aside class="note-rail" aria-label="On this page">
+        <p>On this page</p>
+        <nav>
+            <a href="#the-benchmark-that-redirected-the-roadmap">Readiness benchmarks</a>
+            <a href="#evidence-recovery-became-a-product-concern">Evidence recovery</a>
+            <a href="#the-architecture-had-to-support-the-extraction-work">Architecture decisions</a>
+            <a href="#showing-uncertainty-in-the-output">Showing uncertainty</a>
+            <a href="#three-questions-for-evaluating-the-product">Evaluation lessons</a>
+            <a href="#sources-and-further-reading">Sources</a>
+        </nav>
+      </aside>
+
+      <article class="note-prose">
+<p>A completed job is an easy result to count. In an AI application, understanding what that completed job contains takes more work.</p>
+
+<p>I encountered that distinction while building CrediClip, a system that accepts a public short-form video link and returns a credibility score, risk flags, claim assessments, and an evidence-coverage breakdown. The product brought together several different problems: getting access to a video, recovering its text and speech, assessing claims, and presenting a result a person could interpret.</p>
+
+<p>In the March 11, 2026 YouTube batch, all 780 jobs eventually completed, including two retried links. Yet 759 of 780 results, or 97.3%, were flagged as low evidence. The pipeline finished its work while recovering little information from most inputs. That result became a useful way to explain what the evaluation established and where the product still needed improvement.</p>
+
+<h2 id="the-benchmark-that-redirected-the-roadmap">The benchmark that redirected the roadmap</h2>
+
+<p>Before expanding the product, I ran a balanced, seeded benchmark of 100 videos against four readiness gates on March 4, 2026. Ingestion success was 46%, against a threshold of at least 85%. Among the 46 inputs with successful ingestion, 45 had insufficient evidence for claim verification: 97.8%, against a target of no more than 40%. Score variation also fell below the chosen threshold. The supplied queue reliability measurement passed at 97%.</p>
+
+<p>These were readiness thresholds I had chosen for the project, rather than universal standards for credibility products. Their value was in making a decision concrete. A functioning queue did not resolve the lack of evidence. Changing score weights would still leave the system working with sparse inputs.</p>
+
+<p>The results redirected my effort toward ingestion: browser rendering, on-screen text extraction, speech recognition, and platform-specific recovery paths. Evaluation gave me a reason to change the roadmap and a way to explain that choice.</p>
+
+<h2 id="evidence-recovery-became-a-product-concern">Evidence recovery became a product concern</h2>
+
+<p>Short-form video exposes important information through several channels. A caption may contain context, speech may contain the main claim, and text on a frame may carry information missing from both. Losing a channel can change what the system is able to assess.</p>
+
+<p>The extraction paths also differed by platform. Public metadata could be thin, browser rendering could recover additional text, and media access could determine whether speech recognition was possible. I brought those outputs into a shared evidence structure so the product could show what had been recovered.</p>
+
+<p>In the 19-link Instagram benchmark comparing March 11 and March 13, 2026, average evidence tokens increased from 1.0 to 130.9 after the ingestion redesign. That was an improvement in recovered evidence on a small benchmark. It did not measure whether credibility judgments had become more accurate. Keeping that distinction attached to the number matters when describing the result.</p>
+
+<h2 id="the-architecture-had-to-support-the-extraction-work">The architecture had to support the extraction work</h2>
+
+<p>The first version performed heavy processing inside the web process. Video downloads, headless browsers, and speech recognition created memory pressure on the small hosting instance.</p>
+
+<p>I separated the lightweight FastAPI control plane from the workers doing heavy extraction. The web tier handled requests, queue state, scoring, and results. Workers handled platform-specific ingestion and returned artifacts for assessment.</p>
+
+<p>I also separated YouTube work into its own lane after slow or blocked jobs interfered with the other platforms. This was a decision about the user’s wait as well as infrastructure. An unpredictable dependency on one platform should not hold up unrelated work.</p>
+
+<h2 id="showing-uncertainty-in-the-output">Showing uncertainty in the output</h2>
+
+<p>CrediClip needed a way to represent an assessment made from limited evidence. I kept the final score in deterministic application code and used an analysis-confidence value to control how far the result moved from a neutral anchor of 52.</p>
+
+<p>When evidence is thin, that rule keeps the score near the anchor. The interface also presents evidence coverage so a reader can see the basis for the assessment. This is a designed behavior; its usefulness and calibration still need stronger evaluation. A precise-looking score does not by itself establish a precise judgment.</p>
+
+<p>LLMs have a narrower role in the workflow. They can produce structured claim assessments when evidence thresholds are met. They do not directly write the final credibility number. That boundary makes the scoring rule easier to inspect and keeps the role of the model explicit.</p>
+
+<h2 id="three-questions-for-evaluating-the-product">Three questions for evaluating the product</h2>
+
+<p>The work left me with three separate questions. Did the processing complete? Did it recover enough relevant evidence? Did the assessment match an independently established judgment?</p>
+
+<p>The 780-link batch answered the first question for that run and exposed limitations in the second. It did not settle the third. Answering that would require stronger labeled evaluation, careful separation of calibration and test data, and reporting across platforms and content types.</p>
+
+<p>Several limitations remain in CrediClip: uneven platform access, hand-set scoring weights, restricted retrieval coverage, and small labeled evaluations. The case study also discloses curated presentation examples. Those examples are separate from the reported batch results.</p>
+
+<p>For me, the product lesson was to connect each metric to a decision. Completion helped evaluate the processing workflow. Evidence coverage helped identify the next ingestion work. Stronger independent evaluation is needed to assess the credibility judgments themselves.</p>
+
+<p>Building the workflow and documenting those distinctions gave me a clearer view of what I had shipped, what its outputs meant, and what I needed to learn next.</p>
+
+<h2 id="sources-and-further-reading">Sources and further reading</h2>
+
+<p>This article adapts the evaluation and product lessons in my <a href="/crediclip.html">original CrediClip case study</a>.</p>
+
+<ul>
+  <li><a href="https://github.com/aliraza2025/CrediClip/blob/main/reports/links_batch_780_20260311T175959Z_final_summary.json">780-link YouTube batch summary</a>, including evidence coverage and retried links.</li>
+  <li><a href="https://github.com/aliraza2025/CrediClip/blob/main/reports/phase1_benchmark_100_20260304T111624Z.json">March 4 readiness benchmark</a>, including gate thresholds and counts.</li>
+  <li><a href="https://github.com/aliraza2025/CrediClip/blob/main/reports/instagram_phase2_summary_20260313.json">Instagram benchmark summary</a>, with the before and after reports.</li>
+  <li><a href="/notes/crediclip-data-plane.html">Building the CrediClip data plane</a>, the accompanying architecture article.</li>
+  <li><a href="https://github.com/aliraza2025/CrediClip">Source code</a> and <a href="/index.html">my portfolio</a>.</li>
+</ul>
+        <p class="note-origin">First published on <a href="https://aliraza2025.github.io/CrediClip/evaluating-ai-product-quality/">GitHub Pages</a>. This is now the main copy.</p>
+      </article>
+    </div>
+
+    <section class="closing-card" aria-labelledby="closing-title">
+      <p class="eyebrow">Continue exploring</p>
+      <h2 id="closing-title">See the complete CrediClip project.</h2>
+      <p>The case study covers the problem, product decisions, and evaluation. The repository has the reports linked above.</p>
+      <div class="closing-actions">
+        <a class="btn-primary" href="/crediclip.html">Read the case study</a>
+        <a class="btn-ghost" href="https://github.com/aliraza2025/CrediClip" target="_blank" rel="noopener noreferrer">Open the GitHub repository</a>
+      </div>
+    </section>
+
+    <section class="more-notes" aria-labelledby="more-title">
+      <h2 id="more-title">More field notes</h2>
+      <div class="next-links">
+      <a href="/notes/estimator-data-plane.html"><b>Building the Data Plane Behind a Phone-Ready Window-Cleaning Quote</b><span>Blue Ocean Window Cleaning · 11 min read</span></a>
+      <a href="/notes/crediclip-data-plane.html"><b>Building a Multi-Lane Data Plane for Short-Form Video Credibility Analysis</b><span>CrediClip · 10 min read</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Ali Raza · Built with care · <a href="/about-this-site.html">About this site</a> · <a href="/sources.html">Sources</a></p>
+  </footer>
+
+  <script>
+    document.querySelector('.nav-links').addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') document.getElementById('nav-toggle').checked = false;
+    });
+  </script>
+  <script src="/assets/ask-ali.js" defer></script>
+</body>
+</html>

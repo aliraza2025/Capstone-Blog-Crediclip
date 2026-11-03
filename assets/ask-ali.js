@@ -79,7 +79,7 @@
     '<form class="aa-form"><label class="aa-sr" for="aa-input">Your question</label>' +
     '<textarea id="aa-input" class="aa-input" rows="1" maxlength="500" placeholder="Ask about projects, roles, or skills"></textarea>' +
     '<button type="submit" class="aa-send" aria-label="Send question">' + ICON_SEND + "</button></form>" +
-    '<p class="aa-note">Answers can be wrong; check the linked sources. Questions are processed by free AI models on OpenRouter, so please don’t share private information. <a href="about-this-site.html">How this works</a></p>';
+    '<p class="aa-note">Answers can be wrong; check the linked sources. Questions are processed by free AI models on OpenRouter, so please don’t share private information. <a href="/about-this-site.html">How this works</a></p>';
 
   document.body.appendChild(launch);
   document.body.appendChild(panel);

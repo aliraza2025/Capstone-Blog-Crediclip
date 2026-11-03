@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building the Data Plane Behind a Phone-Ready Window-Cleaning Quote · Field notes · Ali Raza</title>
+  <meta name="description" content="How I turned 11,000+ Housecall Pro jobs, San Diego parcel records, and a small set of tracked jobs into an explainable pricing engine that office staff can use on a live call." />
+  <meta name="author" content="Ali Raza" />
+  <link rel="canonical" href="https://alirazaai.page/notes/estimator-data-plane" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Ali Raza · Portfolio" />
+  <meta property="og:title" content="Building the Data Plane Behind a Phone-Ready Window-Cleaning Quote · Field notes · Ali Raza" />
+  <meta property="og:description" content="How I turned 11,000+ Housecall Pro jobs, San Diego parcel records, and a small set of tracked jobs into an explainable pricing engine that office staff can use on a live call." />
+  <meta property="og:url" content="https://alirazaai.page/notes/estimator-data-plane" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="article:published_time" content="2026-10-26" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Building the Data Plane Behind a Phone-Ready Window-Cleaning Quote", "description": "How I turned 11,000+ Housecall Pro jobs, San Diego parcel records, and a small set of tracked jobs into an explainable pricing engine that office staff can use on a live call.", "datePublished": "2026-10-26", "author": {"@type": "Person", "name": "Ali Raza", "url": "https://alirazaai.page/"}, "url": "https://alirazaai.page/notes/estimator-data-plane", "mainEntityOfPage": "https://alirazaai.page/notes/estimator-data-plane", "keywords": ["Next.js", "TypeScript", "Data Pipelines", "Regression", "Pricing"], "isPartOf": {"@type": "Blog", "name": "Field notes", "url": "https://alirazaai.page/notes/"}}</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/notes.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/index.html" class="logo" aria-label="Ali Raza - home">Ali <span>Raza</span></a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Navigation menu" />
+      <label for="nav-toggle" class="hamburger" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+      <ul class="nav-links" role="list">
+        <li><a href="/index.html#portfolio">Work</a></li>
+        <li><a href="/projects.html">Projects</a></li>
+        <li><a href="/experience.html">Experience</a></li>
+        <li><a href="/notes/" aria-current="page">Notes</a></li>
+        <li><a href="/index.html#about">About</a></li>
+        <li><a href="/index.html#creative">Creative</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main" class="note">
+    <header class="note-hero">
+      <p class="breadcrumb"><a href="/index.html">Home</a> / <a href="/notes/">Notes</a> / Blue Ocean Window Cleaning</p>
+      <p class="eyebrow">Engineering note · Blue Ocean Window Cleaning</p>
+      <h1>Building the Data Plane Behind a Phone-Ready Window-Cleaning Quote</h1>
+      <p class="dek">How I turned 11,000+ Housecall Pro jobs, San Diego parcel records, and a small set of tracked jobs into an explainable pricing engine that office staff can use on a live call.</p>
+      <dl class="note-meta">
+        <div><dt>Author</dt><dd>Ali Raza</dd></div>
+        <div><dt>Published</dt><dd><time datetime="2026-10-26">October 26, 2026</time></dd></div>
+        <div><dt>Reading time</dt><dd>11 min read</dd></div>
+      </dl>
+      <ul class="tag-list" aria-label="Topics"><li>Next.js</li><li>TypeScript</li><li>Data Pipelines</li><li>Regression</li><li>Pricing</li></ul>
+    </header>
+
+    <div class="note-shell">
+      <aside class="note-rail" aria-label="On this page">
+        <p>On this page</p>
+        <nav>
+            <a href="#the-quoting-problem">The quoting problem</a>
+            <a href="#two-planes">Two-plane architecture</a>
+            <a href="#step-1-sync">Syncing job history</a>
+            <a href="#step-2-clean">Cleaning window-only jobs</a>
+            <a href="#step-3-enrich">Parcel enrichment</a>
+            <a href="#step-5-train">Training the model</a>
+            <a href="#the-quote-path">The live quote path</a>
+            <a href="#feedback-loop">The feedback loop</a>
+            <a href="#validation">Validation</a>
+            <a href="#lessons">Lessons learned</a>
+        </nav>
+      </aside>
+
+      <article class="note-prose">
+
+
+<p>A caller asks a simple question: “How much to clean the windows on my house?” Answering it well is harder than it sounds. The office has a phone number, an address, and maybe a rough description of the home. The price needs to be fair, consistent across agents, and ready before the caller loses interest.</p>
+
+<p>I built the <strong>Blue Ocean Estimate Tool</strong> during my summer 2026 Business Operations Internship at Blue Ocean Window Cleaning, a residential and commercial cleaning company in San Diego. It is an internal Next.js app that produces phone-ready quotes for new customers from phone and Angi leads. This article explains the part that does most of the work but never appears on screen: the <strong>data plane</strong> that turns raw job history into the files the quote engine reads.</p>
+
+<blockquote>
+  <p>The code excerpts below are shortened from the working project for readability. Figures are aggregates from the project’s own validation reports. No customer-level data appears in this article.</p>
+</blockquote>
+
+<h2 id="the-quoting-problem">The quoting problem</h2>
+
+<p>Before the tool, quoting relied on individual judgment and spreadsheets. Two agents could quote the same house differently, and neither could easily explain why. The business already had the raw material for something better: years of completed jobs in Housecall Pro (HCP), its field-service platform. That history was messy, though.</p>
+
+<ul>
+  <li><strong>Mixed tickets.</strong> A single job might combine window cleaning with solar panels, gutters, screens, or pressure washing. Its total says little about the price of windows alone.</li>
+  <li><strong>Missing property data.</strong> Jobs record an address, not the square footage, bedrooms, or stories that drive effort.</li>
+  <li><strong>Unstructured hours.</strong> Time on site often lives in free-text descriptions rather than clean fields.</li>
+  <li><strong>Scope ambiguity.</strong> “Inside only,” “outside only,” “select windows,” and “partial” all mean very different amounts of work.</li>
+</ul>
+
+<p>The goal was a quote an agent could give in under a minute, with a range, a confidence signal, and a plain-language explanation of how the number was reached.</p>
+
+<h2 id="two-planes">Two-plane architecture</h2>
+
+<p>I split the system into two planes with very different jobs.</p>
+
+<p>The <strong>data plane</strong> is a set of offline Node.js scripts. It pulls job history, cleans and enriches it, fits models, validates them, and <em>promotes</em> the results into versioned JSON files.</p>
+
+<p>The <strong>quote path</strong> is the Next.js app. It never touches raw history. On each request it reads the promoted JSON, looks up the property, and computes a price.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Housecall Pro API ──&gt; sync ──&gt; clean ──&gt; enrich ──&gt; calibrate ──&gt; train
+                                                                    |
+                         office corrections ──┐                     v
+                                              ├──&gt; validate ──&gt; promote
+                                              |                     |
+                                              |                     v
+                                              |        data/*.json artifacts
+                                              |                     |
+Caller address ──&gt; parcel lookup ──&gt; quote engine &lt;─────────────────┘
+                                          |
+                                          v
+                        price + range + confidence + explanation
+                                          |
+                                          └──&gt; office log ──&gt; corrections
+</code></pre></div></div>
+
+<p>This boundary keeps expensive preparation outside the request path. API pagination, text parsing, and regression fitting happen offline, so a failed preparation run can be inspected before its artifacts replace the files used for quotes. Artifact promotion and concurrent writes still need explicit controls.</p>
+
+<h2 id="step-1-sync">Step 1: sync completed jobs from Housecall Pro</h2>
+
+<p>The pipeline starts with the HCP Public API. The sync script pulls completed jobs for a time window, caches the raw responses, and merges them into the same CSV shape as a manual HCP export. Keeping one export format meant every later stage worked whether the data came from the API or a spreadsheet download.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>node ml/sync-hcp-api.mjs <span class="nt">--days</span><span class="o">=</span>180 <span class="nt">--with-line-items</span>   <span class="c"># incremental pull</span>
+node ml/sync-hcp-api.mjs <span class="nt">--comps-only</span>                   <span class="c"># rebuild comps offline</span>
+node ml/sync-hcp-api.mjs <span class="nt">--max-pages</span><span class="o">=</span>5 <span class="nt">--dry-run</span>        <span class="c"># safe test run</span>
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">--comps-only</code> flag rebuilds downstream files from the cached export without calling the API again. That made iteration cheap: I could change cleaning rules and regenerate everything in seconds. The most recent sync covered <strong>11,482 jobs</strong>, with on-site hours recovered for <strong>7,595</strong> of them and technician counts for <strong>8,971</strong>.</p>
+
+<h2 id="step-2-clean">Step 2: keep only window-cleaning work</h2>
+
+<p>The single most important cleaning decision was to train only on jobs whose price reflects window cleaning. A classifier reads each job description and keeps three pure categories: inside and out, outside only, and inside only.</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">const</span> <span class="nx">NON_WINDOW_KEYWORDS</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="na">key</span><span class="p">:</span> <span class="dl">"</span><span class="s2">solar_panel</span><span class="dl">"</span><span class="p">,</span> <span class="na">patterns</span><span class="p">:</span> <span class="p">[</span><span class="sr">/solar</span><span class="se">\s</span><span class="sr">*panel/i</span><span class="p">,</span> <span class="sr">/</span><span class="se">\b</span><span class="sr">solar</span><span class="se">\b</span><span class="sr">/i</span><span class="p">]</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">key</span><span class="p">:</span> <span class="dl">"</span><span class="s2">gutter</span><span class="dl">"</span><span class="p">,</span> <span class="na">patterns</span><span class="p">:</span> <span class="p">[</span><span class="sr">/gutter/i</span><span class="p">,</span> <span class="sr">/ledges</span><span class="se">?\s</span><span class="sr">+cleaned/i</span><span class="p">]</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">key</span><span class="p">:</span> <span class="dl">"</span><span class="s2">screen_repair</span><span class="dl">"</span><span class="p">,</span> <span class="na">patterns</span><span class="p">:</span> <span class="p">[</span><span class="sr">/screen</span><span class="se">\s</span><span class="sr">*repair/i</span><span class="p">]</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="na">key</span><span class="p">:</span> <span class="dl">"</span><span class="s2">pressure_wash</span><span class="dl">"</span><span class="p">,</span> <span class="na">patterns</span><span class="p">:</span> <span class="p">[</span><span class="sr">/pressure</span><span class="se">\s</span><span class="sr">*wash/i</span><span class="p">,</span> <span class="sr">/power</span><span class="se">\s</span><span class="sr">*wash/i</span><span class="p">]</span> <span class="p">},</span>
+  <span class="c1">// ...about thirty categories in total</span>
+<span class="p">];</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">PURE_WINDOW_CATEGORIES</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Set</span><span class="p">([</span>
+  <span class="dl">"</span><span class="s2">window_inside_and_out</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">window_outside_only</span><span class="dl">"</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">window_inside_only</span><span class="dl">"</span><span class="p">,</span>
+<span class="p">]);</span>
+</code></pre></div></div>
+
+<p>Jobs are not simply dropped when they don’t fit. They are routed into separate files for <strong>mixed</strong>, <strong>ambiguous</strong> (“select windows,” “west-facing only,” “TBD”), <strong>unspecified</strong>, and <strong>excluded</strong> work. For mixed jobs, the cleaner tries to extract the window-only amount from line items, so a window-plus-gutter ticket can still contribute its window portion. Keeping the rejects visible made the filter auditable: when a rule looked too aggressive, I could open the excluded file and see exactly what it had removed.</p>
+
+<h2 id="step-3-enrich">Step 3: enrich with San Diego parcel records</h2>
+
+<p>A job’s address becomes useful only when it is joined to property features. The enrichment step queries the public SanGIS parcel service for living area, bedrooms, and bathrooms. Two details mattered more than expected.</p>
+
+<p>First, the parcel data contains two size fields. One describes the lot, not the house. Using it inflated large-lot homes dramatically, so the lookup prefers assessor living area:</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/** Prefer assessor living area; USABLE_SQ_FEET is lot/usable land, not house size. */</span>
+<span class="kd">function</span> <span class="nx">inferSqft</span><span class="p">(</span><span class="nx">attrs</span><span class="p">:</span> <span class="nx">ParcelAttributes</span><span class="p">):</span> <span class="kr">number</span> <span class="o">|</span> <span class="kc">undefined</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">parseNumericField</span><span class="p">(</span><span class="nx">attrs</span><span class="p">.</span><span class="nx">TOTAL_LVG_AREA</span><span class="p">)</span> <span class="o">??</span> <span class="nx">parseNumericField</span><span class="p">(</span><span class="nx">attrs</span><span class="p">.</span><span class="nx">USABLE_SQ_FEET</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Second, bathroom counts are sometimes stored without a decimal point, so “35” means 3.5 baths:</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">n</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">text</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&gt;=</span> <span class="mi">10</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">)</span> <span class="k">return</span> <span class="nx">n</span> <span class="o">/</span> <span class="mi">10</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Address matching is fuzzy by nature, so the lookup tries a sequence of query strategies, from the strictest (house number, street, community, and ZIP) to looser fallbacks. A final sanity check caps square footage that is implausible for the bedroom and bathroom count, which catches bad parcel matches before they reach the price.</p>
+
+<p>Parcel enrichment succeeded for <strong>3,323 of 11,464</strong> validated jobs (29%). That coverage limit shaped the design: the quote engine has to work well both with and without a parcel match.</p>
+
+<h2 id="step-4-signals">Step 4: recover hours and rates from descriptions</h2>
+
+<p>Price alone does not explain effort. A parser extracts price-relevant signals from job descriptions and API job objects: on-site hours, technician count, and per-pane notes. Durations outside a plausible range (under 15 minutes or over 16 hours) are discarded rather than trusted.</p>
+
+<p>From these signals the pipeline computes <strong>dollars per hour by scope</strong>. That rate becomes an independent pricing signal for brand-new addresses: predicted hours multiplied by the historical hourly rate.</p>
+
+<h2 id="step-5-train">Step 5: train the exterior model and derive the rest</h2>
+
+<p>My first instinct was to fit a separate regression for each scope. The data argued otherwise. The model for “inside and out” jobs was far noisier (mean absolute error around <strong>$174</strong>) than the exterior-only model (around <strong>$61</strong>), largely because interior work varies so much from home to home.</p>
+
+<p>So I made exterior pricing the single regression and derived the other scopes from it with the company’s established rule of thumb: exterior is 60% of a full inside-and-out job.</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">const</span> <span class="nx">EXTERIOR_SHARE_OF_BOTH</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">;</span>
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">INTERIOR_SHARE_OF_BOTH</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">bothFromExterior</span><span class="p">(</span><span class="nx">exteriorPrice</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="kr">number</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">exteriorPrice</span> <span class="o">/</span> <span class="nx">EXTERIOR_SHARE_OF_BOTH</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="kd">function</span> <span class="nx">interiorFromBoth</span><span class="p">(</span><span class="nx">bothPrice</span><span class="p">:</span> <span class="kr">number</span><span class="p">):</span> <span class="kr">number</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">bothPrice</span> <span class="o">*</span> <span class="nx">INTERIOR_SHARE_OF_BOTH</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The exterior model is an ordinary least squares regression on square footage, bedrooms, bathrooms, property type, and lead source. Its training set blends two sources. A capped base sample of cleaned historical jobs carries modest weights, with parcel-matched rows weighted higher than unmatched ones. A small <strong>gold set</strong> of 18 jobs from a manually maintained job-tracking sheet, with clean paid amounts and durations, carries a much heavier weight so it can steer the fit. On that gold set the model reached a mean absolute error of about <strong>$58</strong>, with two-thirds of quotes within 25% of the actual price.</p>
+
+<h2 id="step-6-promote">Step 6: promote artifacts, not databases</h2>
+
+<p>Every stage writes plain files. The final step promotes validated outputs into <code class="language-plaintext highlighter-rouge">data/</code>: model coefficients, calibration tables, price lookups, address comps, and sync metadata. The app reads them through a small cache keyed on file modification time:</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="kd">function</span> <span class="nx">readJsonData</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">relativePath</span><span class="p">:</span> <span class="kr">string</span><span class="p">):</span> <span class="nx">T</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">file</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">(),</span> <span class="nx">relativePath</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">mtime</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span><span class="p">(</span><span class="nx">file</span><span class="p">).</span><span class="nx">mtimeMs</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">hit</span> <span class="o">=</span> <span class="nx">caches</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">relativePath</span><span class="p">)</span> <span class="k">as</span> <span class="nx">CacheEntry</span><span class="o">&lt;</span><span class="nx">T</span><span class="o">&gt;</span> <span class="o">|</span> <span class="kc">undefined</span><span class="p">;</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">hit</span> <span class="o">&amp;&amp;</span> <span class="nx">hit</span><span class="p">.</span><span class="nx">mtime</span> <span class="o">===</span> <span class="nx">mtime</span><span class="p">)</span> <span class="k">return</span> <span class="nx">hit</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="dl">"</span><span class="s2">utf8</span><span class="dl">"</span><span class="p">))</span> <span class="k">as</span> <span class="nx">T</span><span class="p">;</span>
+  <span class="nx">caches</span><span class="p">.</span><span class="kd">set</span><span class="p">(</span><span class="nx">relativePath</span><span class="p">,</span> <span class="p">{</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">mtime</span> <span class="p">});</span>
+  <span class="k">return</span> <span class="nx">data</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>When the pipeline promotes a new comps file, the next quote picks it up automatically, with no restart and no migration. For a small internal tool, that tradeoff was worth it: the “database” is a folder that can be diffed, backed up, and versioned, and every model carries a version string that appears on each quote.</p>
+
+<h2 id="the-quote-path">The live quote path</h2>
+
+<p>With the artifacts in place, a quote request is fast and deterministic. The engine layers several signals, each with its own weight:</p>
+
+<ol>
+  <li><strong>Exterior regression</strong>, adjusted for stories with a ladder premium.</li>
+  <li><strong>Lookup tables</strong> of historical prices by property segment, blended in proportion to how many jobs support the matching cell.</li>
+  <li><strong>Address comps</strong> from prior jobs at the same address, weighted heavily when there are several visits.</li>
+  <li><strong>Hours times rate</strong> for new addresses, using predicted hours and the historical hourly rate.</li>
+  <li><strong>Price-ladder snapping</strong> up to the next standard price point the office already uses.</li>
+  <li><strong>Guardrails</strong>: a floor and ceiling per scope, plus a range around the recommended price.</li>
+</ol>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">blendedScoped</span> <span class="o">=</span> <span class="nx">lookupWeight</span> <span class="o">*</span> <span class="nx">scopedLookup</span><span class="p">.</span><span class="nx">price</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nx">lookupWeight</span><span class="p">)</span> <span class="o">*</span> <span class="nx">regScoped</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">addressHit</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">mergedScoped</span> <span class="o">=</span> <span class="nx">addrWeight</span> <span class="o">*</span> <span class="nx">addressHit</span><span class="p">.</span><span class="nx">price</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nx">addrWeight</span><span class="p">)</span> <span class="o">*</span> <span class="nx">blendedScoped</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">hoursRateHit</span> <span class="o">&amp;&amp;</span> <span class="nx">scope</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">interior</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">mergedScoped</span> <span class="o">=</span> <span class="nx">hoursRateWeight</span> <span class="o">*</span> <span class="nx">hoursRateHit</span><span class="p">.</span><span class="nx">price</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nx">hoursRateWeight</span><span class="p">)</span> <span class="o">*</span> <span class="nx">blendedScoped</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">snapped</span> <span class="o">=</span> <span class="nx">snapToPriceLadderUp</span><span class="p">(</span><span class="nx">mergedScoped</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">price</span> <span class="o">=</span> <span class="nx">applyPriceGuardrails</span><span class="p">(</span><span class="nx">snapped</span><span class="p">,</span> <span class="nx">exteriorBase</span><span class="p">,</span> <span class="nx">scope</span><span class="p">,</span> <span class="nx">propertyKind</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">accurate</span><span class="p">:</span> <span class="nx">tightlyComped</span><span class="p">,</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>Two design choices made the output usable on a call. First, every quote returns a step-by-step explanation (“Step 1: exterior regression $X; Step 4: HCP lookup, n jobs, 40% blend…”), shown in a derivation panel, so an agent can defend the number. Second, a confidence score rises when the parcel matched, when the caller confirmed square footage, or when many historical jobs back the lookup cell. Low confidence prompts the agent to confirm details instead of guessing.</p>
+
+<h2 id="feedback-loop">The feedback loop</h2>
+
+<p>A pricing model drifts unless reality flows back into it. The app has two surfaces: a full estimate workspace and a simplified front-desk view. Every desk quote is written to a shared office log. When a job’s real price differs, staff record a “should-be” price on the Corrections page.</p>
+
+<p>A single command folds those corrections back into the live tables:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">skipSync</span><span class="p">)</span> <span class="k">await</span> <span class="nx">run</span><span class="p">(</span><span class="dl">"</span><span class="s2">node</span><span class="dl">"</span><span class="p">,</span> <span class="p">[</span><span class="dl">"</span><span class="s2">ml/sync-correction-log.mjs</span><span class="dl">"</span><span class="p">]);</span>
+<span class="k">await</span> <span class="nx">run</span><span class="p">(</span><span class="dl">"</span><span class="s2">node</span><span class="dl">"</span><span class="p">,</span> <span class="p">[</span><span class="dl">"</span><span class="s2">ml/build-price-lookup.mjs</span><span class="dl">"</span><span class="p">]);</span>
+<span class="k">await</span> <span class="nx">run</span><span class="p">(</span><span class="dl">"</span><span class="s2">node</span><span class="dl">"</span><span class="p">,</span> <span class="p">[</span><span class="dl">"</span><span class="s2">ml/build-address-lookup.mjs</span><span class="dl">"</span><span class="p">]);</span>
+<span class="k">await</span> <span class="nx">run</span><span class="p">(</span><span class="dl">"</span><span class="s2">node</span><span class="dl">"</span><span class="p">,</span> <span class="p">[</span><span class="dl">"</span><span class="s2">ml/promote-customer-data.mjs</span><span class="dl">"</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>This provides a path for staff to correct a price and supply labels for later preparation runs. It does not establish adoption, correction quality, or improved accuracy; corrections still need scope checks and review before reuse.</p>
+
+<h2 id="validation">Validation</h2>
+
+<p>Each pipeline run ends with validation against historical jobs, using the live TypeScript predictor rather than a separate reimplementation, plus bootstrap resampling to put confidence intervals on the error.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Measure</th>
+      <th>Early validation</th>
+      <th>Live predictor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Jobs evaluated</td>
+      <td>8,362</td>
+      <td>11,464</td>
+    </tr>
+    <tr>
+      <td>Mean absolute error</td>
+      <td>$239</td>
+      <td>$73 (95% CI $70–$76)</td>
+    </tr>
+    <tr>
+      <td>Median absolute % error</td>
+      <td>47%</td>
+      <td>10%</td>
+    </tr>
+    <tr>
+      <td>Quotes within 10%</td>
+      <td>11%</td>
+      <td>49%</td>
+    </tr>
+    <tr>
+      <td>Quotes within 25%</td>
+      <td>26%</td>
+      <td>73%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The two columns use different job sets, so this is not a controlled experiment. The early column is the first validation pass. The live-predictor column, three days later, scored the enriched training set with the full blended engine, including lookups and address comps. The later run combines cleaning, enrichment, and comparable-job signals, but these evaluations do not isolate the contribution of each change.</p>
+
+<p>The numbers also need an honest caveat. The live predictor uses address comps built from the same history it is scored on, so repeat addresses look better than a truly new customer would. The reported mean bias was about $23 under the reference price. This is an observed error, not evidence that underpricing is desirable. A separate check on 17 known townhome units from an HOA project landed within 10% for 82% of units; the small, specific sample does not establish generalization.</p>
+
+<h2 id="tradeoffs">Tradeoffs and limits</h2>
+
+<p>The architecture is deliberately small, and that has costs.</p>
+
+<p><strong>Files instead of a database.</strong> JSON artifacts are easy to inspect and version, but they assume a single writer and a modest data size. A larger operation would move job history to PostgreSQL and schedule the pipeline.</p>
+
+<p><strong>Address matching is heuristic.</strong> Normalized street strings and fuzzy parcel queries require match-quality checks. Parcel coverage was 29% in the reported run; the evaluation does not isolate its effect on accuracy.</p>
+
+<p><strong>Evaluation is optimistic for repeat addresses.</strong> The next step is a time-based holdout that scores only addresses first seen after the training cutoff.</p>
+
+<p><strong>The gold set is small.</strong> Eighteen heavily weighted jobs can strongly affect the fit. More representative labels and held-out evaluation are needed to assess stability.</p>
+
+<p><strong>Customer data needs a separate home.</strong> Training inputs contain customer-level records. In a next iteration I would keep raw exports in private storage and commit only aggregated, anonymized artifacts.</p>
+
+<h2 id="lessons">Lessons learned</h2>
+
+<p>The biggest lesson was to make data assumptions inspectable: which jobs count as window cleaning, which size field describes the house, and how hours are recovered from free text. The retrospective comparisons do not isolate the effect of those choices from model changes or repeat-address evidence.</p>
+
+<p>The second lesson was to treat explainability as a product feature, not a nice-to-have. An agent will not trust a number they cannot explain to a customer. Showing each pricing step, with its source and weight, gives staff a basis for reviewing and correcting a quote.</p>
+
+<p>The resulting design uses scripts to write versioned JSON artifacts for a small Next.js app. That makes the calculation inspectable and identifies future storage and promotion work. It does not, by itself, establish business savings, adoption, or a reduction in quoting time.</p>
+
+<hr />
+
+<p><strong>Project:</strong> Blue Ocean Estimate Tool (internal Next.js app)<br />
+<strong>Author:</strong> Ali Raza, Business Operations Intern, Blue Ocean Window Cleaning<br />
+<strong>Topic:</strong> Data-plane architecture for service-business price estimation</p>
+        <p class="note-origin">First published on <a href="https://aliraza2025.github.io/bowc-estimate-tool-notes/data-plane/">GitHub Pages</a>. This is now the main copy.</p>
+      </article>
+    </div>
+
+    <section class="closing-card" aria-labelledby="closing-title">
+      <p class="eyebrow">Continue exploring</p>
+      <h2 id="closing-title">See the project in context.</h2>
+      <p>The Experience page covers the business problem and my role as Business Operations Intern. The estimate tool itself is private, and no customer data is published.</p>
+      <div class="closing-actions">
+        <a class="btn-primary" href="/experience.html">Read about the internship</a>
+      </div>
+    </section>
+
+    <section class="more-notes" aria-labelledby="more-title">
+      <h2 id="more-title">More field notes</h2>
+      <div class="next-links">
+      <a href="/notes/crediclip-ai-product-quality.html"><b>What 780 completed video jobs taught me about AI product quality</b><span>CrediClip · 6 min read</span></a>
+      <a href="/notes/crediclip-data-plane.html"><b>Building a Multi-Lane Data Plane for Short-Form Video Credibility Analysis</b><span>CrediClip · 10 min read</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Ali Raza · Built with care · <a href="/about-this-site.html">About this site</a> · <a href="/sources.html">Sources</a></p>
+  </footer>
+
+  <script>
+    document.querySelector('.nav-links').addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') document.getElementById('nav-toggle').checked = false;
+    });
+  </script>
+  <script src="/assets/ask-ali.js" defer></script>
+</body>
+</html>

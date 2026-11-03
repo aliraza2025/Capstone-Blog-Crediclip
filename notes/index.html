@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Field notes · Ali Raza</title>
+  <meta name="description" content="Engineering and product notes by Ali Raza: how CrediClip&#x27;s data plane works, what 780 video jobs taught me about AI product quality, and the data pipeline behind a phone-ready pricing tool." />
+  <meta name="author" content="Ali Raza" />
+  <link rel="canonical" href="https://alirazaai.page/notes/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Ali Raza · Portfolio" />
+  <meta property="og:title" content="Field notes · Ali Raza" />
+  <meta property="og:description" content="Engineering and product notes by Ali Raza: how CrediClip&#x27;s data plane works, what 780 video jobs taught me about AI product quality, and the data pipeline behind a phone-ready pricing tool." />
+  <meta property="og:url" content="https://alirazaai.page/notes/" />
+  <meta name="twitter:card" content="summary" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Blog", "name": "Field notes", "url": "https://alirazaai.page/notes/", "author": {"@type": "Person", "name": "Ali Raza", "url": "https://alirazaai.page/"}, "blogPost": [{"@type": "TechArticle", "headline": "Building the Data Plane Behind a Phone-Ready Window-Cleaning Quote", "url": "https://alirazaai.page/notes/estimator-data-plane", "datePublished": "2026-10-26"}, {"@type": "TechArticle", "headline": "What 780 completed video jobs taught me about AI product quality", "url": "https://alirazaai.page/notes/crediclip-ai-product-quality", "datePublished": "2026-10-26"}, {"@type": "TechArticle", "headline": "Building a Multi-Lane Data Plane for Short-Form Video Credibility Analysis", "url": "https://alirazaai.page/notes/crediclip-data-plane", "datePublished": "2026-10-14"}]}</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/notes.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/index.html" class="logo" aria-label="Ali Raza - home">Ali <span>Raza</span></a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Navigation menu" />
+      <label for="nav-toggle" class="hamburger" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+      <ul class="nav-links" role="list">
+        <li><a href="/index.html#portfolio">Work</a></li>
+        <li><a href="/projects.html">Projects</a></li>
+        <li><a href="/experience.html">Experience</a></li>
+        <li><a href="/notes/" aria-current="page">Notes</a></li>
+        <li><a href="/index.html#about">About</a></li>
+        <li><a href="/index.html#creative">Creative</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main" class="page notes-index">
+    <p class="breadcrumb"><a href="/index.html">Home</a> / Notes</p>
+    <p class="eyebrow">Field notes</p>
+    <h1>How the things I build actually work</h1>
+    <p class="dek">
+      Engineering and product notes from my projects: the architecture decisions, the numbers behind them, and what they don’t prove.
+      Figures come from each project’s own reports, linked in the notes.
+    </p>
+
+    <ul class="note-list" role="list">
+      <li class="note-card">
+        <a href="/notes/estimator-data-plane.html">
+          <p class="note-card-kicker">Blue Ocean Window Cleaning · Engineering note</p>
+          <h2>Building the Data Plane Behind a Phone-Ready Window-Cleaning Quote</h2>
+          <p class="note-card-dek">How I turned 11,000+ Housecall Pro jobs, San Diego parcel records, and a small set of tracked jobs into an explainable pricing engine that office staff can use on a live call.</p>
+          <p class="note-card-meta"><time datetime="2026-10-26">October 26, 2026</time> · 11 min read</p>
+        </a>
+      </li>
+      <li class="note-card">
+        <a href="/notes/crediclip-ai-product-quality.html">
+          <p class="note-card-kicker">CrediClip · AI product evaluation</p>
+          <h2>What 780 completed video jobs taught me about AI product quality</h2>
+          <p class="note-card-dek">How evidence coverage, readiness benchmarks, and explicit uncertainty shaped the CrediClip roadmap.</p>
+          <p class="note-card-meta"><time datetime="2026-10-26">October 26, 2026</time> · 6 min read</p>
+        </a>
+      </li>
+      <li class="note-card">
+        <a href="/notes/crediclip-data-plane.html">
+          <p class="note-card-kicker">CrediClip · Capstone engineering note</p>
+          <h2>Building a Multi-Lane Data Plane for Short-Form Video Credibility Analysis</h2>
+          <p class="note-card-dek">How I separated CrediClip&#x27;s web control plane from platform-specific evidence workers to analyze YouTube Shorts, Instagram Reels, and TikTok videos reliably.</p>
+          <p class="note-card-meta"><time datetime="2026-10-14">October 14, 2026</time> · 10 min read</p>
+        </a>
+      </li>
+    </ul>
+  </main>
+
+  <footer>
+    <p>© 2026 Ali Raza · Built with care · <a href="/about-this-site.html">About this site</a> · <a href="/sources.html">Sources</a></p>
+  </footer>
+
+  <script>
+    document.querySelector('.nav-links').addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') document.getElementById('nav-toggle').checked = false;
+    });
+  </script>
+  <script src="/assets/ask-ali.js" defer></script>
+</body>
+</html>

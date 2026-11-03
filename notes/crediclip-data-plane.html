@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building a Multi-Lane Data Plane for Short-Form Video Credibility Analysis · Field notes · Ali Raza</title>
+  <meta name="description" content="How I separated CrediClip&#x27;s web control plane from platform-specific evidence workers to analyze YouTube Shorts, Instagram Reels, and TikTok videos reliably." />
+  <meta name="author" content="Ali Raza" />
+  <link rel="canonical" href="https://alirazaai.page/notes/crediclip-data-plane" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Ali Raza · Portfolio" />
+  <meta property="og:title" content="Building a Multi-Lane Data Plane for Short-Form Video Credibility Analysis · Field notes · Ali Raza" />
+  <meta property="og:description" content="How I separated CrediClip&#x27;s web control plane from platform-specific evidence workers to analyze YouTube Shorts, Instagram Reels, and TikTok videos reliably." />
+  <meta property="og:url" content="https://alirazaai.page/notes/crediclip-data-plane" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="article:published_time" content="2026-10-14" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Building a Multi-Lane Data Plane for Short-Form Video Credibility Analysis", "description": "How I separated CrediClip's web control plane from platform-specific evidence workers to analyze YouTube Shorts, Instagram Reels, and TikTok videos reliably.", "datePublished": "2026-10-14", "author": {"@type": "Person", "name": "Ali Raza", "url": "https://alirazaai.page/"}, "url": "https://alirazaai.page/notes/crediclip-data-plane", "mainEntityOfPage": "https://alirazaai.page/notes/crediclip-data-plane", "keywords": ["Python", "FastAPI", "System Architecture", "AI"], "isPartOf": {"@type": "Blog", "name": "Field notes", "url": "https://alirazaai.page/notes/"}}</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/notes.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/index.html" class="logo" aria-label="Ali Raza - home">Ali <span>Raza</span></a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Navigation menu" />
+      <label for="nav-toggle" class="hamburger" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+      <ul class="nav-links" role="list">
+        <li><a href="/index.html#portfolio">Work</a></li>
+        <li><a href="/projects.html">Projects</a></li>
+        <li><a href="/experience.html">Experience</a></li>
+        <li><a href="/notes/" aria-current="page">Notes</a></li>
+        <li><a href="/index.html#about">About</a></li>
+        <li><a href="/index.html#creative">Creative</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main" class="note">
+    <header class="note-hero">
+      <p class="breadcrumb"><a href="/index.html">Home</a> / <a href="/notes/">Notes</a> / CrediClip</p>
+      <p class="eyebrow">Capstone engineering note · CrediClip</p>
+      <h1>Building a Multi-Lane Data Plane for Short-Form Video Credibility Analysis</h1>
+      <p class="dek">How I separated CrediClip&#x27;s web control plane from platform-specific evidence workers to analyze YouTube Shorts, Instagram Reels, and TikTok videos reliably.</p>
+      <dl class="note-meta">
+        <div><dt>Author</dt><dd>Ali Raza</dd></div>
+        <div><dt>Published</dt><dd><time datetime="2026-10-14">October 14, 2026</time></dd></div>
+        <div><dt>Reading time</dt><dd>10 min read</dd></div>
+      </dl>
+      <ul class="tag-list" aria-label="Topics"><li>Python</li><li>FastAPI</li><li>System Architecture</li><li>AI</li></ul>
+    </header>
+
+    <div class="note-shell">
+      <aside class="note-rail" aria-label="On this page">
+        <p>On this page</p>
+        <nav>
+            <a href="#the-problem-with-a-single-synchronous-pipeline">The original problem</a>
+            <a href="#control-plane-versus-data-plane">Two-plane architecture</a>
+            <a href="#step-2-claim-jobs-atomically">Atomic job claims</a>
+            <a href="#step-3-create-lanes-with-routing-filters">Worker lanes</a>
+            <a href="#step-6-design-for-failure-not-only-success">Failure recovery</a>
+            <a href="#lessons-from-building-the-data-plane">Lessons learned</a>
+        </nav>
+      </aside>
+
+      <article class="note-prose">
+
+
+<p>Short-form video looks simple from the outside: paste a link, wait briefly, and receive a credibility score. The engineering behind that interaction is less simple. YouTube Shorts, Instagram Reels, and TikTok expose different metadata, apply different anti-bot controls, and fail in different ways. A single request handler that tries to download media, transcribe audio, scan frames, retrieve evidence, and score a claim quickly becomes slow and fragile.</p>
+
+<p>I encountered this problem while building <strong>CrediClip</strong>, my capstone project for credibility analysis of short-form video. The most important architectural decision was to separate the system into two parts:</p>
+
+<ul>
+  <li>a <strong>control plane</strong> that accepts links, stores job state, exposes status APIs, and returns results;</li>
+  <li>a <strong>data plane</strong> made of background workers that perform platform-specific evidence extraction and analysis.</li>
+</ul>
+
+<p>Within the data plane, I introduced <strong>worker lanes</strong>. Each lane can accept or reject jobs by platform, allowing expensive or unreliable workloads to be isolated without duplicating the entire application.</p>
+
+<p>This article explains why the architecture was necessary, how it works, and what I learned from implementing it.</p>
+
+<blockquote>
+  <p>The code excerpts below are shortened from the working project for readability. The complete implementation is available in the <a href="https://github.com/aliraza2025/CrediClip">CrediClip repository</a>.</p>
+</blockquote>
+
+<h2 id="the-problem-with-a-single-synchronous-pipeline">The problem with a single synchronous pipeline</h2>
+
+<p>The first version of the application followed a straightforward flow:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>browser request
+    -&gt; fetch platform page
+    -&gt; extract caption and transcript
+    -&gt; run OCR or speech transcription
+    -&gt; analyze credibility
+    -&gt; return response
+</code></pre></div></div>
+
+<p>That design works for a controlled demo, but it creates several production problems.</p>
+
+<p>First, evidence extraction is much slower than ordinary web processing. A video may require browser rendering, media download, frame sampling, OCR, or automatic speech recognition. Holding an HTTP request open during all of those stages makes timeouts much more likely.</p>
+
+<p>Second, the platforms do not behave alike. Instagram may expose useful rendered metadata while withholding the media file. TikTok may require a browser session or cookies. YouTube may return captions successfully for one video and produce an anti-bot challenge for the next. Treating those workloads as identical means one platform’s failure mode can consume all available capacity.</p>
+
+<p>Third, the workload is resource-heavy. Browser processes, media decoding, OCR, and transcription compete for memory and CPU. Running them inside the public web process risks slowing every visitor or terminating the process entirely.</p>
+
+<p>The solution was not simply “add more servers.” The system needed a clear boundary between coordinating work and performing work.</p>
+
+<h2 id="control-plane-versus-data-plane">Control plane versus data plane</h2>
+
+<p>The <strong>control plane</strong> is intentionally lightweight. It performs four main tasks:</p>
+
+<ol>
+  <li>normalize and validate submitted URLs;</li>
+  <li>create or reuse jobs in a persistent queue;</li>
+  <li>allow workers to claim and update jobs;</li>
+  <li>let the client poll one job until it completes or fails.</li>
+</ol>
+
+<p>The <strong>data plane</strong> performs the expensive operations:</p>
+
+<ol>
+  <li>identify the source platform;</li>
+  <li>retrieve captions, transcripts, metadata, and media where available;</li>
+  <li>run browser-assisted extraction, OCR, frame scanning, or speech transcription;</li>
+  <li>calculate evidence coverage and credibility signals;</li>
+  <li>send artifacts or a completed result back to the control plane.</li>
+</ol>
+
+<p>The resulting flow is:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>User
+  |
+  v
+FastAPI control plane
+  |
+  +--&gt; SQLite job queue
+           |
+           +--&gt; Instagram/TikTok lane A
+           +--&gt; Instagram/TikTok lane B
+           +--&gt; YouTube Shorts lane
+                         |
+                         v
+              captions + ASR + OCR + metadata
+                         |
+                         v
+                 credibility result
+                         |
+                         v
+                  SQLite job record
+</code></pre></div></div>
+
+<p>This separation provides two useful guarantees. The public API remains responsive even when extraction is slow, and a failing platform can be isolated to its own worker lane.</p>
+
+<h2 id="step-1-represent-analysis-as-a-durable-job">Step 1: represent analysis as a durable job</h2>
+
+<p>When the frontend submits a video URL, the API does not immediately perform rich extraction. It creates or reuses a queue job:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">"/api/jobs"</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">JobResponse</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">create_analysis_job</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">JobCreateRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">JobResponse</span><span class="p">:</span>
+    <span class="n">normalized_url</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">normalize_input_url</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">url</span><span class="p">))</span>
+    <span class="n">job</span> <span class="o">=</span> <span class="n">create_or_reuse_job</span><span class="p">(</span><span class="n">normalized_url</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">JobResponse</span><span class="p">(</span><span class="o">**</span><span class="n">job</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The job record stores a small state machine:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>queued -&gt; processing -&gt; completed
+                    \-&gt; failed
+</code></pre></div></div>
+
+<p>For the MVP, I used SQLite rather than introducing a separate queue product. That was a deliberate tradeoff. The project needed durable state, atomic claiming, simple backup, and low operating cost more than it needed distributed throughput.</p>
+
+<p>The table stores the URL, status, worker identity, extracted caption and transcript, diagnostic notes, result JSON, error information, and timestamps. This makes the queue useful not only for scheduling but also for observability.</p>
+
+<p>The API also reuses an active or recently completed job for the same URL. That prevents repeated clicks from creating duplicate browser and transcription work. A result-version marker ensures that stale results are not reused after scoring logic changes.</p>
+
+<h2 id="step-2-claim-jobs-atomically">Step 2: claim jobs atomically</h2>
+
+<p>Multiple workers poll the same API. If two workers read the same queued record at the same time, they could both analyze it. To prevent that, the claim operation starts an immediate SQLite transaction, selects an eligible job, and changes its status before releasing the lock.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">claim_next_job</span><span class="p">(</span><span class="n">worker_id</span><span class="p">,</span> <span class="n">include_platforms</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">exclude_platforms</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">recover_stale_jobs</span><span class="p">()</span>
+    <span class="n">include</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">include_platforms</span> <span class="ow">or</span> <span class="p">[])</span>
+    <span class="n">exclude</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">exclude_platforms</span> <span class="ow">or</span> <span class="p">[])</span>
+
+    <span class="k">with</span> <span class="n">_connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
+        <span class="n">conn</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="s">"BEGIN IMMEDIATE"</span><span class="p">)</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="n">conn</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="s">"""
+            SELECT * FROM jobs
+            WHERE status = 'queued'
+            ORDER BY created_at ASC
+            LIMIT 200
+            """</span>
+        <span class="p">).</span><span class="n">fetchall</span><span class="p">()</span>
+
+        <span class="n">selected</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">for</span> <span class="n">candidate</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+            <span class="n">platform</span> <span class="o">=</span> <span class="n">_job_platform</span><span class="p">(</span><span class="n">candidate</span><span class="p">[</span><span class="s">"url"</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">include</span> <span class="ow">and</span> <span class="n">platform</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">include</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">exclude</span> <span class="ow">and</span> <span class="n">platform</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">selected</span> <span class="o">=</span> <span class="n">candidate</span>
+            <span class="k">break</span>
+
+        <span class="k">if</span> <span class="n">selected</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+
+        <span class="n">conn</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="s">"""
+            UPDATE jobs
+            SET status = 'processing', worker_id = ?, updated_at = ?
+            WHERE id = ?
+            """</span><span class="p">,</span>
+            <span class="p">(</span><span class="n">worker_id</span><span class="p">,</span> <span class="n">_now_iso</span><span class="p">(),</span> <span class="n">selected</span><span class="p">[</span><span class="s">"id"</span><span class="p">]),</span>
+        <span class="p">)</span>
+        <span class="n">conn</span><span class="p">.</span><span class="n">commit</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">get_job</span><span class="p">(</span><span class="n">selected</span><span class="p">[</span><span class="s">"id"</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">BEGIN IMMEDIATE</code> is important here. It serializes competing writers during the short claim operation. This is enough for the scale of the MVP and avoids adding Redis or a message broker solely for locking.</p>
+
+<h2 id="step-3-create-lanes-with-routing-filters">Step 3: create lanes with routing filters</h2>
+
+<p>A lane is not a separate codebase. It is the same worker started with a different routing policy.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">parser</span><span class="p">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">"--include-platforms"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">""</span><span class="p">)</span>
+<span class="n">parser</span><span class="p">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s">"--exclude-platforms"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">""</span><span class="p">)</span>
+
+<span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">"worker_id"</span><span class="p">:</span> <span class="n">worker_id</span><span class="p">}</span>
+<span class="k">if</span> <span class="n">include_platforms</span><span class="p">:</span>
+    <span class="n">payload</span><span class="p">[</span><span class="s">"include_platforms"</span><span class="p">]</span> <span class="o">=</span> <span class="n">include_platforms</span>
+<span class="k">if</span> <span class="n">exclude_platforms</span><span class="p">:</span>
+    <span class="n">payload</span><span class="p">[</span><span class="s">"exclude_platforms"</span><span class="p">]</span> <span class="o">=</span> <span class="n">exclude_platforms</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">api_base</span><span class="si">}</span><span class="s">/api/jobs/claim"</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">response</span><span class="p">.</span><span class="n">json</span><span class="p">().</span><span class="n">get</span><span class="p">(</span><span class="s">"job"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The deployed topology used two general lanes for Instagram and TikTok and one dedicated YouTube Shorts lane:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># General evidence lane</span>
+python scripts/queue_worker.py <span class="se">\</span>
+  <span class="nt">--worker-id</span> oracle-worker-1 <span class="se">\</span>
+  <span class="nt">--exclude-platforms</span> youtube_shorts <span class="se">\</span>
+  <span class="nt">--ingest-mode</span> rich
+
+<span class="c"># Dedicated YouTube lane</span>
+python scripts/queue_worker.py <span class="se">\</span>
+  <span class="nt">--worker-id</span> oracle-worker-youtube <span class="se">\</span>
+  <span class="nt">--include-platforms</span> youtube_shorts <span class="se">\</span>
+  <span class="nt">--ingest-mode</span> rich
+</code></pre></div></div>
+
+<p>YouTube was separated because its anti-bot and authentication behavior differed from Instagram and TikTok. If YouTube extraction stalled, it could no longer occupy every worker. The general lanes remained available for the other platforms.</p>
+
+<p>The same mechanism can support future policies without rewriting the queue: a high-priority lane, a GPU-backed transcription lane, or a lane restricted to jobs that already contain transcripts.</p>
+
+<h2 id="step-4-use-one-interface-with-platform-specific-adapters">Step 4: use one interface with platform-specific adapters</h2>
+
+<p>Once a worker claims a job, it selects the correct ingestion adapter. Each adapter returns the same logical output: caption, transcript, notes, and structured evidence coverage.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">async</span> <span class="k">def</span> <span class="nf">ingest</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">worker_mode</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+    <span class="n">normalized_url</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">normalize_input_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">platform</span> <span class="o">=</span> <span class="n">infer_platform</span><span class="p">(</span><span class="n">normalized_url</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">platform</span> <span class="o">==</span> <span class="s">"youtube_shorts"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="n">enrich_from_youtube</span><span class="p">(</span>
+            <span class="n">normalized_url</span><span class="p">,</span>
+            <span class="n">worker_mode</span><span class="o">=</span><span class="n">worker_mode</span><span class="p">,</span>
+            <span class="n">include_evidence</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">platform</span> <span class="o">==</span> <span class="s">"instagram"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="n">enrich_from_instagram</span><span class="p">(</span>
+            <span class="n">normalized_url</span><span class="p">,</span>
+            <span class="n">worker_mode</span><span class="o">=</span><span class="n">worker_mode</span><span class="p">,</span>
+            <span class="n">include_evidence</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">platform</span> <span class="o">==</span> <span class="s">"tiktok"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="n">enrich_from_tiktok</span><span class="p">(</span>
+            <span class="n">normalized_url</span><span class="p">,</span>
+            <span class="n">worker_mode</span><span class="o">=</span><span class="n">worker_mode</span><span class="p">,</span>
+            <span class="n">include_evidence</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="s">""</span><span class="p">,</span> <span class="s">""</span><span class="p">,</span> <span class="p">[</span><span class="s">"Unsupported platform"</span><span class="p">],</span> <span class="p">{}</span>
+</code></pre></div></div>
+
+<p>This adapter boundary matters because the downstream scoring pipeline should not need to know how evidence was collected. It consumes normalized text and evidence metadata regardless of whether the source was a page description, subtitle track, OCR frame, or ASR transcript.</p>
+
+<p>The evidence object also records coverage signals such as caption tokens, transcript tokens, OCR tokens, ASR tokens, and an overall evidence level. That information affects uncertainty and prevents a sparse extraction from being presented with the same confidence as a high-coverage analysis.</p>
+
+<h2 id="step-5-decide-where-analysis-runs">Step 5: decide where analysis runs</h2>
+
+<p>The worker supports two modes:</p>
+
+<ul>
+  <li><strong>local analysis</strong>: extract evidence and run the complete scoring pipeline on the worker;</li>
+  <li><strong>server analysis</strong>: extract evidence on the worker, then send artifacts to the API for scoring.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">analysis_mode</span> <span class="o">==</span> <span class="s">"local"</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">analyze_video</span><span class="p">(</span>
+        <span class="n">AnalyzeRequest</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">caption</span><span class="o">=</span><span class="n">caption</span><span class="p">,</span>
+            <span class="n">transcript</span><span class="o">=</span><span class="n">transcript</span><span class="p">,</span>
+            <span class="n">ingest_evidence</span><span class="o">=</span><span class="n">ingest_evidence</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">post_complete_result</span><span class="p">(</span><span class="n">job_id</span><span class="p">,</span> <span class="n">caption</span><span class="p">,</span> <span class="n">transcript</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">post_artifacts</span><span class="p">(</span><span class="n">job_id</span><span class="p">,</span> <span class="n">caption</span><span class="p">,</span> <span class="n">transcript</span><span class="p">,</span> <span class="n">ingest_evidence</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>This switch made deployment more flexible. A small web host could remain lightweight while a VM performed rich ingestion and scoring. Alternatively, the worker could upload artifacts to a stronger analysis server. The queue contract stayed the same in both cases.</p>
+
+<h2 id="step-6-design-for-failure-not-only-success">Step 6: design for failure, not only success</h2>
+
+<p>Background processing creates a specific reliability problem: a worker can claim a job and then disappear. Without recovery, that job remains in <code class="language-plaintext highlighter-rouge">processing</code> forever.</p>
+
+<p>CrediClip periodically checks processing jobs and requeues any that have exceeded a configurable stale threshold:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">recover_stale_jobs</span><span class="p">():</span>
+    <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="p">.</span><span class="n">utc</span><span class="p">)</span>
+    <span class="n">recovered</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">with</span> <span class="n">_connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="n">conn</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="s">"SELECT id, updated_at FROM jobs WHERE status = 'processing'"</span>
+        <span class="p">).</span><span class="n">fetchall</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+            <span class="n">age</span> <span class="o">=</span> <span class="n">now</span> <span class="o">-</span> <span class="n">datetime</span><span class="p">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s">"updated_at"</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">age</span><span class="p">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="n">PROCESSING_STALE_SEC</span><span class="p">:</span>
+                <span class="n">recovered</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s">"id"</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">job_id</span> <span class="ow">in</span> <span class="n">recovered</span><span class="p">:</span>
+            <span class="n">conn</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="s">"""
+                UPDATE jobs
+                SET status = 'queued', worker_id = NULL, updated_at = ?
+                WHERE id = ?
+                """</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">_now_iso</span><span class="p">(),</span> <span class="n">job_id</span><span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="n">conn</span><span class="p">.</span><span class="n">commit</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Timeouts are handled at the ingestion and analysis boundaries, and failures are written back to the job record. The frontend can therefore distinguish “still working” from “failed,” and operators can inspect the reason instead of searching through only terminal logs.</p>
+
+<h2 id="what-the-lane-model-improved">What the lane model improved</h2>
+
+<p>The lane architecture improved the project in four practical ways.</p>
+
+<p><strong>Isolation.</strong> YouTube-specific failures no longer consumed all worker capacity.</p>
+
+<p><strong>Responsiveness.</strong> The web layer handled short API operations while media processing happened elsewhere.</p>
+
+<p><strong>Observability.</strong> Every job recorded its state, assigned worker, evidence volume, notes, result, and error.</p>
+
+<p><strong>Cost control.</strong> The MVP could use SQLite and small worker VMs instead of a managed queue, distributed database, or large always-on server.</p>
+
+<p>It also made the system easier to explain. The score was no longer the output of a single opaque model call. It was the final stage of an observable pipeline that collected evidence, measured coverage, assessed signals, and recorded uncertainty.</p>
+
+<h2 id="scoring-confidence-and-evaluation">Scoring, confidence, and evaluation</h2>
+
+<p>The final score is computed in deterministic application code. LLMs can provide structured claim assessments when evidence thresholds are met. Low analysis confidence shrinks scores toward a neutral anchor of 52, while evidence coverage describes the recovered inputs. That behavior is a design choice, not an independently validated probability.</p>
+
+<p>In the March 11, 2026 YouTube batch, all 780 jobs eventually completed, including two retried links, but 759 results (97.3%) were low evidence. In a separate 19-link Instagram comparison between March 11 and March 13, mean evidence tokens rose from 1.0 to 130.9. These measurements describe completion and evidence recovery. They do not establish credibility accuracy.</p>
+
+<p>The <a href="/notes/crediclip-ai-product-quality.html">evaluation article</a> links the underlying reports and distinguishes these measurements from independently labeled assessment quality. Stronger labeled evaluation and confidence calibration remain necessary.</p>
+
+<h2 id="tradeoffs-and-limits">Tradeoffs and limits</h2>
+
+<p>The design is intentionally pragmatic, but it has limits.</p>
+
+<p>SQLite is suitable for a small deployment with a limited number of concurrent writers. At higher scale, the job store should move to PostgreSQL and a dedicated queue such as Redis, RabbitMQ, or a managed equivalent.</p>
+
+<p>Polling is simple but introduces repeated requests and small delays. Server-Sent Events or WebSockets could improve result delivery for a larger interactive product.</p>
+
+<p>Platform adapters remain dependent on external websites whose markup, authentication, and anti-automation controls can change. The lane model contains those failures, but it cannot eliminate them.</p>
+
+<p>Finally, routing by platform is only a first-level policy. A mature system could route by evidence requirements, expected duration, account/session availability, or resource class.</p>
+
+<h2 id="lessons-from-building-the-data-plane">Lessons from building the data plane</h2>
+
+<p>The main lesson was that credibility analysis is not only a modeling problem. Before scoring can be trusted, the system must reliably collect and describe the evidence that reached the model.</p>
+
+<p>Separating the control plane from the data plane created a stable boundary between user-facing coordination and unpredictable media work. Adding lanes then turned platform differences into explicit routing decisions rather than hidden exceptions inside one large process.</p>
+
+<p>For an MVP, the best architecture is not necessarily the one with the most infrastructure. It is the smallest architecture that makes failure visible, protects the user-facing path, and leaves clear upgrade points. In CrediClip, a FastAPI control plane, a durable SQLite queue, and lane-aware Python workers were enough to achieve that goal.</p>
+
+<hr />
+
+<p><strong>Project:</strong> <a href="https://github.com/aliraza2025/CrediClip">CrediClip on GitHub</a><br />
+<strong>Author:</strong> Ali Raza<br />
+<strong>Topic:</strong> Data-plane architecture for short-form video credibility analysis</p>
+        <p class="note-origin">First published on <a href="https://aliraza2025.github.io/CrediClip/data-plane/">GitHub Pages</a>. This is now the main copy.</p>
+      </article>
+    </div>
+
+    <section class="closing-card" aria-labelledby="closing-title">
+      <p class="eyebrow">Continue exploring</p>
+      <h2 id="closing-title">See the complete CrediClip implementation.</h2>
+      <p>The repository contains the API, queue, platform adapters, scoring pipeline, diagnostics, and worker service definitions discussed in this note.</p>
+      <div class="closing-actions">
+        <a class="btn-primary" href="/crediclip.html">Read the case study</a>
+        <a class="btn-ghost" href="https://github.com/aliraza2025/CrediClip" target="_blank" rel="noopener noreferrer">Open the GitHub repository</a>
+      </div>
+    </section>
+
+    <section class="more-notes" aria-labelledby="more-title">
+      <h2 id="more-title">More field notes</h2>
+      <div class="next-links">
+      <a href="/notes/estimator-data-plane.html"><b>Building the Data Plane Behind a Phone-Ready Window-Cleaning Quote</b><span>Blue Ocean Window Cleaning · 11 min read</span></a>
+      <a href="/notes/crediclip-ai-product-quality.html"><b>What 780 completed video jobs taught me about AI product quality</b><span>CrediClip · 6 min read</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Ali Raza · Built with care · <a href="/about-this-site.html">About this site</a> · <a href="/sources.html">Sources</a></p>
+  </footer>
+
+  <script>
+    document.querySelector('.nav-links').addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') document.getElementById('nav-toggle').checked = false;
+    });
+  </script>
+  <script src="/assets/ask-ali.js" defer></script>
+</body>
+</html>
