@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About this site · Ali Raza</title>
+  <meta name="description" content="How Ali Raza’s portfolio is built, how claims about his work are sourced and labeled, what happens to your data, and a changelog of recent updates." />
+  <meta name="author" content="Ali Raza" />
+  <link rel="canonical" href="https://alirazaportfolio2026.netlify.app/about-this-site" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Ali Raza · Portfolio" />
+  <meta property="og:title" content="About this site · Ali Raza" />
+  <meta property="og:description" content="How this portfolio is built, where its facts come from, and what it does with your data." />
+  <meta property="og:url" content="https://alirazaportfolio2026.netlify.app/about-this-site" />
+  <meta name="twitter:card" content="summary" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-0:        #0b0720;
+      --bg-1:        #120a2b;
+      --text:        #cbd5e1;
+      --text-strong: #e5e7eb;
+      --muted:       #94a3b8;
+      --line:        rgba(255,255,255,.10);
+      --accent:      #ff2d8d;
+      --accent-2:    #ff4aa3;
+      --accent-solid: #db0070;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background:
+        radial-gradient(900px 500px at 50% 0%, rgba(255,45,141,.06), transparent 55%),
+        linear-gradient(180deg, var(--bg-0), var(--bg-1));
+      background-attachment: fixed;
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    a { color: var(--accent-2); }
+
+    .site-nav {
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+    .nav-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 62px;
+      flex-wrap: wrap;
+    }
+    .logo { font-size: 1rem; font-weight: 700; color: var(--text-strong); text-decoration: none; letter-spacing: -0.02em; }
+    .logo span { color: var(--accent); }
+    .nav-toggle { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; display: none; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px 4px; }
+    .hamburger span { display: block; width: 20px; height: 1.5px; background: var(--text-strong); border-radius: 1px; transition: transform 0.25s ease, opacity 0.25s ease; }
+    .nav-toggle:checked + .hamburger span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle:checked + .hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-toggle:checked + .hamburger span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .nav-toggle:focus-visible + .hamburger { outline: 2px solid var(--accent); outline-offset: -4px; border-radius: 8px; }
+    .nav-links { display: flex; gap: 2.25rem; list-style: none; }
+    .nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--muted); text-decoration: none; transition: color 0.15s; padding: 0.2rem 0; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -6px; left: 0; right: 0; height: 2px; background: var(--accent); transform: scaleX(0); transition: transform 0.18s ease; }
+    .nav-links a:hover { color: var(--text-strong); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    .page { max-width: 760px; margin: 0 auto; padding: 4.5rem 2rem 4rem; }
+    .breadcrumb { font-size: 0.78rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--text-strong); }
+    .eyebrow { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 800; letter-spacing: -0.035em; color: var(--text-strong); line-height: 1.08; margin-bottom: 1.25rem; }
+    .dek { font-size: 1.12rem; color: var(--muted); max-width: 62ch; line-height: 1.65; padding-bottom: 2rem; border-bottom: 1px solid var(--line); margin-bottom: 2.75rem; }
+
+    section { margin-bottom: 3rem; }
+    h2 { font-size: 1.45rem; font-weight: 800; letter-spacing: -0.025em; color: var(--text-strong); line-height: 1.2; margin-bottom: 1rem; }
+    .prose p, .prose li { font-family: 'Source Serif 4', Georgia, serif; font-size: 1.08rem; line-height: 1.78; color: var(--text); }
+    .prose p + p { margin-top: 1rem; }
+    .prose ul { margin: 0.9rem 0 0 1.3rem; }
+    .prose li + li { margin-top: 0.5rem; }
+    .prose li::marker { color: var(--accent); }
+    .prose strong { color: var(--text-strong); font-weight: 600; }
+
+    .planned {
+      background: rgba(255,45,141,.06);
+      border: 1px solid rgba(255,45,141,.25);
+      border-radius: 14px;
+      padding: 1.2rem 1.4rem;
+    }
+    .label {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .changelog { list-style: none; border-left: 1px solid var(--line); }
+    .changelog li { position: relative; padding: 0 0 1.1rem 1.25rem; }
+    .changelog li::before { content: ''; position: absolute; left: -4px; top: 0.55rem; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+    .changelog time { display: block; font-size: 0.78rem; font-weight: 600; color: var(--muted); }
+    .changelog span { font-size: 0.95rem; color: var(--text); }
+
+    .next-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; margin-top: 1rem; }
+    .next-links a { display: block; text-decoration: none; background: rgba(255,255,255,.03); border: 1px solid var(--line); border-radius: 14px; padding: 1rem 1.1rem; transition: border-color .15s, transform .15s; }
+    .next-links a:hover { border-color: rgba(255,45,141,.45); transform: translateY(-2px); }
+    .next-links b { display: block; color: var(--text-strong); font-size: 0.9rem; }
+    .next-links span { display: block; color: var(--muted); font-size: 0.78rem; margin-top: 0.2rem; }
+
+    footer { border-top: 1px solid var(--line); padding: 2rem; text-align: center; font-size: 0.8rem; color: var(--muted); }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--text-strong); }
+
+    .skip-link { position: absolute; left: 1rem; top: -100px; z-index: 300; padding: 0.6rem 1rem; border-radius: 10px; background: var(--accent-solid); color: #fff; font-weight: 600; text-decoration: none; }
+    .skip-link:focus { top: 0.75rem; }
+    .skip-link:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+    @media (max-width: 768px) {
+      .nav-toggle { display: block; }
+      .hamburger { display: flex; justify-content: center; height: 62px; align-items: center; }
+      .nav-inner { position: relative; height: auto; min-height: 62px; padding: 0 1.25rem; }
+      .logo { height: 62px; display: flex; align-items: center; gap: 0.28em; }
+      .nav-links { display: none; width: 100%; flex-direction: column; gap: 0; border-top: 1px solid var(--line); background: rgba(18,10,43,.92); border-radius: 0 0 14px 14px; }
+      .nav-links a::after { display: none; }
+      .nav-links li { width: 100%; }
+      .nav-links a { display: block; padding: 0.75rem 1.25rem; font-size: 0.9rem; border-bottom: 1px solid var(--line); }
+      .nav-links li:last-child a { border-bottom: none; }
+      .nav-toggle:checked ~ .nav-links { display: flex; }
+      .page { padding: 3rem 1.25rem 3rem; }
+      .prose p, .prose li { font-size: 1.02rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .next-links a, .hamburger span { transition: none; }
+    }
+    h1, h2 { text-wrap: balance; }
+    p, li { text-wrap: pretty; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="logo" aria-label="Ali Raza - home">Ali <span>Raza</span></a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Navigation menu" />
+      <label for="nav-toggle" class="hamburger" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html#portfolio">Work</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#creative">Creative</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main" class="page">
+    <p class="breadcrumb"><a href="index.html">Home</a> / About this site</p>
+    <p class="eyebrow">Transparency</p>
+    <h1>About this site</h1>
+    <p class="dek">How this portfolio is built, where its facts come from, and what it does with your data.</p>
+
+    <section class="prose" aria-labelledby="who">
+      <h2 id="who">Who writes it</h2>
+      <p>
+        Everything here is written by me, Ali Raza. I build and maintain the site with AI coding assistants, mainly
+        Cursor. I review each change before it goes live, and every claim about my work is mine to stand behind.
+      </p>
+    </section>
+
+    <section class="prose" aria-labelledby="rules">
+      <h2 id="rules">How I write about my work</h2>
+      <ul>
+        <li><strong>Numbers come from a source I can point to:</strong> my CV, a project repository, an evaluation report, or the product itself. The <a href="sources.html">Sources page</a> lists them.</li>
+        <li><strong>Built, in progress, and planned are labeled differently.</strong> irha.ai, for example, is described as early access, not as a finished product.</li>
+        <li><strong>Team work says what my part was.</strong> Each case study has a “My role” section.</li>
+        <li><strong>Client and customer data stays private.</strong> The Blue Ocean Window Cleaning tools are private repositories, so I publish engineering notes about them instead.</li>
+        <li><strong>Mistakes get fixed in the open.</strong> If you spot one, <a href="contact.html">tell me</a> and the fix will show up in the changelog below.</li>
+      </ul>
+    </section>
+
+    <section class="prose" aria-labelledby="built">
+      <h2 id="built">How it’s built</h2>
+      <ul>
+        <li>Hand-written HTML, CSS, and a small amount of JavaScript. No framework.</li>
+        <li>Hosted on Netlify. The source code is public on <a href="https://github.com/aliraza2025/Capstone-Blog-Crediclip" target="_blank" rel="noopener noreferrer">GitHub</a>.</li>
+        <li>Skip links, a keyboard-friendly menu, readable color contrast, and reduced animation when your device asks for it.</li>
+      </ul>
+    </section>
+
+    <section class="prose" aria-labelledby="data">
+      <h2 id="data">Your data</h2>
+      <ul>
+        <li>No analytics or advertising trackers.</li>
+        <li>The contact form sends your name, email, and message to my inbox through Web3Forms. I use them only to reply.</li>
+        <li>“Book a call” opens Calendly, which has its own privacy policy.</li>
+        <li>Fonts load from Google Fonts, and Netlify, the host, keeps standard server logs.</li>
+      </ul>
+    </section>
+
+    <section class="prose" aria-labelledby="planned">
+      <h2 id="planned">What’s coming</h2>
+      <div class="planned">
+        <span class="label">Planned, not live yet</span>
+        <ul>
+          <li>An AI assistant that answers questions about my work using only the pages on the <a href="sources.html">Sources page</a>, links to where each answer comes from, and says so when it doesn’t know.</li>
+          <li>A field notes section that brings my engineering notes onto this site.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section aria-labelledby="changelog">
+      <h2 id="changelog">Changelog</h2>
+      <ol class="changelog">
+        <li><time datetime="2026-11-03">Nov 3, 2026</time><span>Added Book a call, this page, and the Sources page.</span></li>
+        <li><time datetime="2026-11-02">Nov 2, 2026</time><span>Added irha.ai, where I’m co-founder leading product.</span></li>
+        <li><time datetime="2026-10-30">Oct 30, 2026</time><span>Added my Hugging Face profile. Accessibility pass: mobile menu, skip links, and button contrast.</span></li>
+        <li><time datetime="2026-10-29">Oct 29, 2026</time><span>Made the site easier for search engines to crawl: sitemap, robots.txt, and canonical tags.</span></li>
+        <li><time datetime="2026-10-26">Oct 26, 2026</time><span>Linked the Blue Ocean estimator engineering notes and the CrediClip data plane article.</span></li>
+        <li><time datetime="2026-10-22">Oct 22, 2026</time><span>Redesigned the Presentations page and added the Deel Local XI growth proposal.</span></li>
+        <li><time datetime="2026-10-16">Oct 16, 2026</time><span>Updated my CV for Fall 2026 and added the Presentations page.</span></li>
+        <li><time datetime="2026-10-07">Oct 7, 2026</time><span>Published the CrediClip research write-up.</span></li>
+        <li><time datetime="2026-09-11">Sep 11, 2026</time><span>Added the Creative portfolio section.</span></li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="next">
+      <h2 id="next">Questions or corrections</h2>
+      <div class="next-links">
+        <a href="sources.html"><b>Sources</b><span>What backs each claim on this site</span></a>
+        <a href="contact.html"><b>Contact</b><span>Send a message or a correction</span></a>
+        <a href="https://calendly.com/axraza55/30min" target="_blank" rel="noopener noreferrer"><b>Book a call</b><span>30 minutes on Calendly</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Ali Raza · Built with care · <a href="about-this-site.html">About this site</a> · <a href="sources.html">Sources</a></p>
+  </footer>
+
+  <script>
+    document.querySelector('.nav-links').addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') document.getElementById('nav-toggle').checked = false;
+    });
+  </script>
+</body>
+</html>
