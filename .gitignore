@@ -8,3 +8,7 @@
 
 # Cloudflare Pages build output
 .cf-dist
+
+# Local tool state
+.wrangler
+.cursor

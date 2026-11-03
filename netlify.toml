@@ -1,6 +1,87 @@
 [build]
   publish = "."
 
+# The site moved to https://alirazaai.page. The old Netlify address 301s every path there.
+# Search engine verification files must keep answering 200 on the old address
+# (Google's file check does not follow redirects), so they are served first.
+[[redirects]]
+  from = "https://alirazaportfolio2026.netlify.app/google715ebba8b613028b.html"
+  to = "/google715ebba8b613028b.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://alirazaportfolio2026.netlify.app/google8d33dcbe2c5ffda3.html"
+  to = "/google8d33dcbe2c5ffda3.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://alirazaportfolio2026.netlify.app/BingSiteAuth.xml"
+  to = "/BingSiteAuth.xml"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "https://alirazaportfolio2026.netlify.app/index.html"
+  to = "https://alirazaai.page/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://alirazaportfolio2026.netlify.app/about-this-site.html"
+  to = "https://alirazaai.page/about-this-site"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://alirazaportfolio2026.netlify.app/contact.html"
+  to = "https://alirazaai.page/contact"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://alirazaportfolio2026.netlify.app/crediclip.html"
+  to = "https://alirazaai.page/crediclip"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://alirazaportfolio2026.netlify.app/experience.html"
+  to = "https://alirazaai.page/experience"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://alirazaportfolio2026.netlify.app/presentations.html"
+  to = "https://alirazaai.page/presentations"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://alirazaportfolio2026.netlify.app/projects.html"
+  to = "https://alirazaai.page/projects"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://alirazaportfolio2026.netlify.app/sources.html"
+  to = "https://alirazaai.page/sources"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://alirazaportfolio2026.netlify.app/*"
+  to = "https://alirazaai.page/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://alirazaportfolio2026.netlify.app/*"
+  to = "https://alirazaai.page/:splat"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/*"
   [headers.values]
