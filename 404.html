@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page not found · Ali Raza</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-0: #0b0720;
+      --bg-1: #120a2b;
+      --text: #cbd5e1;
+      --text-strong: #e5e7eb;
+      --muted: #94a3b8;
+      --line: rgba(255,255,255,.10);
+      --accent: #ff2d8d;
+      --accent-solid: #db0070;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background:
+        radial-gradient(900px 500px at 50% 0%, rgba(255,45,141,.08), transparent 55%),
+        linear-gradient(180deg, var(--bg-0), var(--bg-1));
+      color: var(--text);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 2rem 1.25rem;
+      text-align: center;
+    }
+    main { max-width: 520px; }
+    .code { font-size: .8rem; font-weight: 600; letter-spacing: .08em; color: var(--muted); margin-bottom: .75rem; }
+    h1 { font-size: clamp(2rem, 6vw, 2.75rem); font-weight: 800; letter-spacing: -0.03em; color: var(--text-strong); line-height: 1.1; margin-bottom: .75rem; }
+    h1 em { font-style: normal; color: var(--accent); }
+    p { line-height: 1.7; margin-bottom: 1.75rem; }
+    .actions { display: flex; gap: .7rem; justify-content: center; flex-wrap: wrap; }
+    .actions a {
+      padding: .65rem 1.2rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: .9rem;
+      text-decoration: none;
+      color: var(--text-strong);
+      border: 1.5px solid rgba(255,45,141,.55);
+    }
+    .actions a:first-child { background: var(--accent-solid); border-color: var(--accent-solid); color: #fff; }
+    .actions a:hover { border-color: var(--accent); }
+    .actions a:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="code">404</p>
+    <h1>This page isn’t here<em>.</em></h1>
+    <p>The link may be old or mistyped. Everything on the site is reachable from the homepage.</p>
+    <div class="actions">
+      <a href="/">Go to the homepage</a>
+      <a href="/projects">Projects</a>
+      <a href="/contact">Contact</a>
+    </div>
+  </main>
+</body>
+</html>

@@ -5,3 +5,6 @@
 
 # Local Netlify folder
 .netlify
+
+# Cloudflare Pages build output
+.cf-dist
