@@ -1,0 +1,122 @@
+[
+  {
+    "name": "serviceops-agent",
+    "title": "ServiceOps Agent",
+    "description": "A LangGraph service-request workflow with deterministic quoting, checkpointed human review, rejection, and an idempotent sandbox handoff.",
+    "homepage": "https://aliraza2025.github.io/serviceops-agent/",
+    "html_url": "https://github.com/aliraza2025/serviceops-agent",
+    "category": "Agent workflows",
+    "stage": "Independent prototype",
+    "verification": "LangGraph approval/resume verified",
+    "image": "assets/ai-projects/serviceops-agent.svg",
+    "caseStudy": "https://github.com/aliraza2025/serviceops-agent/blob/main/CASE_STUDY.md"
+  },
+  {
+    "name": "agent-release-lab",
+    "title": "Agent Release Lab",
+    "description": "An inspectable release-gate workbench with regression checks and Promptfoo integration, including a recorded evaluation of a locally adapted intake classifier.",
+    "homepage": "https://aliraza2025.github.io/agent-release-lab/",
+    "html_url": "https://github.com/aliraza2025/agent-release-lab",
+    "category": "AI evaluation",
+    "stage": "Independent prototype",
+    "verification": "Promptfoo trace and local-model evaluations",
+    "image": "assets/ai-projects/agent-release-lab.svg",
+    "caseStudy": "https://github.com/aliraza2025/agent-release-lab/blob/main/CASE_STUDY.md"
+  },
+  {
+    "name": "irha-voice-sandbox",
+    "title": "irha Voice Sandbox",
+    "description": "An independent public sandbox for local speech transcription, service intake, clarification, quote review, and human handoff using fictional records.",
+    "homepage": "https://aliraza2025.github.io/irha-voice-sandbox/",
+    "html_url": "https://github.com/aliraza2025/irha-voice-sandbox",
+    "category": "Voice AI",
+    "stage": "Independent prototype",
+    "verification": "Local Whisper transcription and LiveKit toolset",
+    "image": "assets/ai-projects/irha-voice-sandbox.svg",
+    "caseStudy": "https://github.com/aliraza2025/irha-voice-sandbox/blob/main/CASE_STUDY.md"
+  },
+  {
+    "name": "evidence-map",
+    "title": "Evidence Map",
+    "description": "An evidence-first discovery workbench with exact quote validation, editable hypotheses, explicit RICE assumptions, and local LlamaIndex/MiniLM retrieval.",
+    "homepage": "https://aliraza2025.github.io/evidence-map/",
+    "html_url": "https://github.com/aliraza2025/evidence-map",
+    "category": "Product discovery",
+    "stage": "Independent prototype",
+    "verification": "Local LlamaIndex embedding retrieval",
+    "image": "assets/ai-projects/evidence-map.svg",
+    "caseStudy": "https://github.com/aliraza2025/evidence-map/blob/main/CASE_STUDY.md"
+  },
+  {
+    "name": "serviceops-mcp",
+    "title": "ServiceOps MCP",
+    "description": "An original MCP server exposing typed service-catalog, quote, and job-status tools, verified with actual client/server protocol calls.",
+    "homepage": "https://aliraza2025.github.io/serviceops-mcp/",
+    "html_url": "https://github.com/aliraza2025/serviceops-mcp",
+    "category": "AI integrations",
+    "stage": "Independent prototype",
+    "verification": "Official MCP SDK round trips",
+    "image": "assets/ai-projects/serviceops-mcp.svg",
+    "caseStudy": "https://github.com/aliraza2025/serviceops-mcp/blob/main/CASE_STUDY.md"
+  },
+  {
+    "name": "datasheet-copilot",
+    "title": "Datasheet Copilot",
+    "description": "A source-linked technical comparison tool with Docling table extraction, explicit unit normalization, and unknown-value handling.",
+    "homepage": "https://aliraza2025.github.io/datasheet-copilot/",
+    "html_url": "https://github.com/aliraza2025/datasheet-copilot",
+    "category": "Document AI",
+    "stage": "Independent prototype",
+    "verification": "Docling HTML extraction verified",
+    "image": "assets/ai-projects/datasheet-copilot.svg",
+    "caseStudy": "https://github.com/aliraza2025/datasheet-copilot/blob/main/CASE_STUDY.md"
+  },
+  {
+    "name": "framebrief-studio",
+    "title": "FrameBrief Studio",
+    "description": "A brief-to-storyboard studio with editable scenes, timed previews, SRT/SVG exports, and locally verified Diffusers image generation.",
+    "homepage": "https://aliraza2025.github.io/framebrief-studio/",
+    "html_url": "https://github.com/aliraza2025/framebrief-studio",
+    "category": "Creative AI",
+    "stage": "Independent prototype",
+    "verification": "Actual local diffusion frame rendered",
+    "image": "assets/ai-projects/framebrief-studio.svg",
+    "caseStudy": "https://github.com/aliraza2025/framebrief-studio/blob/main/CASE_STUDY.md"
+  },
+  {
+    "name": "private-feedback-triage",
+    "title": "Private Feedback Triage",
+    "description": "A local sentiment and semantic-search workbench using quantized Transformers.js models, with separate rule and actual-inference modes.",
+    "homepage": "https://aliraza2025.github.io/private-feedback-triage/",
+    "html_url": "https://github.com/aliraza2025/private-feedback-triage",
+    "category": "Local AI",
+    "stage": "Independent prototype",
+    "verification": "Actual local sentiment and embedding inference",
+    "image": "assets/ai-projects/private-feedback-triage.svg",
+    "caseStudy": "https://github.com/aliraza2025/private-feedback-triage/blob/main/CASE_STUDY.md"
+  },
+  {
+    "name": "bilingual-story-archive",
+    "title": "Bilingual Story Archive",
+    "description": "A timestamped story explorer preserving multilingual source text, with local faster-whisper transcription and source-linked search.",
+    "homepage": "https://aliraza2025.github.io/bilingual-story-archive/",
+    "html_url": "https://github.com/aliraza2025/bilingual-story-archive",
+    "category": "Speech and storytelling",
+    "stage": "Independent prototype",
+    "verification": "Local ASR on original synthetic recording",
+    "image": "assets/ai-projects/bilingual-story-archive.svg",
+    "caseStudy": "https://github.com/aliraza2025/bilingual-story-archive/blob/main/CASE_STUDY.md"
+  },
+  {
+    "name": "intake-model-lab",
+    "title": "Intake Model Lab",
+    "description": "A reproducible local BERT/PEFT intent-classification experiment comparing a rule baseline, an unadapted classifier, and a LoRA adapter on a synthetic held-out split.",
+    "homepage": "https://aliraza2025.github.io/intake-model-lab/",
+    "html_url": "https://github.com/aliraza2025/intake-model-lab",
+    "category": "Small-model adaptation",
+    "stage": "Independent prototype",
+    "verification": "Actual local LoRA training and inference",
+    "image": "assets/ai-projects/intake-model-lab.svg",
+    "caseStudy": "https://github.com/aliraza2025/intake-model-lab/blob/main/CASE_STUDY.md"
+  }
+]

@@ -10,6 +10,9 @@ const API_URL =
 // Any repo not listed here falls back to its GitHub name/description.
 // Set hide:true to suppress a repo entirely.
 const REPO_OVERRIDES = {
+  'Capstone-Blog-Crediclip': { hide: true },
+  'ask-ali': { title: 'Ask Ali', description: 'Portfolio assistant retrieving source passages and returning cited answers, with explicit limits and a live portfolio integration.', homepage: 'https://alirazaportfolio2026.netlify.app/', stage: 'Portfolio integration' },
+  'bowc-estimate-tool-notes': { title: 'Blue Ocean Estimator Engineering Notes', homepage: null, notes: 'https://aliraza2025.github.io/bowc-estimate-tool-notes/data-plane/' },
   'Resume-CV': {
     hide: true,
   },
@@ -75,6 +78,18 @@ const REPO_OVERRIDES = {
   },
 };
 
+const AI_PROJECT_CATALOG = window.AI_PROJECT_CATALOG || [];
+Object.assign(REPO_OVERRIDES, Object.fromEntries(AI_PROJECT_CATALOG.map(item => [item.name, item])));
+REPO_OVERRIDES['-Burrito-Game-Analysis-Logistics-Optimization-Sensitivity-Study'].homepage = null;
+REPO_OVERRIDES['MrBeast-as-a-Case-Study'].homepage = null;
+function curatedFallback() {
+  return AI_PROJECT_CATALOG.map(item => ({ ...item, language: 'JavaScript', fork: false, stargazers_count: 0, pushed_at: null }));
+}
+function mergeCatalog(data) {
+  const remote = new Map(data.map(repo => [repo.name, repo]));
+  return [...curatedFallback().map(repo => ({ ...repo, ...(remote.get(repo.name) || {}) })), ...data.filter(repo => !AI_PROJECT_CATALOG.some(item => item.name === repo.name))];
+}
+
 // ─── Language → GitHub brand colour ────────────────────────────
 const LANG_COLORS = {
   JavaScript:  '#f1e05a',
@@ -103,7 +118,7 @@ const DEFAULT_LANG_COLOR = '#94a3b8';
 // ─── State ──────────────────────────────────────────────────────
 let allRepos  = [];
 let query     = '';
-let sortMode  = 'updated';
+let sortMode  = 'featured';
 let showForks = false;
 
 // ─── DOM refs ───────────────────────────────────────────────────
@@ -125,11 +140,11 @@ forkToggle.addEventListener('change',() => { showForks = forkToggle.checked;    
 async function fetchRepos() {
   showState('loading');
   try {
-    const res = await fetch(API_URL);
+    const res = await fetch(API_URL, { signal: AbortSignal.timeout(8000) });
     if (!res.ok) throw new Error(`GitHub API ${res.status}: ${res.statusText}`);
     const data = await res.json();
 
-    allRepos = data
+    allRepos = mergeCatalog(data)
       .filter(r => {
         // Remove repos flagged as hidden in overrides
         if (REPO_OVERRIDES[r.name]?.hide) return false;
@@ -141,7 +156,9 @@ async function fetchRepos() {
     hideState();
     render();
   } catch (err) {
-    showState('error', err.message);
+    allRepos = curatedFallback();
+    if (allRepos.length) { render(); statsBar.insertAdjacentHTML('beforeend', ' &nbsp;·&nbsp; Showing the saved AI project catalog'); }
+    else showState('error', err.message);
   }
 }
 
@@ -156,11 +173,14 @@ function render() {
       const override = REPO_OVERRIDES[r.name] || {};
       const title = (override.title || r.name || '').toLowerCase();
       const desc  = (override.description || r.description || '').toLowerCase();
-      return title.includes(query) || desc.includes(query);
+      return title.includes(query) || desc.includes(query) || (override.category || '').toLowerCase().includes(query) || (override.verification || '').toLowerCase().includes(query);
     });
   }
 
-  if (sortMode === 'updated') {
+  if (sortMode === 'featured') {
+    const order = new Map(AI_PROJECT_CATALOG.map((item, index) => [item.name, index]));
+    repos.sort((a,b) => (order.get(a.name) ?? 1000) - (order.get(b.name) ?? 1000));
+  } else if (sortMode === 'updated') {
     repos.sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
   } else if (sortMode === 'stars') {
     repos.sort((a, b) => b.stargazers_count - a.stargazers_count);
@@ -201,7 +221,7 @@ function buildCard(repo) {
   const stars     = repo.stargazers_count || 0;
   const updated   = timeAgo(repo.pushed_at);
   const repoUrl   = escHtml(repo.html_url);
-  const rawHome   = override.homepage || repo.homepage;
+  const rawHome   = Object.prototype.hasOwnProperty.call(override, 'homepage') ? override.homepage : repo.homepage;
   const homepage  = rawHome ? escHtml(rawHome.trim()) : null;
   const isFork    = repo.fork;
   const langColor = lang ? (LANG_COLORS[lang] || DEFAULT_LANG_COLOR) : null;
@@ -300,7 +320,9 @@ function buildCard(repo) {
         ${forkBadge}
       </div>
 
+      ${override.stage ? `<p class="project-stage">${escHtml(override.stage)}${override.category ? ` · ${escHtml(override.category)}` : ''}</p>` : ''}
       ${descHtml}
+      ${override.verification ? `<p class="repo-verification">${escHtml(override.verification)}</p>` : ''}
 
       <div class="repo-meta">
         ${langHtml}

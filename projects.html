@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ali Raza · Projects</title>
-  <meta name="description" content="Open-source projects by Ali Raza on GitHub, including CrediClip, logistics optimization, statistical modeling, data mining, and YouTube analytics." />
+  <meta name="description" content="AI product projects by Ali Raza: agent workflows, evaluations, local inference, voice, document AI, creative tools, and source-linked product discovery." />
   <link rel="canonical" href="https://alirazaportfolio2026.netlify.app/projects" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Ali Raza" />
@@ -739,6 +739,9 @@
       .venture-card .repo-card-img-wrap { height: 140px; }
     }
 
+    .project-stage { font-size: .72rem; color: #ff8ec6; margin: .5rem 0; }
+    .repo-verification { font-size: .74rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.5; }
+
     /* ─── Shared accessibility and text wrapping ─────────────────── */
     .skip-link {
       position: absolute;
@@ -797,7 +800,7 @@
     <span class="page-hero-tag">Builds</span>
     <h1 class="page-hero-title">Projects</h1>
     <p class="page-hero-sub">
-      My venture work, plus a selection of repositories and builds from my GitHub.
+      Independent AI prototypes, venture work, and analytics projects. Explore the demos, source, and verification behind each build.
     </p>
     <div class="page-hero-actions">
       <a
@@ -919,7 +922,7 @@
     </div>
   </section>
 
-  <h2 class="section-heading repos-heading">GitHub repositories</h2>
+  <h2 class="section-heading repos-heading" id="ai-labs">AI product labs &amp; GitHub projects</h2>
 
   <!-- ── Controls ───────────────────────────────────────────────── -->
   <div class="controls-bar" role="search" aria-label="Filter and sort repositories">
@@ -938,7 +941,8 @@
     </div>
 
     <select id="sort-select" class="sort-select" aria-label="Sort repositories">
-      <option value="updated">Recently updated</option>
+      <option value="featured" selected>Featured AI work</option>
+          <option value="updated">Recently updated</option>
       <option value="stars">Most stars</option>
       <option value="name">Name A–Z</option>
     </select>
@@ -968,6 +972,7 @@
     <p>Ali Raza · <a href="index.html">Portfolio</a> · 2026 · <a href="about-this-site.html">About this site</a> · <a href="sources.html">Sources</a></p>
   </footer>
 
+  <script src="assets/ai-project-catalog.js"></script>
   <script src="projects.js"></script>
   <script>
     // Close mobile nav on link click
