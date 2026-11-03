@@ -208,12 +208,24 @@
       </ul>
     </section>
 
+    <section class="prose" aria-labelledby="assistant">
+      <h2 id="assistant">The “Ask my AI” assistant</h2>
+      <p>
+        The button in the corner opens an AI assistant. It is not me. It answers only from the pages listed on the
+        <a href="sources.html">Sources page</a> and my CV, puts a numbered link after each fact, and says so when this site
+        doesn’t cover something. It runs on free AI models through OpenRouter, so it can be slow, busy, or wrong. Check
+        the linked source before relying on an answer. The code is open source on
+        <a href="https://github.com/aliraza2025/ask-ali" target="_blank" rel="noopener noreferrer">GitHub</a>.
+      </p>
+    </section>
+
     <section class="prose" aria-labelledby="data">
       <h2 id="data">Your data</h2>
       <ul>
         <li>No analytics or advertising trackers.</li>
         <li>The contact form sends your name, email, and message to my inbox through Web3Forms. I use them only to reply.</li>
         <li>“Book a call” opens Calendly, which has its own privacy policy.</li>
+        <li>Questions you ask the assistant go to a small server on Vercel and then to an AI model provider through OpenRouter. Free model providers may log or use prompts, so please don’t share private information there. I don’t store conversations; your browser keeps the current chat only until you close the tab.</li>
         <li>Fonts load from Google Fonts, and Netlify, the host, keeps standard server logs.</li>
       </ul>
     </section>
@@ -223,8 +235,8 @@
       <div class="planned">
         <span class="label">Planned, not live yet</span>
         <ul>
-          <li>An AI assistant that answers questions about my work using only the pages on the <a href="sources.html">Sources page</a>, links to where each answer comes from, and says so when it doesn’t know.</li>
           <li>A field notes section that brings my engineering notes onto this site.</li>
+          <li>Voice questions and spoken answers for the assistant.</li>
         </ul>
       </div>
     </section>
@@ -232,7 +244,7 @@
     <section aria-labelledby="changelog">
       <h2 id="changelog">Changelog</h2>
       <ol class="changelog">
-        <li><time datetime="2026-11-03">Nov 3, 2026</time><span>Added Book a call, this page, and the Sources page.</span></li>
+        <li><time datetime="2026-11-03">Nov 3, 2026</time><span>Launched the “Ask my AI” assistant. Added Book a call, this page, and the Sources page.</span></li>
         <li><time datetime="2026-11-02">Nov 2, 2026</time><span>Added irha.ai, where I’m co-founder leading product.</span></li>
         <li><time datetime="2026-10-30">Oct 30, 2026</time><span>Added my Hugging Face profile. Accessibility pass: mobile menu, skip links, and button contrast.</span></li>
         <li><time datetime="2026-10-29">Oct 29, 2026</time><span>Made the site easier for search engines to crawl: sitemap, robots.txt, and canonical tags.</span></li>
