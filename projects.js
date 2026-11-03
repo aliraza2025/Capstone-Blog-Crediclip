@@ -173,7 +173,7 @@ function render() {
       const override = REPO_OVERRIDES[r.name] || {};
       const title = (override.title || r.name || '').toLowerCase();
       const desc  = (override.description || r.description || '').toLowerCase();
-      return title.includes(query) || desc.includes(query) || (override.category || '').toLowerCase().includes(query) || (override.verification || '').toLowerCase().includes(query);
+      return [title, desc, override.subtitle, override.brand, override.category, override.verification].some(value => (value || '').toLowerCase().includes(query));
     });
   }
 
@@ -303,11 +303,11 @@ function buildCard(repo) {
     : '';
 
   return `
-    <article class="repo-card">
+    <article class="repo-card${override.brand ? ' has-project-art' : ''}">
       <div class="repo-card-img-wrap">
         <img
           src="${imgUrl}"
-          alt="${escHtml(displayTitle)} preview"
+          alt="${escHtml(override.imageAlt || `${displayTitle} preview`)}"
           class="repo-card-img"
           loading="lazy"
           onerror="this.closest('.repo-card-img-wrap').style.display='none'"
@@ -320,6 +320,7 @@ function buildCard(repo) {
         ${forkBadge}
       </div>
 
+      ${override.subtitle ? `<p class="project-subtitle">${escHtml(override.subtitle)}</p>` : ''}
       ${override.stage ? `<p class="project-stage">${escHtml(override.stage)}${override.category ? ` · ${escHtml(override.category)}` : ''}</p>` : ''}
       ${descHtml}
       ${override.verification ? `<p class="repo-verification">${escHtml(override.verification)}</p>` : ''}
