@@ -169,107 +169,462 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .hero-section {
-      background: transparent;
-      border-bottom: none;
-      padding: 6rem 2rem 4.5rem;
+    @keyframes studioFade  { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes studioBob   { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    @keyframes studioHello { 0%,100% { transform: rotate(0); } 25% { transform: rotate(-3deg); } 75% { transform: rotate(3deg); } }
+    @keyframes studioGlow  { 0%,100% { opacity: .55; } 50% { opacity: .9; } }
+    @keyframes studioPing  { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(2.4); opacity: 0; } }
+
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
     }
 
-    .hero-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      align-items: center;
-      gap: 3rem;
-      text-align: left;
+    .studio {
+      position: relative;
+      height: max(540px, min(56.25vw, calc(100vh - 62px), 900px));
+      overflow: hidden;
+      isolation: isolate;
+      background: linear-gradient(180deg, #04050f 0%, #16152b 55%, #29203a 100%);
+      border-bottom: 1px solid var(--line);
     }
 
-    .hero-left {
+    .studio-stage {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      height: 100%;
+      aspect-ratio: 16 / 9;
+      transform: translateX(-50%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
+              mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
+    }
+
+    .studio-room {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .studio-stage::after {
+      content: "";
+      position: absolute;
+      left: 30%; right: 30%; top: 55%; bottom: 8%;
+      background: radial-gradient(ellipse at 50% 60%, rgba(255,45,141,.28), transparent 65%);
+      mix-blend-mode: screen;
+      pointer-events: none;
+      animation: studioGlow 5s ease-in-out infinite;
+    }
+
+    .studio-intro {
+      position: absolute;
+      top: clamp(1.5rem, 5%, 3rem);
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(760px, 92%);
+      text-align: center;
+      z-index: 3;
+      animation: studioFade .6s ease both;
+    }
+
+    .studio-eyebrow {
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      color: var(--muted);
+      margin-bottom: .6rem;
+    }
+
+    .studio-intro h1 {
+      font-size: clamp(2rem, 3.6vw, 3.25rem);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.08;
+      color: var(--text-strong);
+      margin-bottom: .55rem;
+    }
+
+    .studio-intro h1 em { font-style: normal; color: var(--accent); }
+
+    .studio-sub {
+      font-size: .98rem;
+      color: var(--text);
+      margin-bottom: 1.1rem;
+    }
+
+    .studio-actions {
+      display: flex;
+      gap: .7rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .studio-actions .btn-primary,
+    .studio-actions .btn-ghost { padding: .6rem 1.15rem; font-size: .86rem; }
+    .studio-actions .btn-ghost { background: rgba(10,8,30,.55); }
+
+    /* Object labels sit on the pedestal fronts; --x/--y are % of the room image */
+    .hotspot {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      transform: translateX(-50%);
+      z-index: 2;
       display: flex;
       flex-direction: column;
+      gap: .1rem;
+      max-width: 11.5rem;
+      padding: .45rem .7rem .5rem;
+      border: 1px solid rgba(255,255,255,.14);
+      border-left: 3px solid var(--accent);
+      border-radius: 10px;
+      background: rgba(12,9,32,.82);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      text-decoration: none;
+      box-shadow: 0 8px 22px rgba(0,0,0,.35);
+      transition: transform .18s ease, border-color .18s, background .18s;
     }
 
-    .hero-eyebrow {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--muted);
-      margin-bottom: 0.9rem;
-      letter-spacing: 0.02em;
-      animation: fadeUp 0.45s ease both;
-      animation-delay: 0.05s;
+    .hotspot::before {
+      content: "";
+      position: absolute;
+      top: -.95rem;
+      left: 50%;
+      width: 8px; height: 8px;
+      margin-left: -4px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 0 rgba(255,45,141,.6);
     }
 
-    .hero-headline {
-      font-size: clamp(3rem, 7vw, 5rem);
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      color: var(--text-strong);
-      line-height: 1.03;
-      margin-bottom: 0.85rem;
-      animation: fadeUp 0.5s ease both;
-      animation-delay: 0.15s;
+    .hotspot::after {
+      content: "";
+      position: absolute;
+      top: -.95rem;
+      left: 50%;
+      width: 8px; height: 8px;
+      margin-left: -4px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: studioPing 2.4s ease-out infinite;
     }
 
-    .hero-headline em {
-      font-style: normal;
-      color: var(--accent);
-      -webkit-text-fill-color: var(--accent);
-      background: none;
+    .hotspot:hover,
+    .hotspot:focus-visible {
+      transform: translateX(-50%) translateY(-3px);
+      border-color: rgba(255,45,141,.6);
+      background: rgba(30,12,48,.92);
     }
 
-    .hero-role {
-      font-size: clamp(1rem, 2vw, 1.15rem);
+    .hotspot:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+    .hotspot-kicker {
+      font-size: .64rem;
       font-weight: 600;
-      color: var(--text-strong);
-      margin-bottom: 1rem;
-      letter-spacing: -0.01em;
-      animation: fadeUp 0.5s ease both;
-      animation-delay: 0.25s;
-    }
-
-    .hero-subheadline {
-      font-size: 1rem;
+      letter-spacing: .05em;
+      text-transform: uppercase;
       color: var(--muted);
-      max-width: 40ch;
-      margin: 0 0 2.25rem;
-      line-height: 1.7;
-      animation: fadeUp 0.5s ease both;
-      animation-delay: 0.33s;
+      white-space: nowrap;
     }
 
-    .hero-actions {
+    .hotspot-title {
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      white-space: nowrap;
+    }
+
+    .hotspot-title::after { content: " \2192"; color: var(--accent); }
+
+    .avatar {
+      position: absolute;
+      left: 50%;
+      bottom: 16%;
+      height: 46%;
+      aspect-ratio: 359 / 840;
+      z-index: 2;
+      opacity: 0;
+      transform: translateX(-50%) translateY(28px) scale(.94);
+      transition: opacity .6s ease, transform .75s cubic-bezier(.2,.8,.2,1);
+      cursor: pointer;
+    }
+
+    .avatar.is-in { opacity: 1; transform: translateX(-50%); }
+
+    .avatar::after {
+      content: "";
+      position: absolute;
+      left: 8%; right: 8%; bottom: -3%;
+      height: 6%;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(0,0,0,.55), transparent 70%);
+      z-index: -1;
+    }
+
+    .avatar-figure { position: absolute; inset: 0; transform-origin: 50% 100%; }
+    .avatar.is-in .avatar-figure { animation: studioBob 4.5s ease-in-out infinite; }
+    .avatar.is-hello .avatar-figure { animation: studioHello .9s ease-in-out 2; }
+
+    .avatar-figure img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 14px 24px rgba(0,0,0,.45));
+    }
+
+    .avatar-talk { visibility: hidden; }
+    .avatar.is-talking .avatar-talk { visibility: visible; }
+    .avatar.is-talking .avatar-idle { visibility: hidden; }
+
+    .avatar-bubble {
+      position: absolute;
+      left: 56.5%;
+      top: 62.5%;
+      z-index: 3;
+      width: min(16rem, 16.5%);
+      padding: .65rem .8rem;
+      border: 1px solid rgba(255,45,141,.35);
+      border-radius: 4px 14px 14px 14px;
+      background: rgba(14,9,36,.92);
+      color: var(--text-strong);
+      font-size: .8rem;
+      line-height: 1.5;
+      box-shadow: 0 12px 30px rgba(0,0,0,.45);
+      animation: fadeUp .35s ease both;
+    }
+
+    .avatar-bubble[hidden] { display: none; }
+    .avatar-bubble-name { display: block; font-size: .68rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--accent); margin-bottom: .2rem; }
+    .avatar-bubble p { display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
+
+    .studio-ask {
+      position: absolute;
+      left: 50%;
+      bottom: 3.4rem;
+      transform: translateX(-50%);
+      z-index: 3;
+      width: min(600px, 90%);
       display: flex;
-      gap: 0.85rem;
-      justify-content: flex-start;
-      flex-wrap: wrap;
-      animation: fadeUp 0.5s ease both;
-      animation-delay: 0.43s;
+      align-items: center;
+      gap: .4rem;
+      padding: .35rem .35rem .35rem 1rem;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      background: rgba(12,9,32,.86);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 14px 40px rgba(0,0,0,.45);
     }
 
-    /* Avatar / visual slot */
-    .hero-visual {
+    .studio-ask:focus-within { border-color: rgba(255,45,141,.65); }
+
+    .studio-ask input {
+      flex: 1;
+      min-width: 0;
+      height: 40px;
+      border: 0;
+      background: transparent;
+      color: var(--text-strong);
+      font: 400 .95rem/1 inherit;
+      font-family: inherit;
+      outline: none;
+    }
+
+    .studio-ask input::placeholder { color: var(--muted); }
+
+    .studio-ask button {
+      flex: none;
+      width: 40px; height: 40px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    .studio-ask button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    .studio-ask button svg { width: 18px; height: 18px; }
+    .studio-mic { background: rgba(255,255,255,.08); }
+    .studio-mic:hover { background: rgba(255,255,255,.16); }
+    .studio-mic[aria-pressed="true"] { background: #b91c1c; }
+    .studio-send { background: var(--accent-solid); }
+    .studio-send:hover { background: var(--accent-solid-hover); }
+
+    .studio-chips {
+      position: absolute;
+      left: 50%;
+      bottom: .8rem;
+      transform: translateX(-50%);
+      z-index: 3;
+      width: min(760px, 94%);
       display: flex;
       justify-content: center;
-      align-items: center;
-      min-height: 320px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.03);
-      border: 1px solid var(--line);
-      overflow: hidden;
-      animation: fadeUp 0.55s ease both;
-      animation-delay: 0.2s;
+      gap: .4rem;
+      flex-wrap: wrap;
     }
 
-    .hero-visual img,
-    .hero-gif {
-      width: min(420px, 85%);
-      height: auto;
-      display: block;
-      filter: drop-shadow(0 20px 40px rgba(0,0,0,.45));
-      border-radius: 18px;
+    .studio-chips button {
+      padding: .32rem .7rem;
+      border: 1px solid rgba(255,45,141,.35);
+      border-radius: 999px;
+      background: rgba(12,9,32,.7);
+      color: var(--text-strong);
+      font: 500 .76rem/1.2 inherit;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
     }
+
+    .studio-chips button:hover { background: rgba(255,45,141,.16); }
+    .studio-chips button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+    .studio-controls {
+      position: absolute;
+      top: .9rem;
+      right: 1rem;
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: .3rem;
+    }
+
+    .studio-controls button {
+      padding: .28rem .6rem;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      background: rgba(10,8,30,.6);
+      color: var(--muted);
+      font: 500 .7rem/1.2 inherit;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .studio-controls button:hover { color: var(--text-strong); border-color: rgba(255,255,255,.3); }
+    .studio-controls button[aria-pressed="true"] { color: #fff; border-color: rgba(255,45,141,.6); background: rgba(219,0,112,.28); }
+    .studio-controls button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+
+    .studio-links { display: none; }
+
+    .studio[data-motion="off"] *,
+    .studio[data-motion="off"] *::before,
+    .studio[data-motion="off"] *::after { animation: none !important; transition: none !important; }
+
+    .studio.no-avatar .avatar,
+    .studio.no-avatar .avatar-bubble { display: none; }
+
+    /* Simple view and small screens: the room becomes a picture, labels become a list */
+    .studio.is-simple {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      padding: 2.25rem 1.25rem 2rem;
+    }
+
+    .studio.is-simple .studio-stage { display: none; }
+
+    .studio.is-simple .studio-intro,
+    .studio.is-simple .studio-ask,
+    .studio.is-simple .studio-chips,
+    .studio.is-simple .studio-controls,
+    .studio.is-simple .studio-links {
+      position: static;
+      transform: none;
+      width: 100%;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .studio.is-simple .studio-controls { order: 10; flex-direction: row; flex-wrap: wrap; justify-content: center; }
+
+    .studio.is-simple .studio-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: .6rem;
+      list-style: none;
+      padding: 0;
+    }
+
+    @media (max-width: 980px) {
+      .studio {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1.1rem;
+        padding: 2.25rem 1.25rem 2rem;
+      }
+
+      .studio-intro,
+      .studio-ask,
+      .studio-chips,
+      .studio-controls,
+      .studio-links {
+        position: static;
+        transform: none;
+        width: 100%;
+        max-width: 640px;
+        margin: 0 auto;
+      }
+
+      .studio-intro { order: 1; }
+      .studio-stage {
+        order: 2;
+        position: relative;
+        left: auto;
+        transform: none;
+        width: 100%;
+        max-width: 720px;
+        height: auto;
+        aspect-ratio: 4 / 3;
+        margin: 0 auto;
+        border-radius: 14px;
+        overflow: hidden;
+        -webkit-mask-image: none;
+                mask-image: none;
+      }
+      .studio-ask { order: 3; }
+      .studio-chips { order: 4; justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; padding-bottom: .2rem; scrollbar-width: none; }
+      .studio-links { order: 5; }
+      .studio-controls { order: 10; flex-direction: row; flex-wrap: wrap; justify-content: center; }
+
+      .hotspot { display: none; }
+      .avatar-bubble { left: auto; right: 3%; top: 6%; width: 44%; font-size: .74rem; padding: .5rem .6rem; }
+      .avatar-bubble p { -webkit-line-clamp: 4; }
+
+      .studio-links {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: .6rem;
+        list-style: none;
+        padding: 0;
+      }
+    }
+
+    .studio-links a {
+      display: flex;
+      flex-direction: column;
+      gap: .1rem;
+      height: 100%;
+      padding: .65rem .8rem;
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--accent);
+      border-radius: 10px;
+      background: rgba(255,255,255,.03);
+      text-decoration: none;
+    }
+
+    .studio-links .hotspot-kicker,
+    .studio-links .hotspot-title { white-space: normal; }
+
+    .studio-links a:hover { background: rgba(255,45,141,.08); }
+    .studio-links a:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 
     /* ─── Buttons ───────────────────────────────────────────────── */
     .btn-primary {
@@ -1082,17 +1437,6 @@
     }
 
     /* ─── Responsive ────────────────────────────────────────────── */
-    @media (max-width: 900px) {
-      .hero-inner {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 2.5rem;
-      }
-      .hero-actions { justify-content: center; }
-      .hero-subheadline { max-width: 100%; }
-      .hero-visual { order: -1; min-height: 220px; }
-    }
-
     @media (max-width: 768px) {
       .hamburger { display: flex; }
 
@@ -1136,7 +1480,6 @@
       .home-form-group input,
       .home-form-group textarea { font-size: 1rem; }
 
-      .hero-section { padding: 3.5rem 1.5rem 3rem; }
       .card-grid { grid-template-columns: 1fr; }
       .impact-inner { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
       .case-card.featured { grid-template-columns: 1fr; }
@@ -1153,15 +1496,13 @@
     @media (max-width: 480px) {
       .portfolio-section { padding: 3rem 1.25rem 4rem; }
       .contact-section   { padding: 3rem 1.25rem 4rem; }
-      .hero-section      { padding: 2.75rem 1.25rem 2.5rem; }
-      .hero-actions      { flex-direction: column; align-items: center; }
       .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+      .studio-actions .btn-primary, .studio-actions .btn-ghost { width: auto; }
     }
 
     /* ─── Reduced motion ───────────────────────────────────────── */
     @media (prefers-reduced-motion: reduce) {
-      .hero-eyebrow, .hero-headline, .hero-role,
-      .hero-subheadline, .hero-actions, .hero-visual {
+      .studio-intro, .avatar-bubble {
         animation: none;
         opacity: 1;
         transform: none;
@@ -1249,60 +1590,99 @@
   <main id="main">
 
   <!-- ── Hero Section ────────────────────────────────────────────── -->
-  <section class="hero-section" id="hero" aria-labelledby="hero-heading">
-    <div class="hero-inner">
+  <section class="studio" id="hero" aria-labelledby="hero-heading">
 
-      <!-- Left: text content -->
-      <div class="hero-left">
-        <span class="hero-eyebrow">Hi there,</span>
+    <div class="studio-intro">
+      <p class="studio-eyebrow">Ali Raza · Product Manager · Data Analyst · AI Builder</p>
+      <h1 id="hero-heading">I build real products, not just decks<em>.</em></h1>
+      <p class="studio-sub">Look around the studio, or ask Ali’s AI about my work.</p>
+      <div class="studio-actions">
+        <button type="button" class="btn-primary" id="meet-ai">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          Meet Ali’s AI
+        </button>
+        <a href="#portfolio" class="btn-ghost">View case studies</a>
+        <a href="assets/Ali-Raza-CV-2026.pdf" class="btn-ghost" download="Ali-Raza-CV-2026.pdf" aria-label="Download CV (PDF)">Download CV</a>
+      </div>
+    </div>
 
-        <h1 class="hero-headline" id="hero-heading">
-          I'm <em>Ali</em><br>Raza
-        </h1>
+    <div class="studio-stage">
+      <img class="studio-room" src="assets/studio-room.webp" width="1280" height="720" fetchpriority="high"
+           alt="Illustrated night-time studio with objects from Ali's work on pedestals: a telephone, a circuit board, a framed portrait, an easel with a chart, a smartphone, and an open notebook.">
 
-        <p class="hero-role">Product Manager · Data Analyst · AI Builder</p>
+      <a class="hotspot" href="projects.html#ventures" style="--x:15.5%;--y:51%">
+        <span class="hotspot-kicker">AI receptionist venture</span>
+        <span class="hotspot-title">irha.ai</span>
+      </a>
+      <a class="hotspot" href="presentations.html#analogic" style="--x:30.5%;--y:55%">
+        <span class="hotspot-kicker">Hardware launch</span>
+        <span class="hotspot-title">Analogic AVA</span>
+      </a>
+      <a class="hotspot" href="experience.html" style="--x:23.5%;--y:75%">
+        <span class="hotspot-kicker">The human behind the AI</span>
+        <span class="hotspot-title">Experience</span>
+      </a>
+      <a class="hotspot" href="#portfolio" style="--x:69.5%;--y:54%">
+        <span class="hotspot-kicker">Product, data, growth</span>
+        <span class="hotspot-title">Case studies</span>
+      </a>
+      <a class="hotspot" href="crediclip.html" style="--x:84.5%;--y:51%">
+        <span class="hotspot-kicker">Video credibility AI</span>
+        <span class="hotspot-title">CrediClip</span>
+      </a>
+      <a class="hotspot" href="sources.html" style="--x:79.5%;--y:75%">
+        <span class="hotspot-kicker">Where claims come from</span>
+        <span class="hotspot-title">Sources</span>
+      </a>
 
-        <p class="hero-subheadline">
-          Product-minded builder who uses data and AI to design, prototype, and ship real products and not just decks.
-        </p>
-
-        <div class="hero-actions">
-          <a href="#portfolio" class="btn-primary" aria-label="View case studies - scroll to work">
-            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/>
-            </svg>
-            View Case Studies
-          </a>
-          <a
-            href="assets/Ali-Raza-CV-2026.pdf"
-            class="btn-ghost"
-            download="Ali-Raza-CV-2026.pdf"
-            aria-label="Download CV (PDF)"
-          >
-            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-              <polyline points="7 10 12 15 17 10"/>
-              <line x1="12" y1="15" x2="12" y2="3"/>
-            </svg>
-            Download CV
-          </a>
+      <div class="avatar" aria-hidden="true" title="Ali’s AI">
+        <div class="avatar-figure">
+          <img class="avatar-idle" src="assets/ali-avatar.webp" width="359" height="840" alt="">
+          <img class="avatar-talk" src="assets/ali-avatar-talk.webp" width="359" height="840" alt="">
         </div>
       </div>
-
-      <!-- Right: avatar / visual slot -->
-      <div class="hero-visual" aria-hidden="true">
-        <img
-          src="assets/ali-typing.webp"
-          width="840"
-          height="1260"
-          fetchpriority="high"
-          alt="Ali Raza typing at a laptop"
-          class="hero-gif"
-          onerror="this.style.display='none'"
-        />
+      <div class="avatar-bubble" aria-hidden="true" hidden>
+        <span class="avatar-bubble-name">Ali’s AI</span>
+        <p></p>
       </div>
-
     </div>
+
+    <form class="studio-ask" role="search" aria-label="Ask Ali’s AI">
+      <label for="studio-q" class="visually-hidden">Ask about Ali’s work</label>
+      <input id="studio-q" type="text" maxlength="500" autocomplete="off" placeholder="Ask about Ali’s work…">
+      <button type="button" class="studio-mic" aria-label="Ask by voice" aria-pressed="false" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="22"/></svg>
+      </button>
+      <button type="submit" class="studio-send" aria-label="Send question">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </form>
+
+    <div class="studio-chips" aria-label="Suggested questions">
+      <button type="button">What is CrediClip?</button>
+      <button type="button">What does Ali do at irha.ai?</button>
+      <button type="button">What did Ali build at Blue Ocean?</button>
+      <button type="button">How can I reach Ali?</button>
+    </div>
+
+    <ul class="studio-links" aria-label="Explore Ali's work">
+      <li><a href="projects.html#ventures"><span class="hotspot-kicker">AI receptionist venture</span><span class="hotspot-title">irha.ai</span></a></li>
+      <li><a href="presentations.html#analogic"><span class="hotspot-kicker">Hardware launch</span><span class="hotspot-title">Analogic AVA</span></a></li>
+      <li><a href="experience.html"><span class="hotspot-kicker">The human behind the AI</span><span class="hotspot-title">Experience</span></a></li>
+      <li><a href="#portfolio"><span class="hotspot-kicker">Product, data, growth</span><span class="hotspot-title">Case studies</span></a></li>
+      <li><a href="crediclip.html"><span class="hotspot-kicker">Video credibility AI</span><span class="hotspot-title">CrediClip</span></a></li>
+      <li><a href="sources.html"><span class="hotspot-kicker">Where claims come from</span><span class="hotspot-title">Sources</span></a></li>
+    </ul>
+
+    <div class="studio-controls" role="group" aria-label="Studio settings">
+      <button type="button" data-pref="paused" aria-pressed="false">Pause motion</button>
+      <button type="button" data-pref="voice" aria-pressed="true">Spoken answers</button>
+      <button type="button" data-pref="simple" aria-pressed="false">Simple view</button>
+      <button type="button" data-pref="hideAvatar" aria-pressed="false">Hide avatar</button>
+    </div>
+
   </section>
 
   <!-- ── Impact strip ─────────────────────────────────────────────── -->
@@ -2074,5 +2454,6 @@
     });
   </script>
   <script src="assets/ask-ali.js" defer></script>
+  <script src="assets/studio.js" defer></script>
 </body>
 </html>

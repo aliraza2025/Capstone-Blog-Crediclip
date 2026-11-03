@@ -91,6 +91,13 @@
   var closeBtn = panel.querySelector(".aa-close");
   var busy = false;
   var messages = load();
+  var listeners = {};
+
+  function emit(name, detail) {
+    (listeners[name] || []).forEach(function (fn) {
+      try { fn(detail); } catch (e) {}
+    });
+  }
 
   function load() {
     try { return JSON.parse(sessionStorage.getItem(STORE_KEY)) || []; } catch (e) { return []; }
@@ -180,6 +187,7 @@
     typing.innerHTML = '<span class="aa-typing" aria-hidden="true"><span></span><span></span><span></span></span><span class="aa-sr">Thinking</span>';
     log.appendChild(typing);
     log.scrollTop = log.scrollHeight;
+    emit("ask", { question: question });
 
     fetch(ENDPOINT, {
       method: "POST",
@@ -195,12 +203,14 @@
         messages.push(m);
         addMessage(m);
         save();
+        emit("answer", m);
       })
       .catch(function () {
         typing.remove();
         var m = { role: "assistant", content: "I couldn’t reach the assistant. Check your connection and try again.", error: true };
         messages.push(m);
         addMessage(m);
+        emit("answer", m);
       })
       .then(function () { setBusy(false); });
   }
@@ -210,18 +220,28 @@
     input.style.height = Math.min(input.scrollHeight, 110) + "px";
   }
 
-  function open() {
+  function open(opts) {
     if (!panel.hidden) return;
     if (!log.childElementCount) renderAll();
     panel.hidden = false;
     launch.setAttribute("aria-expanded", "true");
-    input.focus();
+    if (!(opts && opts.noFocus)) input.focus();
+    emit("open");
   }
   function close() {
     panel.hidden = true;
     launch.setAttribute("aria-expanded", "false");
     launch.focus();
+    emit("close");
   }
+
+  window.AskAli = {
+    open: open,
+    close: close,
+    ask: function (q) { open({ noFocus: true }); ask(q); },
+    isBusy: function () { return busy; },
+    on: function (name, fn) { (listeners[name] = listeners[name] || []).push(fn); }
+  };
 
   launch.addEventListener("click", function () { panel.hidden ? open() : close(); });
   closeBtn.addEventListener("click", close);
