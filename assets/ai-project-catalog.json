@@ -2,32 +2,66 @@
   {
     "name": "serviceops-agent",
     "title": "Raasta",
-    "description": "A LangGraph service-request workflow with deterministic quoting, checkpointed human review, rejection, and an idempotent sandbox handoff.",
+    "description": "A human-reviewed LangGraph quote workflow with two usable intake variants, actual GrowthBook assignment, privacy-scoped event recording and locally verified PostHog SDK delivery.",
     "homepage": "https://aliraza2025.github.io/serviceops-agent/",
     "html_url": "https://github.com/aliraza2025/serviceops-agent",
     "category": "Agent workflows",
     "stage": "Independent prototype",
-    "verification": "LangGraph approval/resume verified",
+    "verification": "LangGraph, GrowthBook and local PostHog delivery verified",
     "image": "assets/ai-projects/raasta-agent.webp",
-    "caseStudy": "https://github.com/aliraza2025/serviceops-agent/blob/main/CASE_STUDY.md",
-    "subtitle": "Human-reviewed agent workflows",
+    "caseStudy": "notes/raasta-product-experiment.html",
+    "subtitle": "Agent workflows, experiments and analytics",
     "brand": "Raza Labs",
-    "imageAlt": "Raasta concept artwork: a sculptural branching route made of pale-lilac ceramic, one chosen raised translucent magenta bridge and a small satin-silver compass beside it"
+    "imageAlt": "Raasta concept artwork: a sculptural branching route made of pale-lilac ceramic, one chosen raised translucent magenta bridge and a small satin-silver compass beside it",
+    "limitations": "The default planner uses explicit input fields and rules. This is not autonomous model planning. MemorySaver checkpoints last only for the local server process. The handoff records a synthetic event; no real CRM write occurs. The experiment simulation is synthetic. PostHog verification covers SDK serialization and loopback delivery, not a full analytics backend. No causal conversion gain or customer adoption is claimed."
+  },
+  {
+    "name": "raza-mentor",
+    "title": "Raza Mentor",
+    "subtitle": "Source-grounded study and practice",
+    "brand": "Raza Labs",
+    "description": "An original study workbench with source-linked passages, practice questions, review tracking and session exports, using an actual local DeepTutor BM25 retrieval component.",
+    "homepage": "https://aliraza2025.github.io/raza-mentor/",
+    "html_url": "https://github.com/aliraza2025/raza-mentor",
+    "category": "Learning and retrieval",
+    "stage": "Independent prototype",
+    "verification": "DeepTutor retrieval: 5 fixture checks passed",
+    "image": "assets/ai-projects/raza-mentor.webp",
+    "caseStudy": "https://github.com/aliraza2025/raza-mentor/blob/main/CASE_STUDY.md",
+    "imageAlt": "Raza Mentor original purple-and-pink studio concept artwork",
+    "limitations": "The public page uses a keyword baseline. Local mode uses DeepTutor\u2019s BM25 component, not its full agent platform. No generative tutor, semantic embeddings, real student records or learning-outcome improvements are claimed."
   },
   {
     "name": "agent-release-lab",
     "title": "Parakh",
-    "description": "An inspectable release-gate workbench with regression checks and Promptfoo integration, including a recorded evaluation of a locally adapted intake classifier.",
+    "description": "An inspectable release-gate workbench with Promptfoo checks, recorded local-classifier evaluation and actual offline Opik exact-match/JSON metrics with negative controls.",
     "homepage": "https://aliraza2025.github.io/agent-release-lab/",
     "html_url": "https://github.com/aliraza2025/agent-release-lab",
     "category": "AI evaluation",
     "stage": "Independent prototype",
-    "verification": "Promptfoo trace and local-model evaluations",
+    "verification": "Promptfoo and actual local Opik metrics",
     "image": "assets/ai-projects/parakh-ai.webp",
     "caseStudy": "https://github.com/aliraza2025/agent-release-lab/blob/main/CASE_STUDY.md",
     "subtitle": "AI evaluation and release gates",
     "brand": "Raza Labs",
-    "imageAlt": "Parakh concept artwork: a sculptural precision balance with a translucent pink glass cube on one pan and a stack of violet test blocks on the other, a small inspection lens integrated into the base"
+    "imageAlt": "Parakh concept artwork: a sculptural precision balance with a translucent pink glass cube on one pan and a stack of violet test blocks on the other, a small inspection lens integrated into the base",
+    "limitations": "Trace checks do not prove factual correctness or authenticate logs. The local model test uses a small synthetic held-out set; it does not establish customer performance. Opik format and equality metrics do not establish semantic correctness; no full Opik backend or model judge was deployed."
+  },
+  {
+    "name": "raza-atlas",
+    "title": "Raza Atlas",
+    "subtitle": "A source-linked map of product architecture",
+    "brand": "Raza Labs",
+    "description": "An interactive architecture explorer using actual local Graphify AST extraction, pinned public source provenance and cycle-safe dependency traversal.",
+    "homepage": "https://aliraza2025.github.io/raza-atlas/",
+    "html_url": "https://github.com/aliraza2025/raza-atlas",
+    "category": "Architecture and AI tooling",
+    "stage": "Independent prototype",
+    "verification": "Graphify: 18 nodes, 34 edges, zero model tokens",
+    "image": "assets/ai-projects/raza-atlas.webp",
+    "caseStudy": "https://github.com/aliraza2025/raza-atlas/blob/main/CASE_STUDY.md",
+    "imageAlt": "Raza Atlas original purple-and-pink studio concept artwork",
+    "limitations": "The example is a four-file public Raasta source snapshot. Static edges do not prove runtime behavior or complete change impact. External references are explicitly represented, and no semantic or LLM pass was run."
   },
   {
     "name": "irha-voice-sandbox",
@@ -42,7 +76,8 @@
     "caseStudy": "https://github.com/aliraza2025/irha-voice-sandbox/blob/main/CASE_STUDY.md",
     "subtitle": "Local voice AI sandbox",
     "brand": "Raza Labs",
-    "imageAlt": "Awaaz concept artwork: a distinctive satin-silver desk microphone with deep plum housing and three floating pink porcelain acoustic-wave arcs"
+    "imageAlt": "Awaaz concept artwork: a distinctive satin-silver desk microphone with deep plum housing and three floating pink porcelain acoustic-wave arcs",
+    "limitations": "A local English synthetic recording was transcribed successfully. The LiveKit Agent class and quote tool were instantiated, but no live room, telephony call, or external booking was tested. The browser microphone and local speech controls depend on browser support. This sandbox is not the commercial irha service implementation."
   },
   {
     "name": "evidence-map",
@@ -57,7 +92,8 @@
     "caseStudy": "https://github.com/aliraza2025/evidence-map/blob/main/CASE_STUDY.md",
     "subtitle": "Evidence-led product discovery",
     "brand": "Raza Labs",
-    "imageAlt": "Nukta concept artwork: a clear glass magnifying lens over three small pale-lilac research cards connected by fine magenta thread and silver pins"
+    "imageAlt": "Nukta concept artwork: a clear glass magnifying lens over three small pale-lilac research cards connected by fine magenta thread and silver pins",
+    "limitations": "Exact quote matching does not establish logical support for a hypothesis. Keyword grouping and model-backed retrieval are different modes. The sample interviews are fictional, and RICE values start as operator assumptions."
   },
   {
     "name": "serviceops-mcp",
@@ -72,7 +108,8 @@
     "caseStudy": "https://github.com/aliraza2025/serviceops-mcp/blob/main/CASE_STUDY.md",
     "subtitle": "Typed tools for AI integrations",
     "brand": "Raza Labs",
-    "imageAlt": "Rabta concept artwork: three small rounded pale-lilac ceramic modules linked by curved translucent purple cables with precise pink-metal couplings; one connector is visibly joining the modules"
+    "imageAlt": "Rabta concept artwork: three small rounded pale-lilac ceramic modules linked by curved translucent purple cables with precise pink-metal couplings; one connector is visibly joining the modules",
+    "limitations": "The tools operate only on synthetic records and a fictional price catalog. There is no private CRM, OAuth deployment, scheduling write, or customer messaging integration."
   },
   {
     "name": "datasheet-copilot",
@@ -87,7 +124,8 @@
     "caseStudy": "https://github.com/aliraza2025/datasheet-copilot/blob/main/CASE_STUDY.md",
     "subtitle": "Source-linked technical document AI",
     "brand": "Raza Labs",
-    "imageAlt": "RF Prism concept artwork: a striking optical glass triangular prism, a bright pink wave ribbon passing through it and separating into thin violet and blue frequency bands, two blank pale-lilac technical sheets underneath"
+    "imageAlt": "RF Prism concept artwork: a striking optical glass triangular prism, a bright pink wave ribbon passing through it and separating into thin violet and blue frequency bands, two blank pale-lilac technical sheets underneath",
+    "limitations": "The verified document is an original fictional HTML datasheet. PDF conversion is supported by the underlying converter but is not yet validated here. Numeric power filters do not establish engineering suitability, and no Analogic specifications or outcomes are claimed."
   },
   {
     "name": "framebrief-studio",
@@ -102,7 +140,8 @@
     "caseStudy": "https://github.com/aliraza2025/framebrief-studio/blob/main/CASE_STUDY.md",
     "subtitle": "AI-assisted storyboarding studio",
     "brand": "Raza Labs",
-    "imageAlt": "Dastaan concept artwork: a compact stylized dark-plum film projector casting a pink beam, one curling translucent violet film strip with three blank frames, and two small blank storyboard cards"
+    "imageAlt": "Dastaan concept artwork: a compact stylized dark-plum film projector casting a pink beam, one curling translucent violet film strip with three blank frames, and two small blank storyboard cards",
+    "limitations": "The default storyboard is a template. Diffusers renders one planning frame at a time; this is not a finished video generator. Visual continuity and production quality need human review. The optional Ollama drafting adapter remains separately configured."
   },
   {
     "name": "private-feedback-triage",
@@ -117,7 +156,8 @@
     "caseStudy": "https://github.com/aliraza2025/private-feedback-triage/blob/main/CASE_STUDY.md",
     "subtitle": "Private on-device feedback intelligence",
     "brand": "Raza Labs",
-    "imageAlt": "Ehsaas concept artwork: a frosted violet-glass vessel enclosing three small tactile speech-bubble-shaped pebbles in pink, lilac and cool blue; a polished clear window reveals the conversation within"
+    "imageAlt": "Ehsaas concept artwork: a frosted violet-glass vessel enclosing three small tactile speech-bubble-shaped pebbles in pink, lilac and cool blue; a polished clear window reveals the conversation within",
+    "limitations": "The first AI run downloads model/runtime files. Text inference runs on the device. Scores are not calibrated measures of customer importance, and sarcasm or mixed sentiment may be misclassified. Node inference was verified; browser performance varies by device."
   },
   {
     "name": "bilingual-story-archive",
@@ -132,7 +172,8 @@
     "caseStudy": "https://github.com/aliraza2025/bilingual-story-archive/blob/main/CASE_STUDY.md",
     "subtitle": "A searchable archive for spoken stories",
     "brand": "Raza Labs",
-    "imageAlt": "Riwayat concept artwork: a carefully preserved lilac audio cassette and a small silver tape reel beside an open blank archival notebook, purple paper bookmarks, two delicate pink sound-wave ribbons rising from the tape"
+    "imageAlt": "Riwayat concept artwork: a carefully preserved lilac audio cassette and a small silver tape reel beside an open blank archival notebook, purple paper bookmarks, two delicate pink sound-wave ribbons rising from the tape",
+    "limitations": "The English recording and supplied bilingual text are fictional fixtures. One local English ASR run does not establish language or dialect accuracy. Automatic translation and real oral-history collection are not claimed."
   },
   {
     "name": "intake-model-lab",
@@ -147,6 +188,7 @@
     "caseStudy": "https://github.com/aliraza2025/intake-model-lab/blob/main/CASE_STUDY.md",
     "subtitle": "Small-model adaptation experiments",
     "brand": "Raza Labs",
-    "imageAlt": "Zarra concept artwork: a tiny luminous pink seed at the center of an open sculptural neural lattice of satin-silver rods and small violet ceramic nodes; a small precise object that suggests learning and adaptation"
+    "imageAlt": "Zarra concept artwork: a tiny luminous pink seed at the center of an open sculptural neural lattice of satin-silver rods and small violet ceramic nodes; a small precise object that suggests learning and adaptation",
+    "limitations": "The experiment uses 30 synthetic training examples and 12 synthetic held-out examples. Both rules and the adapter scored 100% on this tiny set. This establishes no benefit over rules and no customer generalization. The unadapted classifier head is newly initialized."
   }
 ]
