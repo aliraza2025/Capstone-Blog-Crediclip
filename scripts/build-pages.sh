@@ -19,6 +19,9 @@ cat > .cf-dist/_headers <<'EOF'
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
 
+/assets/Ali-Raza-CV.pdf
+  Cache-Control: no-store
+
 /portfolio-section*
   X-Robots-Tag: noindex
 
