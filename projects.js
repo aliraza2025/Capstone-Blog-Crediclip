@@ -33,24 +33,28 @@ const REPO_OVERRIDES = {
   },
   '-Burrito-Game-Analysis-Logistics-Optimization-Sensitivity-Study': {
     title: 'Burrito Game: Logistics Optimization',
+    homepage: null,
     description:
       'Python integer-programming model optimizing pricing, fleet deployment, routing, and demand coverage, with sensitivity analysis for operational decisions.',
     image: 'assets/burrito-logistics-preview.png',
   },
   'Statistical-Modeling': {
     title: 'Statistical Modeling',
+    homepage: null,
     description:
       'Jupyter notebooks covering regression analysis, hypothesis testing, and predictive modeling applied to real-world datasets.',
     image: 'assets/statistical-modeling-preview.png',
   },
   'Data-Mining-Project': {
     title: 'Data Mining',
+    homepage: null,
     description:
       'Pattern recognition and data mining techniques applied to real-world datasets using Python, pandas, and scikit-learn.',
     image: 'assets/data-mining-preview.png',
   },
   'MrBeast-as-a-Case-Study': {
     title: 'MrBeast YouTube Analytics',
+    homepage: null,
     description:
       "Python analysis of MrBeast's 200M+ subscriber channel, modeling upload timing, video length, title patterns, and audience engagement metrics.",
     image: 'assets/mrbeast-analytics-preview.png',
@@ -65,6 +69,7 @@ const REPO_OVERRIDES = {
   },
   'Case-Study-Taiwan-2005-Credit-Card-Crisis-Analysis': {
     title: 'Taiwan 2005 Credit Card Crisis',
+    homepage: null,
     description:
       'Financial case study analyzing the 2005 Taiwan credit card crisis: data modeling, trend identification, and risk indicator analysis.',
     image: 'assets/taiwan-crisis-preview.png',
