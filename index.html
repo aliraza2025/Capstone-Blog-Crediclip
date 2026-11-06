@@ -1112,6 +1112,29 @@
       font-size: 0.82rem;
     }
 
+    /* ─── Presentations group (Work section) ─────────────────────── */
+    .deck-group { margin-top: 4rem; scroll-margin-top: 90px; }
+    .deck-card { display: flex; flex-direction: column; }
+    .case-thumb {
+      display: block;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: rgba(255,255,255,.04);
+      border-bottom: 1px solid var(--line);
+    }
+    .case-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+    .deck-card:hover .case-thumb img { transform: scale(1.03); }
+    .deck-group-cta { margin-top: 1.5rem; display: flex; justify-content: center; }
+    @media (prefers-reduced-motion: reduce) {
+      .case-thumb img, .deck-card:hover .case-thumb img { transition: none; transform: none; }
+    }
+
     /* ─── Creative portfolio ──────────────────────────────────────── */
     .creative-grid {
       display: grid;
@@ -1381,6 +1404,11 @@
       color: var(--muted);
     }
 
+    @media (min-width: 769px) and (max-width: 960px) {
+      .nav-links { gap: 1.15rem; }
+      .nav-links a { font-size: 0.8rem; }
+    }
+
     @media (max-width: 768px) {
       .contact-layout { grid-template-columns: 1fr; }
     }
@@ -1599,6 +1627,7 @@
       <ul class="nav-links" role="list">
         <li><a href="#portfolio">Work</a></li>
         <li><a href="projects.html">Projects</a></li>
+        <li><a href="presentations.html">Presentations</a></li>
         <li><a href="experience.html">Experience</a></li>
         <li><a href="notes/">Notes</a></li>
         <li><a href="#about">About</a></li>
@@ -1852,41 +1881,11 @@
         </div>
       </article>
 
-      <!-- Case studies 02–05 -->
+      <!-- Case studies 02+ -->
       <div class="case-grid">
-
         <article class="case-card compact">
           <div class="case-body">
             <span class="case-num">Case Study 02</span>
-            <div class="case-tags">
-              <span class="case-tag">Hardware PM</span>
-              <span class="case-tag">GTM</span>
-              <span class="case-tag">Semiconductor</span>
-            </div>
-            <h3 class="case-title"><a href="presentations.html#analogic" style="color:inherit;text-decoration:none;">Analogic: AVA RF Generator Launch</a></h3>
-            <div class="case-block">
-              <p class="case-block-label">Problem</p>
-              <p>A new line of pulsed RF plasma generators (AVA 1213, 3013, 6013) needed a product identity, launch kit, and digital presence for SEMICON West 2025.</p>
-            </div>
-            <div class="case-block">
-              <p class="case-block-label">Result</p>
-              <p>Built the AVA brand identity, banners, brochures, booth concepts, and LinkedIn plan, supporting 170+ booth demos, 60+ product-info requests, and 20+ partnership leads; then planned the AVA website and content engine for 2026.</p>
-            </div>
-            <div class="case-actions">
-              <a href="presentations.html#analogic" class="case-btn case-btn-primary" aria-label="View presentation: Analogic AVA launch">
-                View Presentation
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-                </svg>
-              </a>
-              <a href="https://ava-website-liart.vercel.app/" class="case-btn case-btn-ghost" target="_blank" rel="noopener noreferrer" aria-label="View the AVA website - opens in new tab">AVA Website</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="case-card compact">
-          <div class="case-body">
-            <span class="case-num">Case Study 03</span>
             <div class="case-tags">
               <span class="case-tag">Startup</span>
               <span class="case-tag">AI Voice Agent</span>
@@ -1919,7 +1918,7 @@
 
         <article class="case-card compact">
           <div class="case-body">
-            <span class="case-num">Case Study 04</span>
+            <span class="case-num">Case Study 03</span>
             <div class="case-tags">
               <span class="case-tag">Operations</span>
               <span class="case-tag">Next.js</span>
@@ -1947,93 +1946,7 @@
 
         <article class="case-card compact">
           <div class="case-body">
-            <span class="case-num">Case Study 05</span>
-            <div class="case-tags">
-              <span class="case-tag">Brand Strategy</span>
-              <span class="case-tag">Sports</span>
-              <span class="case-tag">Creative</span>
-            </div>
-            <h3 class="case-title"><a href="presentations.html#49ers" style="color:inherit;text-decoration:none;">49ers: Creative Content for a Global Faithful</a></h3>
-            <div class="case-block">
-              <p class="case-block-label">Problem</p>
-              <p>With international marketing rights in Mexico and the UK, the 49ers have room to grow a global fanbase that responds to different content than US fans.</p>
-            </div>
-            <div class="case-block">
-              <p class="case-block-label">Result</p>
-              <p>Pitched, as a prospective intern, a creative product and brand strategy: 7 target markets and 12+ content concepts adapted from global soccer, cricket, and basketball brands.</p>
-            </div>
-            <div class="case-actions">
-              <a href="presentations.html#49ers" class="case-btn case-btn-primary" aria-label="View presentation: 49ers">
-                View Presentation
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-                </svg>
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <article class="case-card compact">
-          <div class="case-body">
-            <span class="case-num">Case Study 06</span>
-            <div class="case-tags">
-              <span class="case-tag">Growth Marketing</span>
-              <span class="case-tag">B2B</span>
-              <span class="case-tag">Proposal</span>
-            </div>
-            <h3 class="case-title"><a href="presentations.html#deel" style="color:inherit;text-decoration:none;">Deel Local XI: Football to B2B Pipeline</a></h3>
-            <div class="case-block">
-              <p class="case-block-label">Problem</p>
-              <p>Deel has Arsenal on the world stage, but global sponsorship drives awareness, not conversations with local employers who need modern HR, payroll, and global hiring.</p>
-            </div>
-            <div class="case-block">
-              <p class="case-block-label">Result</p>
-              <p>Proposed, independently, a 6-week Bay Area pilot with one community football club, AI-assisted and human-reviewed targeting, and a single north-star KPI: cost per sales-accepted qualified meeting.</p>
-            </div>
-            <div class="case-actions">
-              <a href="presentations.html#deel" class="case-btn case-btn-primary" aria-label="View proposal: Deel Local XI">
-                View Proposal
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-                </svg>
-              </a>
-              <a href="https://ali-raza-deel-local-growth-hack.netlify.app/" class="case-btn case-btn-ghost" target="_blank" rel="noopener noreferrer" aria-label="Live site: Deel Local XI proposal - opens in new tab">Live Site</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="case-card compact">
-          <div class="case-body">
-            <span class="case-num">Case Study 07</span>
-            <div class="case-tags">
-              <span class="case-tag">Analytics</span>
-              <span class="case-tag">Python</span>
-              <span class="case-tag">SHAP</span>
-            </div>
-            <h3 class="case-title"><a href="presentations.html#mrbeast" style="color:inherit;text-decoration:none;">MrBeast: YouTube Engagement Analysis</a></h3>
-            <div class="case-block">
-              <p class="case-block-label">Problem</p>
-              <p>Can a creator predict engagement before uploading, using only metadata they control such as title, length, and timing?</p>
-            </div>
-            <div class="case-block">
-              <p class="case-block-label">Result</p>
-              <p>Modeled 250 MrBeast uploads from the YouTube Data API with tree models and SHAP; duration, Shorts format, and an 18–22h upload window were the top drivers.</p>
-            </div>
-            <div class="case-actions">
-              <a href="presentations.html#mrbeast" class="case-btn case-btn-primary" aria-label="View presentation: MrBeast">
-                View Presentation
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-                </svg>
-              </a>
-              <a href="https://github.com/aliraza2025/MrBeast-as-a-Case-Study" class="case-btn case-btn-ghost" target="_blank" rel="noopener noreferrer" aria-label="View MrBeast analysis on GitHub - opens in new tab">GitHub</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="case-card compact">
-          <div class="case-body">
-            <span class="case-num">Case Study 08</span>
+            <span class="case-num">Case Study 04</span>
             <div class="case-tags">
               <span class="case-tag">Optimization</span>
               <span class="case-tag">Python</span>
@@ -2066,7 +1979,7 @@
 
         <article class="case-card compact">
           <div class="case-body">
-            <span class="case-num">Case Study 09</span>
+            <span class="case-num">Case Study 05</span>
             <div class="case-tags">
               <span class="case-tag">Product Marketing</span>
               <span class="case-tag">AI</span>
@@ -2086,7 +1999,7 @@
 
         <article class="case-card compact">
           <div class="case-body">
-            <span class="case-num">Case Study 10+</span>
+            <span class="case-num">Case Study 06+</span>
             <div class="case-tags">
               <span class="case-tag">Analytics</span>
               <span class="case-tag">More</span>
@@ -2094,7 +2007,7 @@
             <h3 class="case-title">More Projects</h3>
             <div class="case-block">
               <p class="case-block-label">Includes</p>
-              <p>Statistical Modeling, Data Mining, the Taiwan credit card crisis case study, and additional analytics builds on GitHub, plus the full interactive decks behind these case studies.</p>
+              <p>Statistical Modeling, Data Mining, the Taiwan credit card crisis case study, and additional analytics builds on GitHub.</p>
             </div>
             <div class="case-actions">
               <a href="projects.html" class="case-btn case-btn-primary" aria-label="View all projects">
@@ -2103,13 +2016,155 @@
                   <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
                 </svg>
               </a>
-              <a href="presentations.html" class="case-btn case-btn-ghost" aria-label="View all presentations">All Presentations</a>
             </div>
           </div>
         </article>
 
       </div>
     </div>
+
+    <!-- Presentations -->
+    <section class="deck-group" id="presentations" aria-labelledby="presentations-heading">
+      <header class="section-header deck-group-header">
+        <span class="section-tag">Work</span>
+        <h2 class="section-title" id="presentations-heading">Presentations</h2>
+        <p class="section-subtitle">
+          Launch strategy, growth proposals, and analytics decks, newest first.
+          Each one opens into a summary with the full deck or live proposal.
+        </p>
+        <div class="section-divider" aria-hidden="true"></div>
+      </header>
+
+      <div class="case-grid">
+        <article class="case-card compact deck-card">
+          <a class="case-thumb" href="presentations.html#deel" tabindex="-1" aria-hidden="true"><img src="assets/presentations/deel.jpg" alt="" width="640" height="336" loading="lazy" /></a>
+          <div class="case-body">
+            <span class="case-num">Presentation 01 · Oct 2026</span>
+            <div class="case-tags">
+              <span class="case-tag">Growth Marketing</span>
+              <span class="case-tag">B2B</span>
+              <span class="case-tag">Proposal</span>
+            </div>
+            <h3 class="case-title"><a href="presentations.html#deel" style="color:inherit;text-decoration:none;">Deel Local XI: Football to B2B Pipeline</a></h3>
+            <div class="case-block">
+              <p class="case-block-label">Problem</p>
+              <p>Deel has Arsenal on the world stage, but global sponsorship drives awareness, not conversations with local employers who need modern HR, payroll, and global hiring.</p>
+            </div>
+            <div class="case-block">
+              <p class="case-block-label">Result</p>
+              <p>Proposed, independently, a 6-week Bay Area pilot with one community football club, AI-assisted and human-reviewed targeting, and a single north-star KPI: cost per sales-accepted qualified meeting.</p>
+            </div>
+            <div class="case-actions">
+              <a href="presentations.html#deel" class="case-btn case-btn-primary" aria-label="View proposal: Deel Local XI">
+                View Proposal
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </a>
+              <a href="https://ali-raza-deel-local-growth-hack.netlify.app/" class="case-btn case-btn-ghost" target="_blank" rel="noopener noreferrer" aria-label="Live site: Deel Local XI proposal - opens in new tab">Live Site</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="case-card compact deck-card">
+          <a class="case-thumb" href="presentations.html#analogic" tabindex="-1" aria-hidden="true"><img src="assets/presentations/analogic.jpg" alt="" width="640" height="360" loading="lazy" /></a>
+          <div class="case-body">
+            <span class="case-num">Presentation 02 · 2025–2026</span>
+            <div class="case-tags">
+              <span class="case-tag">Hardware PM</span>
+              <span class="case-tag">GTM</span>
+              <span class="case-tag">Semiconductor</span>
+            </div>
+            <h3 class="case-title"><a href="presentations.html#analogic" style="color:inherit;text-decoration:none;">Analogic: AVA RF Generator Launch</a></h3>
+            <div class="case-block">
+              <p class="case-block-label">Problem</p>
+              <p>A new line of pulsed RF plasma generators (AVA 1213, 3013, 6013) needed a product identity, launch kit, and digital presence for SEMICON West 2025.</p>
+            </div>
+            <div class="case-block">
+              <p class="case-block-label">Result</p>
+              <p>Built the AVA brand identity, banners, brochures, booth concepts, and LinkedIn plan, supporting 170+ booth demos, 60+ product-info requests, and 20+ partnership leads; then planned the AVA website and content engine for 2026.</p>
+            </div>
+            <div class="case-actions">
+              <a href="presentations.html#analogic" class="case-btn case-btn-primary" aria-label="View presentation: Analogic AVA launch">
+                View Presentation
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </a>
+              <a href="https://ava-website-liart.vercel.app/" class="case-btn case-btn-ghost" target="_blank" rel="noopener noreferrer" aria-label="View the AVA website - opens in new tab">AVA Website</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="case-card compact deck-card">
+          <a class="case-thumb" href="presentations.html#mrbeast" tabindex="-1" aria-hidden="true"><img src="assets/presentations/mrbeast.jpg" alt="" width="640" height="360" loading="lazy" /></a>
+          <div class="case-body">
+            <span class="case-num">Presentation 03 · Fall 2025</span>
+            <div class="case-tags">
+              <span class="case-tag">Analytics</span>
+              <span class="case-tag">Python</span>
+              <span class="case-tag">SHAP</span>
+            </div>
+            <h3 class="case-title"><a href="presentations.html#mrbeast" style="color:inherit;text-decoration:none;">MrBeast: YouTube Engagement Analysis</a></h3>
+            <div class="case-block">
+              <p class="case-block-label">Problem</p>
+              <p>Can a creator predict engagement before uploading, using only metadata they control such as title, length, and timing?</p>
+            </div>
+            <div class="case-block">
+              <p class="case-block-label">Result</p>
+              <p>Modeled 250 MrBeast uploads from the YouTube Data API with tree models and SHAP; duration, Shorts format, and an 18–22h upload window were the top drivers.</p>
+            </div>
+            <div class="case-actions">
+              <a href="presentations.html#mrbeast" class="case-btn case-btn-primary" aria-label="View presentation: MrBeast">
+                View Presentation
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </a>
+              <a href="https://github.com/aliraza2025/MrBeast-as-a-Case-Study" class="case-btn case-btn-ghost" target="_blank" rel="noopener noreferrer" aria-label="View MrBeast analysis on GitHub - opens in new tab">GitHub</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="case-card compact deck-card">
+          <a class="case-thumb" href="presentations.html#49ers" tabindex="-1" aria-hidden="true"><img src="assets/presentations/49ers.jpg" alt="" width="640" height="360" loading="lazy" /></a>
+          <div class="case-body">
+            <span class="case-num">Presentation 04 · Late 2024</span>
+            <div class="case-tags">
+              <span class="case-tag">Brand Strategy</span>
+              <span class="case-tag">Sports</span>
+              <span class="case-tag">Creative</span>
+            </div>
+            <h3 class="case-title"><a href="presentations.html#49ers" style="color:inherit;text-decoration:none;">49ers: Creative Content for a Global Faithful</a></h3>
+            <div class="case-block">
+              <p class="case-block-label">Problem</p>
+              <p>With international marketing rights in Mexico and the UK, the 49ers have room to grow a global fanbase that responds to different content than US fans.</p>
+            </div>
+            <div class="case-block">
+              <p class="case-block-label">Result</p>
+              <p>Pitched, as a prospective intern, a creative product and brand strategy: 7 target markets and 12+ content concepts adapted from global soccer, cricket, and basketball brands.</p>
+            </div>
+            <div class="case-actions">
+              <a href="presentations.html#49ers" class="case-btn case-btn-primary" aria-label="View presentation: 49ers">
+                View Presentation
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="deck-group-cta">
+        <a href="presentations.html" class="case-btn case-btn-primary" aria-label="Open the Presentations page">
+          Open all presentations
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </a>
+      </div>
+    </section>
   </section>
 
   <!-- ── About Section ──────────────────────────────────────────── -->

@@ -252,6 +252,11 @@
       .preview, .index-item, .index-thumb img { transition: none; }
     }
 
+    @media (min-width: 769px) and (max-width: 960px) {
+      .nav-links { gap: 1.15rem; }
+      .nav-links a { font-size: 0.8rem; }
+    }
+
     @media (max-width: 768px) {
       .hamburger { display: flex; }
       .nav-inner { position: relative; height: auto; min-height: 62px; padding: 0 1.25rem; }
@@ -314,8 +319,9 @@
         <span></span><span></span><span></span>
       </label>
       <ul class="nav-links" role="list">
-        <li><a href="index.html#portfolio" class="active">Work</a></li>
+        <li><a href="index.html#portfolio">Work</a></li>
         <li><a href="projects.html">Projects</a></li>
+        <li><a href="presentations.html" class="active" aria-current="page">Presentations</a></li>
         <li><a href="experience.html">Experience</a></li>
         <li><a href="notes/">Notes</a></li>
         <li><a href="index.html#about">About</a></li>
