@@ -9,7 +9,7 @@ window.AI_PROJECT_CATALOG = [
     "stage": "Independent prototype",
     "verification": "LangGraph, GrowthBook and local PostHog delivery verified",
     "image": "assets/ai-projects/raasta-agent.webp",
-    "caseStudy": "notes/raasta-product-experiment.html",
+    "caseStudy": "notes/raasta-product-experiment",
     "subtitle": "Agent workflows, experiments and analytics",
     "brand": "Raza Labs",
     "imageAlt": "Raasta concept artwork: a sculptural branching route made of pale-lilac ceramic, one chosen raised translucent magenta bridge and a small satin-silver compass beside it",

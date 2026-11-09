@@ -12,7 +12,7 @@ const API_URL =
 const REPO_OVERRIDES = {
   'Capstone-Blog-Crediclip': { hide: true },
   'ask-ali': { title: 'Ask Ali', description: 'Portfolio assistant retrieving source passages and returning cited answers, with explicit limits and a live portfolio integration.', homepage: 'https://alirazaai.page/', stage: 'Portfolio integration' },
-  'bowc-estimate-tool-notes': { title: 'Blue Ocean Estimator Engineering Notes', homepage: null, notes: 'notes/estimator-data-plane.html' },
+  'bowc-estimate-tool-notes': { title: 'Blue Ocean Estimator Engineering Notes', homepage: null, notes: 'notes/estimator-data-plane' },
   'Resume-CV': {
     hide: true,
   },
@@ -22,14 +22,14 @@ const REPO_OVERRIDES = {
       'AI credibility analysis MVP for TikTok, Instagram, and YouTube Shorts: FastAPI workflow with OCR/ASR, queue processing, and claim-level trust scores.',
     image: 'assets/crediclip-preview.png',
     homepage: 'https://crediclip-axraza-msba.fly.dev/',
-    caseStudy: 'crediclip.html',
-    notes: 'notes/crediclip-data-plane.html',
+    caseStudy: 'crediclip',
+    notes: 'notes/crediclip-data-plane',
   },
   'bowc-estimate-tool': {
     title: 'Blue Ocean Price Estimator',
     description:
       'Next.js quoting tool for Blue Ocean Window Cleaning: a Housecall Pro data pipeline, San Diego parcel enrichment, and an explainable regression-and-comps pricing engine.',
-    notes: 'notes/estimator-data-plane.html',
+    notes: 'notes/estimator-data-plane',
   },
   '-Burrito-Game-Analysis-Logistics-Optimization-Sensitivity-Study': {
     title: 'Burrito Game: Logistics Optimization',
@@ -58,14 +58,14 @@ const REPO_OVERRIDES = {
     description:
       "Python analysis of MrBeast's 200M+ subscriber channel, modeling upload timing, video length, title patterns, and audience engagement metrics.",
     image: 'assets/mrbeast-analytics-preview.png',
-    slides: 'presentations.html#mrbeast',
+    slides: 'presentations#mrbeast',
   },
   'AVA-RF-Plasma-Generator-Website': {
     title: 'AVA RF Plasma Generators Website',
     description:
       'Next.js marketing website for Analogic’s AVA RF plasma generators, built from the AVA brand positioning, datasheets, and UI/UX wireframes I developed as a product management intern.',
     homepage: 'https://ava-website-liart.vercel.app/',
-    slides: 'presentations.html#analogic',
+    slides: 'presentations#analogic',
   },
   'Case-Study-Taiwan-2005-Credit-Card-Crisis-Analysis': {
     title: 'Taiwan 2005 Credit Card Crisis',
