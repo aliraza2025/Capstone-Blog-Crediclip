@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ali Raza · Work with me</title>
+  <meta name="description" content="Work with Ali Raza, a Bay Area product manager and AI builder: AI prototypes, product discovery, analytics, and launch materials for founders and small teams." />
+  <link rel="canonical" href="https://alirazaai.page/services" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Ali Raza" />
+  <meta property="og:title" content="Ali Raza · Work with me" />
+  <meta property="og:description" content="AI prototypes, product discovery, analytics, and launch work from Ali Raza, creator of CrediClip and co-founder of irha.ai." />
+  <meta property="og:url" content="https://alirazaai.page/services" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Ali Raza · Product and AI services",
+    "url": "https://alirazaai.page/services",
+    "areaServed": ["San Francisco Bay Area", "United States", "Remote"],
+    "provider": { "@id": "https://alirazaai.page/#person", "@type": "Person", "name": "Ali Raza", "url": "https://alirazaai.page/" },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Services",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI prototype to working MVP", "description": "Problem brief, a working FastAPI or Next.js prototype with an LLM workflow, an evaluation set with known limits, and handoff notes." } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Product discovery and requirements", "description": "User and staff interviews, a PRD with scope and success metrics, and a prioritized roadmap." } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Analytics and decision models", "description": "SQL and Python analysis, KPI and funnel analysis, pricing, staffing, and optimization models, and experiment readouts." } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Launch and go-to-market materials", "description": "Positioning, launch kits, and sales or investor decks." } }
+      ]
+    }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Design tokens ─────────────────────────────────────────── */
+    :root {
+      --bg-0:        #0b0720;
+      --bg-1:        #120a2b;
+      --bg-2:        #1a0f3a;
+      --text:        #cbd5e1;
+      --text-strong: #e5e7eb;
+      --muted:       #94a3b8;
+      --line:        rgba(255,255,255,.10);
+      --accent:      #ff2d8d;
+      --accent-2:    #ff4aa3;
+      --accent-solid: #db0070;
+      --accent-solid-hover: #c2005f;
+    }
+
+    /* ─── Reset ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-padding-top: 80px; }
+    @media (prefers-reduced-motion: no-preference) {
+      html { scroll-behavior: smooth; }
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background:
+        radial-gradient(1200px 700px at 50% 10%, rgba(255,45,141,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg-0), var(--bg-1));
+      background-attachment: fixed;
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ─── Navigation ─────────────────────────────────────────────── */
+    .site-nav {
+      background: transparent;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 62px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      flex-shrink: 0;
+    }
+    .logo span { color: var(--accent); }
+
+    .nav-toggle {
+      position: absolute;
+      opacity: 0;
+      width: 1px;
+      height: 1px;
+      pointer-events: none;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px 4px;
+      border: none;
+      background: none;
+      z-index: 10;
+    }
+    .hamburger span {
+      display: block;
+      width: 20px;
+      height: 1.5px;
+      background: var(--text-strong);
+      border-radius: 1px;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .nav-toggle:checked + .hamburger span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle:checked + .hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-toggle:checked + .hamburger span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.25rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+      padding: 0.2rem 0;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -6px; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transition: transform 0.18s ease;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--text-strong); }
+    .nav-links a:hover::after,
+    .nav-links a.active::after { transform: scaleX(1); }
+
+    /* ─── Hero ───────────────────────────────────────────────────── */
+    .page-hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 2rem 3.5rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .page-hero-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .page-hero-title {
+      font-size: clamp(2.6rem, 6vw, 4.2rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text-strong);
+      line-height: 1.08;
+      margin-bottom: 1rem;
+    }
+
+    .page-hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 46ch;
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-location {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .hero-location svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    /* ─── Two-column layout ──────────────────────────────────────── */
+    .contact-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 2rem;
+      align-items: start;
+    }
+
+    /* ─── Shared card ────────────────────────────────────────────── */
+    .contact-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 2.25rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .contact-card:hover {
+      border-color: rgba(255,45,141,.35);
+      box-shadow: 0 16px 48px rgba(0,0,0,.35);
+      transform: translateY(-2px);
+    }
+
+    .card-heading {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      letter-spacing: -0.01em;
+      margin-bottom: 1.75rem;
+    }
+
+    /* ─── Form ───────────────────────────────────────────────────── */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group:last-of-type { margin-bottom: 1.5rem; }
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.7rem 0.9rem;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--text-strong);
+      transition: border-color 0.15s, box-shadow 0.15s;
+      outline: none;
+      resize: vertical;
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    input::placeholder,
+    textarea::placeholder { color: var(--muted); opacity: 0.7; }
+
+    input:focus-visible,
+    textarea:focus-visible {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(255,45,141,.18);
+    }
+
+    textarea { min-height: 130px; }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent-solid);
+      color: #fff;
+      border: 1.5px solid var(--accent-solid);
+      border-radius: 12px;
+      padding: 0.72rem 1.5rem;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 8px 24px rgba(255,45,141,.2);
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      background: var(--accent-solid-hover);
+      border-color: var(--accent-solid-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(255,45,141,.3);
+    }
+    .btn-primary:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+    .btn-primary:active { transform: translateY(0); }
+
+    .form-note {
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* Inline feedback message */
+    .form-feedback {
+      display: none;
+      margin-top: 1rem;
+      padding: 0.85rem 1rem;
+      background: rgba(255,45,141,.08);
+      border: 1px solid rgba(255,45,141,.3);
+      border-radius: 10px;
+      font-size: 0.85rem;
+      color: var(--text-strong);
+      line-height: 1.55;
+    }
+    .form-feedback.visible  { display: block; }
+    .form-feedback.error {
+      background: rgba(239,68,68,.08);
+      border-color: rgba(239,68,68,.35);
+    }
+
+    .form-group [aria-invalid="true"] { border-color: rgba(239,68,68,.75); }
+
+    /* Button loading state */
+    .btn-primary .btn-spinner {
+      display: none;
+      width: 15px;
+      height: 15px;
+      border: 2px solid rgba(255,255,255,.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.65s linear infinite;
+    }
+    .btn-primary.loading .btn-spinner { display: block; }
+    .btn-primary.loading .btn-icon    { display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── Social links card ──────────────────────────────────────── */
+    .social-link-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.1rem;
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      margin-bottom: 0.85rem;
+      transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s;
+      text-decoration: none;
+      position: relative;
+    }
+    .social-link-row:last-child { margin-bottom: 0; }
+    .social-link-row:hover {
+      border-color: rgba(255,45,141,.5);
+      box-shadow: 0 8px 28px rgba(0,0,0,.3);
+      transform: translateY(-2px);
+    }
+    .social-link-row:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .social-link-main {
+      color: inherit;
+      text-decoration: none;
+    }
+    .social-link-main::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 13px;
+    }
+    .social-link-main:focus-visible { outline: none; }
+    .social-link-main:focus-visible::after {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .copy-btn { position: relative; z-index: 1; }
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    .social-icon-wrap {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,45,141,.10);
+      border: 1px solid rgba(255,45,141,.2);
+      border-radius: 10px;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+    .social-icon-wrap svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .social-link-body {
+      flex: 1;
+      min-width: 0;
+    }
+    .social-link-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-strong);
+      display: block;
+    }
+    .social-link-url {
+      font-size: 0.75rem;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+    }
+
+    .social-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+
+    .ext-arrow {
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      transition: color 0.15s;
+    }
+    .social-link-row:hover .ext-arrow { color: var(--accent); }
+    .ext-arrow svg { width: 16px; height: 16px; }
+
+    .copy-btn {
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .copy-btn:hover {
+      background: rgba(255,45,141,.12);
+      color: var(--accent);
+      border-color: rgba(255,45,141,.35);
+    }
+    .copy-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .copy-btn.copied {
+      background: rgba(255,45,141,.15);
+      color: var(--accent);
+      border-color: rgba(255,45,141,.4);
+    }
+
+    /* ─── Footer ─────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* ─── Responsive ─────────────────────────────────────────────── */
+    @media (min-width: 769px) and (max-width: 960px) {
+      .nav-links { gap: 1.15rem; }
+      .nav-links a { font-size: 0.8rem; }
+    }
+
+    @media (max-width: 768px) {
+      .logo { height: 62px; display: flex; align-items: center; gap: 0.28em; }
+      .hamburger { display: flex; height: 62px; align-items: center; }
+
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        border-top: 1px solid var(--line);
+        background: rgba(18,10,43,.92);
+        border-radius: 0 0 14px 14px;
+      }
+      .nav-links a::after { display: none; }
+      .nav-links li { width: 100%; }
+      .nav-links a {
+        display: block;
+        padding: 0.75rem 1.25rem;
+        font-size: 0.9rem;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+      }
+      .nav-links li:last-child a { border-bottom: none; }
+      .nav-toggle:checked ~ .nav-links { display: flex; }
+
+      .page-hero { padding: 3.5rem 1.5rem 2.5rem; }
+
+      .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 3rem 1.5rem 5rem;
+        gap: 1.5rem;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      textarea { font-size: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+      .contact-grid { padding-inline: 1.25rem; }
+      .contact-card { padding: 1.5rem 1.25rem; }
+      .social-link-row { gap: 0.75rem; padding: 0.9rem; }
+      .social-icon-wrap { width: 36px; height: 36px; }
+    }
+
+    /* ─── Reduced motion ─────────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .contact-card,
+      .social-link-row,
+      .btn-primary,
+      .copy-btn,
+      .hamburger span { transition: none; }
+    }
+
+    /* ─── Shared accessibility and text wrapping ─────────────────── */
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -100px;
+      z-index: 300;
+      padding: 0.6rem 1rem;
+      border-radius: 10px;
+      background: var(--accent-solid);
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .skip-link:focus { top: 0.75rem; }
+    .skip-link:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    .nav-toggle { display: none; }
+    .nav-toggle:focus-visible + .hamburger {
+      outline: 2px solid var(--accent);
+      outline-offset: -4px;
+      border-radius: 8px;
+    }
+    @media (max-width: 768px) {
+      .nav-toggle { display: block; }
+      .hamburger { justify-content: center; }
+    }
+    h1, h2, h3 { text-wrap: balance; }
+    p, li { text-wrap: pretty; }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--text-strong); }
+    /* ─── Services ───────────────────────────────────────────────── */
+    .svc-main { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+    .svc-section + .svc-section { margin-top: 4.5rem; }
+    .svc-h2 {
+      font-size: clamp(1.4rem, 2.6vw, 1.8rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text-strong);
+      margin-bottom: 0.6rem;
+    }
+    .svc-lede { color: var(--muted); max-width: 62ch; margin-bottom: 2rem; }
+    .svc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+    .svc-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .svc-card:hover {
+      border-color: rgba(255,45,141,.35);
+      box-shadow: 0 16px 48px rgba(0,0,0,.35);
+      transform: translateY(-2px);
+    }
+    .svc-num {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .svc-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-strong);
+      letter-spacing: -0.01em;
+      margin-bottom: 0.6rem;
+    }
+    .svc-card > p { font-size: 0.92rem; margin-bottom: 1.1rem; }
+    .svc-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.45rem;
+    }
+    .svc-list { list-style: none; margin-bottom: 1.25rem; }
+    .svc-list li {
+      font-size: 0.88rem;
+      padding-left: 1.1rem;
+      position: relative;
+      margin-bottom: 0.35rem;
+    }
+    .svc-list li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0.62em;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .svc-proof { margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--line); font-size: 0.85rem; }
+    .svc-proof a { color: var(--accent); text-decoration: none; font-weight: 600; }
+    .svc-proof a:hover { text-decoration: underline; }
+    .svc-steps {
+      list-style: none;
+      counter-reset: step;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+    .svc-steps li {
+      counter-increment: step;
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.4rem;
+      font-size: 0.9rem;
+    }
+    .svc-steps li::before {
+      content: counter(step, decimal-leading-zero);
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .svc-steps strong { display: block; color: var(--text-strong); margin-bottom: 0.3rem; }
+    .svc-cta {
+      background: linear-gradient(135deg, rgba(255,45,141,.12), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,45,141,.3);
+      border-radius: 20px;
+      padding: 2.5rem;
+    }
+    .svc-cta-actions { display: flex; flex-wrap: wrap; gap: 0.85rem; margin-top: 1.5rem; }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      border: 1.5px solid var(--line);
+      border-radius: 12px;
+      padding: 0.72rem 1.5rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-strong);
+      text-decoration: none;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .btn-ghost:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .page-hero-sub a, .svc-lede a, .svc-cta p a { color: var(--accent); }
+    @media (max-width: 900px) {
+      .svc-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 768px) {
+      .svc-main { padding: 3rem 1.5rem 5rem; }
+      .svc-grid, .svc-steps { grid-template-columns: minmax(0, 1fr); }
+      .svc-card, .svc-cta { padding: 1.5rem 1.25rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .svc-card, .btn-ghost { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ── Nav ───────────────────────────────────────────────────────── -->
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="logo" aria-label="Ali Raza - home">Ali <span>Raza</span></a>
+
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Navigation menu" />
+      <label for="nav-toggle" class="hamburger" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+
+      <ul class="nav-links" role="list">
+        <li><a href="/#portfolio">Work</a></li>
+        <li><a href="projects">Projects</a></li>
+        <li><a href="presentations">Presentations</a></li>
+        <li><a href="experience">Experience</a></li>
+        <li><a href="notes/">Notes</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#creative">Creative</a></li>
+        <li><a href="contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── Page Hero ─────────────────────────────────────────────────── -->
+  <header class="page-hero">
+    <p class="page-hero-eyebrow">Work with me</p>
+    <h1 class="page-hero-title">Work with me</h1>
+    <p class="page-hero-sub">I help founders and small teams turn a messy problem into a shipped, measurable product. Contract projects, part-time product help, or a full-time role.</p>
+    <span class="hero-location">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+        <circle cx="12" cy="10" r="3"/>
+      </svg>
+      Hayward, SF Bay Area, California, USA · Remote or on-site
+    </span>
+  </header>
+
+  <main id="main" class="svc-main">
+
+    <section class="svc-section" aria-labelledby="offers-heading">
+      <h2 class="svc-h2" id="offers-heading">What I can help with</h2>
+      <p class="svc-lede">Each offer comes from work I have already shipped, so you can check the evidence before we talk.</p>
+
+      <div class="svc-grid">
+        <article class="svc-card">
+          <p class="svc-num">01 · AI builds</p>
+          <h3>AI prototype to working MVP</h3>
+          <p>You have a workflow that should use AI. I define the job it needs to do, build a working version, and add checks for when the AI should say it is not sure.</p>
+          <p class="svc-label">You get</p>
+          <ul class="svc-list">
+            <li>Problem brief and success criteria</li>
+            <li>Working prototype (FastAPI or Next.js, LLM workflow)</li>
+            <li>Evaluation set and a list of known limits</li>
+            <li>Handoff notes your team can build on</li>
+          </ul>
+          <p class="svc-proof">Evidence: <a href="crediclip">CrediClip</a>, <a href="https://irha.ai/" target="_blank" rel="noopener noreferrer">irha.ai</a>, and the AI assistant on this site</p>
+        </article>
+
+        <article class="svc-card">
+          <p class="svc-num">02 · Discovery</p>
+          <h3>Product discovery and requirements</h3>
+          <p>I talk to the people doing the work, find what actually slows them down, and write it up so engineering can build the right thing first.</p>
+          <p class="svc-label">You get</p>
+          <ul class="svc-list">
+            <li>Interview synthesis with quotes and patterns</li>
+            <li>PRD with scope, edge cases, and success metrics</li>
+            <li>Prioritized roadmap with the reasoning shown</li>
+          </ul>
+          <p class="svc-proof">Evidence: <a href="notes/estimator-data-plane">Blue Ocean estimator</a> and <a href="experience">AtlasNova AI research</a></p>
+        </article>
+
+        <article class="svc-card">
+          <p class="svc-num">03 · Analytics</p>
+          <h3>Analytics and decision models</h3>
+          <p>SQL and Python analysis that ends in a decision: what to price, how to staff, which variant to keep, and what the data cannot tell you yet.</p>
+          <p class="svc-label">You get</p>
+          <ul class="svc-list">
+            <li>KPI, funnel, and conversion analysis</li>
+            <li>Pricing, staffing, or optimization models</li>
+            <li>Experiment design and a plain-language readout</li>
+          </ul>
+          <p class="svc-proof">Evidence: <a href="experience">Blue Ocean staffing model</a>, <a href="presentations#mrbeast">MrBeast engagement analysis</a>, and <a href="notes/raasta-product-experiment">Raasta experiment</a></p>
+        </article>
+
+        <article class="svc-card">
+          <p class="svc-num">04 · Launch</p>
+          <h3>Launch and go-to-market materials</h3>
+          <p>Positioning and materials that help buyers understand a technical product quickly, from booth to sales call to investor meeting.</p>
+          <p class="svc-label">You get</p>
+          <ul class="svc-list">
+            <li>Positioning and messaging</li>
+            <li>Launch kit: brochures, datasheets, social plan</li>
+            <li>Sales or investor deck</li>
+          </ul>
+          <p class="svc-proof">Evidence: <a href="presentations#analogic">Analogic AVA launch</a> and <a href="presentations#deel">Deel growth proposal</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="svc-section" aria-labelledby="process-heading">
+      <h2 class="svc-h2" id="process-heading">How a project works</h2>
+      <p class="svc-lede">No surprises on scope or price.</p>
+      <ol class="svc-steps">
+        <li><strong>Intro call</strong>30 minutes on what you are trying to change and how you will know it worked.</li>
+        <li><strong>Written scope</strong>Deliverables, timeline, and price agreed before any work starts.</li>
+        <li><strong>Weekly check-ins</strong>Something working to look at every week, not just status updates.</li>
+        <li><strong>Handoff</strong>Code, docs, and a clear list of what is left to do.</li>
+      </ol>
+    </section>
+
+    <section class="svc-section svc-cta" aria-labelledby="cta-heading">
+      <h2 class="svc-h2" id="cta-heading">Have a project or a role in mind?</h2>
+      <p>Tell me what you are working on. If it is not a fit, I will say so and point you somewhere better. You can also use the “Ask my AI” button on this page to ask about any project first.</p>
+      <div class="svc-cta-actions">
+        <a class="btn-primary" href="https://calendly.com/axraza55/30min" target="_blank" rel="noopener noreferrer">Book a 30-minute call<span class="visually-hidden"> (opens in new tab)</span></a>
+        <a class="btn-ghost" href="contact">Send a message</a>
+        <a class="btn-ghost" href="mailto:axraza55@gmail.com">axraza55@gmail.com</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ─────────────────────────────────────────────────────── -->
+  <footer>
+    <p>© 2026 Ali Raza · San Francisco Bay Area, California, USA · Built with care · <a href="services">Work with me</a> · <a href="about-this-site">About this site</a> · <a href="sources">Sources</a></p>
+  </footer>
+
+  <script>
+    document.querySelector('.nav-links').addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') {
+        document.getElementById('nav-toggle').checked = false;
+      }
+    });
+  </script>
+
+  <script src="assets/ask-ali.js" defer></script>
+</body>
+</html>

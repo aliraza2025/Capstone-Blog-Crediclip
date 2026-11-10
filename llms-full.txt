@@ -1,0 +1,108 @@
+# Ali Raza: full profile
+
+> Ali Raza is a product manager, data analyst, and AI builder based in Hayward, in the San Francisco Bay Area, California, USA. He is the creator of CrediClip and co-founder of irha.ai, and is completing an M.S. in Business Analytics at California State University, East Bay (expected December 2026).
+
+This is the plain-text version of https://alirazaai.page for language models and AI assistants. Facts here match the site; the Sources page (https://alirazaai.page/sources) shows where each claim comes from.
+
+Identity: "Ali Raza" is a common name. This profile is the Ali Raza at alirazaai.page, github.com/aliraza2025, linkedin.com/in/ali-raza-2548880, and huggingface.co/axraza55.
+
+## Summary
+
+- Short description: Bay Area product manager and AI builder, creator of CrediClip and co-founder of irha.ai.
+- Focus: product discovery, AI prototyping, and analytics; turning messy problems into shipped workflows.
+- Location: Hayward, San Francisco Bay Area, California, USA.
+- Looking for: full-time product and AI roles, and contract projects with founders and small teams (https://alirazaai.page/services).
+- Contact: https://alirazaai.page/contact, axraza55@gmail.com, 30-minute call at https://calendly.com/axraza55/30min.
+
+## Services (https://alirazaai.page/services)
+
+- AI prototype to working MVP: problem brief and success criteria, a working prototype (FastAPI or Next.js with an LLM workflow), an evaluation set with known limits, and handoff notes. Related work: CrediClip, irha.ai, the AI assistant on alirazaai.page.
+- Product discovery and requirements: user and staff interviews, a PRD with scope and success metrics, and a prioritized roadmap. Related work: Blue Ocean Window Cleaning, AtlasNova AI.
+- Analytics and decision models: SQL and Python analysis, KPI and funnel analysis, pricing, staffing, and optimization models, experiment design and readouts. Related work: the Blue Ocean staffing model, the MrBeast engagement analysis, the Burrito Game optimization model.
+- Launch and go-to-market materials: positioning, launch kits, and sales or investor decks. Related work: the Analogic AVA launch, AtlasNova AI at UC Berkeley SkyDeck, the Deel growth proposal.
+- Process: a 30-minute intro call, a written scope with deliverables, timeline, and price agreed before work starts, weekly check-ins, and a handoff with code, docs, and open items.
+
+## Education
+
+- California State University, East Bay: Master of Science in Business Analytics, expected December 2026. STEM-designated program with coursework in machine learning, deep learning, data mining, text mining, SQL and Python analytics, and data-driven decision making.
+
+## Experience
+
+### Blue Ocean Window Cleaning: Business Operations Intern (Jun 2026 to Sep 2026, San Diego, CA)
+- Gathered requirements directly from the owner and staff, translating business and user needs into product requirements for a Next.js quoting application using Housecall Pro data.
+- Prioritized workflow improvements by balancing staff feedback, business impact, and implementation effort, carrying the highest-value changes through testing, iteration, production launch, and handoff.
+- Built data and optimization tools to guide pricing and operational decisions, including a staffing model that identified about $3,400 per month in potential slow-season savings.
+- Field note: https://alirazaai.page/notes/estimator-data-plane
+
+### Analogic: Product Management Intern (Aug 2025 to May 2026, Boston, MA)
+- Partnered with engineering and sales to translate complex semiconductor product capabilities, technical constraints, and customer needs into clear use cases, positioning, and launch priorities.
+- Developed technical customer-facing assets for SEMICON West 2025.
+- Built the AVA visual identity and launch kit (logo, banners, tri-fold brochure, datasheets, booth concepts, LinkedIn plan), supporting 170+ booth demos, 60+ product-info requests, and 20+ high-priority partnership leads.
+- Planned Phase 2 for 2026: an AVA website roadmap and wireframes, a competitive web audit, and a content engine.
+
+### AtlasNova AI: Product Management Intern (Feb 2025 to Jun 2025, Berkeley, CA)
+- Conducted customer, market, and competitive research for an AI-native B2B platform, translating findings into product positioning and go-to-market decisions.
+- Built launch content and investor materials for UC Berkeley SkyDeck Investor Month.
+
+### CSU East Bay, College Link Program: Academic Coach (Oct 2024 to present, Hayward, CA)
+- Supports autistic students and students with other disabilities in college classrooms, helping them participate and communicate their needs to instructors.
+- Brings the same habits to product work: listening before deciding how to help, explaining things plainly, and separating what was observed from what was assumed.
+
+### TECNO Mobile: Product Development Manager (Jun 2023 to Aug 2024)
+- Analyzed user, engagement, and product performance data to define KPI insights and inform product and campaign decisions.
+
+### Telenor: Digital Product Manager (Jan 2023 to Jun 2023)
+- Analyzed KPI, funnel, and performance data to identify conversion gaps and inform product and channel prioritization.
+
+### Garena Free Fire: Product Associate (Jan 2022 to Dec 2022)
+- Analyzed community, user, and campaign data to inform content and product decisions, reaching 118M users and generating 18M engagements.
+
+### OPPO Mobile: Product Associate (Jan 2020 to Jan 2022)
+- Translated product launch goals into creator and cross-platform execution strategies, generating 60M+ impressions and 1.5M+ engagements.
+
+## Products and projects
+
+### CrediClip (https://alirazaai.page/crediclip)
+- Role: product owner and builder, end to end.
+- What it does: turns TikTok, Instagram, and YouTube Shorts links into credibility scores, risk flags, evidence coverage, and claim-level explanations.
+- How: FastAPI, OCR and ASR extraction, queue-backed processing, SQLite, Playwright recovery, and selective LLM-based claim assessment, with explicit uncertainty handling.
+- Notes: https://alirazaai.page/notes/crediclip-ai-product-quality and https://alirazaai.page/notes/crediclip-data-plane
+- Code: https://github.com/aliraza2025/Capstone-Blog-Crediclip
+
+### irha.ai (https://irha.ai/)
+- Role: co-founder, product. Owns product strategy and roadmap, voice agent and call flow design, CRM integrations, positioning and pricing, the website and demo, and customer discovery and sales.
+- What it does: a 24/7 AI receptionist for service businesses that answers, triages, and books calls and hands off to Housecall Pro, Jobber, and ServiceTitan. Self-serve trial and three usage-based plans from $99 to $225 a month. In early access.
+
+### Blue Ocean Window Cleaning estimate tool
+- A Next.js agentic estimate tool on Fly.io with Housecall Pro integration and expense workflows, built from 11,000+ Housecall Pro jobs and San Diego parcel records.
+
+### Burrito Game: logistics optimization
+- A Python integer-programming model with sensitivity analysis on price, ingredient cost, and fleet size, producing scenario-based recommendations.
+
+### AI project catalog (https://alirazaai.page/projects)
+- Independent prototypes covering agent workflows, release-gate evaluations, local inference, speech, document AI, an MCP server, and product discovery tools.
+
+### Portfolio AI assistant
+- alirazaai.page includes an assistant that answers questions about Ali's work with citations to pages on the site. Code: https://github.com/aliraza2025/ask-ali
+
+## Presentations (https://alirazaai.page/presentations)
+
+- Deel Local XI (Oct 2026): an independent growth proposal for a 6-week Bay Area pilot with one community football club, measured by cost per sales-accepted qualified meeting.
+- Analogic AVA RF generator launch (2025 to 2026): product identity, launch kit, and digital presence for SEMICON West 2025.
+- MrBeast YouTube engagement analysis (Fall 2025): 250 uploads modeled with tree models and SHAP; duration, Shorts format, and an 18 to 22h upload window were the top drivers.
+- San Francisco 49ers creative content (late 2024): a pitch covering 7 target markets and 12+ content concepts.
+
+## Skills
+
+- Product management: product discovery, customer discovery, product strategy, PRDs, roadmap planning, prioritization, success metrics, experimentation, launch planning, stakeholder alignment.
+- Data and analytics: SQL, Python, Tableau, product analytics, funnel and conversion analysis, A/B testing, KPI definition.
+- Technical and AI: FastAPI, Next.js, SQLite, Fly.io, Playwright, LLM workflows, prompt engineering, responsible AI evaluation, Cursor, Codex, Claude Code.
+
+## Links
+
+- Website: https://alirazaai.page/
+- GitHub: https://github.com/aliraza2025
+- LinkedIn: https://www.linkedin.com/in/ali-raza-2548880/
+- Hugging Face: https://huggingface.co/axraza55
+- DEV: https://dev.to/aliraza2025
+- Medium: https://medium.com/@ali_raza_codex

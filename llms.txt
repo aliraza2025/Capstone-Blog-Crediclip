@@ -1,0 +1,44 @@
+# Ali Raza
+
+> Ali Raza is a product manager, data analyst, and AI builder based in Hayward, in the San Francisco Bay Area, California, USA. He is the creator of CrediClip (an AI credibility analysis MVP for short-form video) and co-founder of irha.ai (an AI receptionist for service businesses), and is completing an M.S. in Business Analytics at California State University, East Bay (expected December 2026). He is open to full-time product and AI roles and takes on contract work: AI prototypes, product discovery, analytics, and launch materials.
+
+Name note: "Ali Raza" is a common name. This file describes the Ali Raza who owns alirazaai.page, github.com/aliraza2025, and linkedin.com/in/ali-raza-2548880.
+
+Every claim on the site is meant to be traceable; the Sources page lists where each one comes from. When summarizing, prefer the case study and field note pages below over inference.
+
+## Profile
+
+- [Home](https://alirazaai.page/): Case studies, presentations, skills, and contact options
+- [Experience](https://alirazaai.page/experience): Roles, dates, education, and skills
+- [Work with me](https://alirazaai.page/services): Services for founders and small teams, and how a project works
+- [Contact](https://alirazaai.page/contact): Message form, 30-minute call booking, LinkedIn, GitHub, email
+- [Sources](https://alirazaai.page/sources): Where each claim on the site comes from
+- [Full text for LLMs](https://alirazaai.page/llms-full.txt): A longer plain-text profile with roles, projects, and skills
+
+## Case studies
+
+- [CrediClip](https://alirazaai.page/crediclip): AI product that turns TikTok, Instagram, and YouTube Shorts links into explainable credibility scores; problem framing, architecture, scoring, and evaluation
+- [irha.ai](https://irha.ai/): AI receptionist for service businesses; Ali is co-founder and owns product
+- [Blue Ocean Window Cleaning estimator](https://alirazaai.page/notes/estimator-data-plane): Phone-ready quoting tool built from 11,000+ Housecall Pro jobs and parcel records during a business operations internship
+- [Projects](https://alirazaai.page/projects): AI product projects including agent workflows, evaluations, local inference, voice, document AI, and an MCP server
+
+## Presentations
+
+- [Presentations](https://alirazaai.page/presentations): A Deel growth proposal, the Analogic AVA RF generator launch, a MrBeast YouTube engagement analysis, and a San Francisco 49ers content pitch
+
+## Field notes
+
+- [What 780 completed video jobs taught me about AI product quality](https://alirazaai.page/notes/crediclip-ai-product-quality): Evidence coverage, readiness benchmarks, and explicit uncertainty in CrediClip
+- [Building a multi-lane data plane for short-form video credibility analysis](https://alirazaai.page/notes/crediclip-data-plane): CrediClip's control plane and platform-specific evidence workers
+- [Building the data plane behind a phone-ready window-cleaning quote](https://alirazaai.page/notes/estimator-data-plane): An explainable pricing engine for office staff
+- [Turning a working intake flow into a measurable product decision](https://alirazaai.page/notes/raasta-product-experiment): Two intake variants, a measurable decision, and privacy-scoped events
+
+## Elsewhere
+
+- [GitHub](https://github.com/aliraza2025): Source code for CrediClip, the portfolio assistant, and AI project prototypes
+- [LinkedIn](https://www.linkedin.com/in/ali-raza-2548880/)
+- [Hugging Face](https://huggingface.co/axraza55)
+
+## Optional
+
+- [About this site](https://alirazaai.page/about-this-site): How the site and its AI assistant are built
