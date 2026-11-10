@@ -20,6 +20,7 @@ Every claim on the site is meant to be traceable; the Sources page lists where e
 - [CrediClip](https://alirazaai.page/crediclip): AI product that turns TikTok, Instagram, and YouTube Shorts links into explainable credibility scores; problem framing, architecture, scoring, and evaluation
 - [irha.ai](https://irha.ai/): AI receptionist for service businesses; Ali is co-founder and owns product
 - [Blue Ocean Window Cleaning estimator](https://alirazaai.page/notes/estimator-data-plane): Phone-ready quoting tool built from 11,000+ Housecall Pro jobs and parcel records during a business operations internship
+- [Receipts](https://github.com/aliraza2025/receipts): Open-source, evidence-first PM skills for Claude Code, Codex, and Cursor that make PRDs, metrics, experiment readouts, AI evals, and launch copy show where each claim comes from
 - [Projects](https://alirazaai.page/projects): AI product projects including agent workflows, evaluations, local inference, voice, document AI, and an MCP server
 
 ## Presentations

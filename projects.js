@@ -11,6 +11,7 @@ const API_URL =
 // Set hide:true to suppress a repo entirely.
 const REPO_OVERRIDES = {
   'Capstone-Blog-Crediclip': { hide: true },
+  'receipts': { title: 'Receipts', description: 'Six evidence-first PM skills for Claude Code, Codex, and Cursor that make PRDs, metrics, experiment readouts, AI evals, and launch copy show where each claim comes from.', homepage: null },
   'ask-ali': { title: 'Ask Ali', description: 'Portfolio assistant retrieving source passages and returning cited answers, with explicit limits and a live portfolio integration.', homepage: 'https://alirazaai.page/', stage: 'Portfolio integration' },
   'bowc-estimate-tool-notes': { title: 'Blue Ocean Estimator Engineering Notes', homepage: null, notes: 'notes/estimator-data-plane' },
   'Resume-CV': {

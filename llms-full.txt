@@ -79,6 +79,12 @@ Identity: "Ali Raza" is a common name. This profile is the Ali Raza at alirazaai
 ### Burrito Game: logistics optimization
 - A Python integer-programming model with sensitivity analysis on price, ingredient cost, and fleet size, producing scenario-based recommendations.
 
+### Receipts (https://github.com/aliraza2025/receipts)
+- Role: author. Open source, MIT license.
+- What it is: six evidence-first product management skills for Claude Code, Codex, and Cursor: claim-receipts, metric-receipts, ai-eval-receipts, experiment-receipts, prd-receipts, and plain-copy.
+- What it does: makes AI-written PRDs, metrics, experiment readouts, AI evaluations, and launch copy state where each claim comes from and what each number does not prove.
+- Origin: each skill writes down a method from Ali's own work (CrediClip readiness gates, the Raasta experiment plan, Blue Ocean requirements gathering, and the portfolio's Sources page).
+
 ### AI project catalog (https://alirazaai.page/projects)
 - Independent prototypes covering agent workflows, release-gate evaluations, local inference, speech, document AI, an MCP server, and product discovery tools.
 
