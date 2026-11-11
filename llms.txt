@@ -32,6 +32,7 @@ Every claim on the site is meant to be traceable; the Sources page lists where e
 - [What 780 completed video jobs taught me about AI product quality](https://alirazaai.page/notes/crediclip-ai-product-quality): Evidence coverage, readiness benchmarks, and explicit uncertainty in CrediClip
 - [Building a multi-lane data plane for short-form video credibility analysis](https://alirazaai.page/notes/crediclip-data-plane): CrediClip's control plane and platform-specific evidence workers
 - [Building the data plane behind a phone-ready window-cleaning quote](https://alirazaai.page/notes/estimator-data-plane): An explainable pricing engine for office staff
+- [Receipts: making AI-written product docs show their evidence](https://alirazaai.page/notes/receipts-evidence-first-pm-skills): Why Ali built six open-source evidence-first PM skills, and the self-test that caught an overstated claim
 - [Turning a working intake flow into a measurable product decision](https://alirazaai.page/notes/raasta-product-experiment): Two intake variants, a measurable decision, and privacy-scoped events
 
 ## Elsewhere
