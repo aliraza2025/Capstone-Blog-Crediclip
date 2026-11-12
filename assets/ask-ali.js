@@ -3,7 +3,7 @@
   var STORE_KEY = "ask-ali-chat";
   var SUGGESTIONS = [
     "What is CrediClip?",
-    "What does Ali do at irha.ai?",
+    "What did Ali work on at irha.ai?",
     "What did Ali build at Blue Ocean?",
     "Which tools does Ali use?"
   ];

@@ -1,6 +1,6 @@
 # Ali Raza
 
-> Ali Raza is a product manager, data analyst, and AI builder based in Hayward, in the San Francisco Bay Area, California, USA. He is the creator of CrediClip (an AI credibility analysis MVP for short-form video) and co-founder of irha.ai (an AI receptionist for service businesses), and is completing an M.S. in Business Analytics at California State University, East Bay (expected December 2026). He is open to full-time product and AI roles and takes on contract work: AI prototypes, product discovery, analytics, and launch materials.
+> Ali Raza is a product manager, data analyst, and AI builder based in Hayward, in the San Francisco Bay Area, California, USA. He is the creator of CrediClip (an AI credibility analysis MVP for short-form video) and is completing an M.S. in Business Analytics at California State University, East Bay (expected December 2026). He is open to full-time product and AI roles and takes on contract work: AI prototypes, product discovery, analytics, and launch materials.
 
 Name note: "Ali Raza" is a common name. This file describes the Ali Raza who owns alirazaai.page, github.com/aliraza2025, and linkedin.com/in/ali-raza-2548880.
 
@@ -18,7 +18,7 @@ Every claim on the site is meant to be traceable; the Sources page lists where e
 ## Case studies
 
 - [CrediClip](https://alirazaai.page/crediclip): AI product that turns TikTok, Instagram, and YouTube Shorts links into explainable credibility scores; problem framing, architecture, scoring, and evaluation
-- [irha.ai](https://irha.ai/): AI receptionist for service businesses; Ali is co-founder and owns product
+- [irha.ai](https://irha.ai/): AI receptionist for service businesses; past work: Ali led product there and is no longer involved
 - [Blue Ocean Window Cleaning estimator](https://alirazaai.page/notes/estimator-data-plane): Phone-ready quoting tool built from 11,000+ Housecall Pro jobs and parcel records during a business operations internship
 - [Receipts](https://github.com/aliraza2025/receipts): Open-source, evidence-first PM skills for Claude Code, Codex, and Cursor that make PRDs, metrics, experiment readouts, AI evals, and launch copy show where each claim comes from
 - [Projects](https://alirazaai.page/projects): AI product projects including agent workflows, evaluations, local inference, voice, document AI, and an MCP server

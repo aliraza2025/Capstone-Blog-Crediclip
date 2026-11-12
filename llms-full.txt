@@ -1,6 +1,6 @@
 # Ali Raza: full profile
 
-> Ali Raza is a product manager, data analyst, and AI builder based in Hayward, in the San Francisco Bay Area, California, USA. He is the creator of CrediClip and co-founder of irha.ai, and is completing an M.S. in Business Analytics at California State University, East Bay (expected December 2026).
+> Ali Raza is a product manager, data analyst, and AI builder based in Hayward, in the San Francisco Bay Area, California, USA. He is the creator of CrediClip, and is completing an M.S. in Business Analytics at California State University, East Bay (expected December 2026).
 
 This is the plain-text version of https://alirazaai.page for language models and AI assistants. Facts here match the site; the Sources page (https://alirazaai.page/sources) shows where each claim comes from.
 
@@ -8,7 +8,7 @@ Identity: "Ali Raza" is a common name. This profile is the Ali Raza at alirazaai
 
 ## Summary
 
-- Short description: Bay Area product manager and AI builder, creator of CrediClip and co-founder of irha.ai.
+- Short description: Bay Area product manager and AI builder, creator of CrediClip.
 - Focus: product discovery, AI prototyping, and analytics; turning messy problems into shipped workflows.
 - Location: Hayward, San Francisco Bay Area, California, USA.
 - Looking for: full-time product and AI roles, and contract projects with founders and small teams (https://alirazaai.page/services).
@@ -70,8 +70,8 @@ Identity: "Ali Raza" is a common name. This profile is the Ali Raza at alirazaai
 - Code: https://github.com/aliraza2025/Capstone-Blog-Crediclip
 
 ### irha.ai (https://irha.ai/)
-- Role: co-founder, product. Owns product strategy and roadmap, voice agent and call flow design, CRM integrations, positioning and pricing, the website and demo, and customer discovery and sales.
-- What it does: a 24/7 AI receptionist for service businesses that answers, triages, and books calls and hands off to Housecall Pro, Jobber, and ServiceTitan. Self-serve trial and three usage-based plans from $99 to $225 a month. In early access.
+- Role: past work; Ali is no longer involved. He led product strategy and roadmap, voice agent and call flow design, CRM integrations, positioning and pricing, the website and demo, and customer discovery and sales.
+- What it does: a 24/7 AI receptionist for service businesses that answers, triages, and books calls and hands off to Housecall Pro, Jobber, and ServiceTitan. Self-serve trial and three usage-based plans from $99 to $225 a month. It was in early access when Ali worked on it.
 
 ### Blue Ocean Window Cleaning estimate tool
 - A Next.js agentic estimate tool on Fly.io with Housecall Pro integration and expense workflows, built from 11,000+ Housecall Pro jobs and San Diego parcel records.
@@ -110,5 +110,5 @@ Identity: "Ali Raza" is a common name. This profile is the Ali Raza at alirazaai
 - GitHub: https://github.com/aliraza2025
 - LinkedIn: https://www.linkedin.com/in/ali-raza-2548880/
 - Hugging Face: https://huggingface.co/axraza55
-- DEV: https://dev.to/aliraza2025
+- DEV: https://dev.to/member_6c178f47
 - Medium: https://medium.com/@ali_raza_codex
