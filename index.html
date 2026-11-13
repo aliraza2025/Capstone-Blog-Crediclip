@@ -1165,6 +1165,11 @@
       transition: transform 0.35s ease;
     }
     .deck-card:hover .case-thumb img { transform: scale(1.03); }
+    @media (min-width: 769px) {
+      .deck-card.deck-feature { grid-column: 1 / -1; flex-direction: row; }
+      .deck-card.deck-feature .case-thumb { width: 48%; flex-shrink: 0; aspect-ratio: 1200 / 630; align-self: center; border-bottom: 0; border-right: 1px solid var(--line); }
+      .deck-card.deck-feature .case-body { align-self: center; }
+    }
     .deck-group-cta { margin-top: 1.5rem; display: flex; justify-content: center; }
     @media (prefers-reduced-motion: reduce) {
       .case-thumb img, .deck-card:hover .case-thumb img { transition: none; transform: none; }
@@ -2064,17 +2069,47 @@
         <span class="section-tag">Work</span>
         <h2 class="section-title" id="presentations-heading">Presentations</h2>
         <p class="section-subtitle">
-          Launch strategy, growth proposals, and analytics decks, newest first.
+          Product plans, launch strategy, growth proposals, and analytics decks, newest first.
           Each one opens into a summary with the full deck or live proposal.
         </p>
         <div class="section-divider" aria-hidden="true"></div>
       </header>
 
       <div class="case-grid">
+        <article class="case-card compact deck-card deck-feature">
+          <a class="case-thumb" href="presentations#walgreens" tabindex="-1" aria-hidden="true"><img src="assets/presentations/walgreens.jpg" alt="" width="640" height="336" loading="lazy" /></a>
+          <div class="case-body">
+            <span class="case-num">Presentation 01 · Nov 2026</span>
+            <div class="case-tags">
+              <span class="case-tag">Digital Product</span>
+              <span class="case-tag">AI Search</span>
+              <span class="case-tag">Proposal</span>
+            </div>
+            <h3 class="case-title"><a href="presentations#walgreens" style="color:inherit;text-decoration:none;">Walgreens: AI Search and a myWalgreens Assistant</a></h3>
+            <div class="case-block">
+              <p class="case-block-label">Problem</p>
+              <p>Ask an AI assistant where to get a flu shot today and Walgreens may not show up in the answer, while members juggle separate steps for refills, deals, and delivery.</p>
+            </div>
+            <div class="case-block">
+              <p class="case-block-label">Result</p>
+              <p>Proposed, independently, as a candidate for the Associate Product Manager, Digital and Marketing role: pages that AI tools can read, tracked weekly across five assistants, and an opt-in member helper tested in an 8-week pilot against a control group. Every metric is labeled as a goal.</p>
+            </div>
+            <div class="case-actions">
+              <a href="presentations#walgreens" class="case-btn case-btn-primary" aria-label="View plan: Walgreens">
+                View Plan
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </a>
+              <a href="https://ali-raza-walgreens-plan.vercel.app/" class="case-btn case-btn-ghost" target="_blank" rel="noopener noreferrer" aria-label="Live site: Walgreens plan - opens in new tab">Live Site</a>
+            </div>
+          </div>
+        </article>
+
         <article class="case-card compact deck-card">
           <a class="case-thumb" href="presentations#deel" tabindex="-1" aria-hidden="true"><img src="assets/presentations/deel.jpg" alt="" width="640" height="336" loading="lazy" /></a>
           <div class="case-body">
-            <span class="case-num">Presentation 01 · Oct 2026</span>
+            <span class="case-num">Presentation 02 · Oct 2026</span>
             <div class="case-tags">
               <span class="case-tag">Growth Marketing</span>
               <span class="case-tag">B2B</span>
@@ -2104,7 +2139,7 @@
         <article class="case-card compact deck-card">
           <a class="case-thumb" href="presentations#analogic" tabindex="-1" aria-hidden="true"><img src="assets/presentations/analogic.jpg" alt="" width="640" height="360" loading="lazy" /></a>
           <div class="case-body">
-            <span class="case-num">Presentation 02 · 2025–2026</span>
+            <span class="case-num">Presentation 03 · 2025–2026</span>
             <div class="case-tags">
               <span class="case-tag">Hardware PM</span>
               <span class="case-tag">GTM</span>
@@ -2134,7 +2169,7 @@
         <article class="case-card compact deck-card">
           <a class="case-thumb" href="presentations#mrbeast" tabindex="-1" aria-hidden="true"><img src="assets/presentations/mrbeast.jpg" alt="" width="640" height="360" loading="lazy" /></a>
           <div class="case-body">
-            <span class="case-num">Presentation 03 · Fall 2025</span>
+            <span class="case-num">Presentation 04 · Fall 2025</span>
             <div class="case-tags">
               <span class="case-tag">Analytics</span>
               <span class="case-tag">Python</span>
@@ -2164,7 +2199,7 @@
         <article class="case-card compact deck-card">
           <a class="case-thumb" href="presentations#49ers" tabindex="-1" aria-hidden="true"><img src="assets/presentations/49ers.jpg" alt="" width="640" height="360" loading="lazy" /></a>
           <div class="case-body">
-            <span class="case-num">Presentation 04 · Late 2024</span>
+            <span class="case-num">Presentation 05 · Late 2024</span>
             <div class="case-tags">
               <span class="case-tag">Brand Strategy</span>
               <span class="case-tag">Sports</span>

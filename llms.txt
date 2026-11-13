@@ -25,7 +25,8 @@ Every claim on the site is meant to be traceable; the Sources page lists where e
 
 ## Presentations
 
-- [Presentations](https://alirazaai.page/presentations): A Deel growth proposal, the Analogic AVA RF generator launch, a MrBeast YouTube engagement analysis, and a San Francisco 49ers content pitch
+- [Presentations](https://alirazaai.page/presentations): A Walgreens digital product plan (AI search visibility and an opt-in member assistant), a Deel growth proposal, the Analogic AVA RF generator launch, a MrBeast YouTube engagement analysis, and a San Francisco 49ers content pitch
+- [Walgreens digital plan](https://ali-raza-walgreens-plan.vercel.app/): Independent one-page plan for the Walgreens Associate Product Manager, Digital and Marketing role; every metric is a labeled goal
 
 ## Field notes
 

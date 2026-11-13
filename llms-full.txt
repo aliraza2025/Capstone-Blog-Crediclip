@@ -93,6 +93,7 @@ Identity: "Ali Raza" is a common name. This profile is the Ali Raza at alirazaai
 
 ## Presentations (https://alirazaai.page/presentations)
 
+- Walgreens digital product plan (Nov 2026, https://ali-raza-walgreens-plan.vercel.app/): an independent one-page plan made as a candidate for the Walgreens Associate Product Manager, Digital and Marketing role. Idea 1 makes Walgreens pages readable by AI tools so it shows up in AI answers, tracked weekly by asking five AI assistants the same 200 shopper questions. Idea 2 is an opt-in voice and chat helper for myWalgreens members, tested in an 8-week pilot against a control group. All metrics on the page are labeled goals, not results. Not affiliated with Walgreens.
 - Deel Local XI (Oct 2026): an independent growth proposal for a 6-week Bay Area pilot with one community football club, measured by cost per sales-accepted qualified meeting.
 - Analogic AVA RF generator launch (2025 to 2026): product identity, launch kit, and digital presence for SEMICON West 2025.
 - MrBeast YouTube engagement analysis (Fall 2025): 250 uploads modeled with tree models and SHAP; duration, Shorts format, and an 18 to 22h upload window were the top drivers.
