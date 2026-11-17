@@ -17,6 +17,7 @@ Every claim on the site is meant to be traceable; the Sources page lists where e
 
 ## Case studies
 
+- [Clearstead](https://ali-raza-clearstead.vercel.app/): Idea-stage AI-enabled home services, starting with recurring residential window cleaning; Ali is solo founder and seeking an operating partner; figures on the page are illustrative
 - [CrediClip](https://alirazaai.page/crediclip): AI product that turns TikTok, Instagram, and YouTube Shorts links into explainable credibility scores; problem framing, architecture, scoring, and evaluation
 - [irha.ai](https://irha.ai/): AI receptionist for service businesses; past work: Ali led product there and is no longer involved
 - [Blue Ocean Window Cleaning estimator](https://alirazaai.page/notes/estimator-data-plane): Phone-ready quoting tool built from 11,000+ Housecall Pro jobs and parcel records during a business operations internship

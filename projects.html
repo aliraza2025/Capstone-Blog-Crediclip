@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ali Raza · Projects</title>
-  <meta name="description" content="AI product projects by Ali Raza: agent workflows, evaluations, local inference, voice, document AI, creative tools, and source-linked product discovery." />
+  <meta name="description" content="Ali Raza’s projects: Clearstead (idea-stage AI home services), CrediClip, past work at irha.ai, Receipts, and AI prototypes across agents, evaluation, voice, and document AI." />
   <link rel="canonical" href="https://alirazaai.page/projects" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Ali Raza" />
@@ -719,6 +719,11 @@
     .venture-card .repo-desc { display: block; -webkit-line-clamp: unset; overflow: visible; flex: none; }
     .venture-card .badge-fork { color: var(--accent-2); border-color: rgba(255,45,141,.4); text-transform: none; letter-spacing: 0; }
     .ventures-grid .oss-card { grid-column: 1 / -1; }
+    .ventures-grid .venture-card.featured-venture { grid-column: 1 / -1; }
+    .ventures-grid .venture-card.featured-venture .repo-card-img-wrap { height: 240px; }
+    @media (max-width: 768px) {
+      .ventures-grid .venture-card.featured-venture .repo-card-img-wrap { height: 160px; }
+    }
     .venture-tag {
       font-size: 0.75rem;
       color: var(--muted);
@@ -812,7 +817,7 @@
     <span class="page-hero-tag">Builds</span>
     <h1 class="page-hero-title">Projects</h1>
     <p class="page-hero-sub">
-      Independent AI prototypes, venture work, and analytics projects. Explore the demos, source, and verification behind each build.
+      Independent AI prototypes, venture work including Clearstead, and analytics projects. Explore the demos, source, and verification behind each build.
     </p>
     <div class="page-hero-actions">
       <a
@@ -836,6 +841,49 @@
   <section class="ventures" id="ventures" aria-labelledby="ventures-heading">
     <h2 id="ventures-heading" class="section-heading">Ventures</h2>
     <div class="repo-grid ventures-grid">
+      <article class="repo-card venture-card featured-venture">
+        <div class="repo-card-img-wrap">
+          <img
+            src="assets/clearstead-preview.png"
+            alt="Clearstead: Home services, powered by AI"
+            class="repo-card-img"
+            width="1200"
+            height="434"
+            loading="eager"
+          />
+        </div>
+
+        <div class="repo-name-row">
+          <a href="https://ali-raza-clearstead.vercel.app/" class="repo-name" target="_blank" rel="noopener noreferrer">Clearstead<span class="visually-hidden"> (opens in new tab)</span></a>
+          <span class="badge-fork">Idea stage · Solo founder</span>
+        </div>
+
+        <p class="repo-desc">AI-enabled home services, starting with recurring residential window cleaning in a compact East Bay territory. Customers book directly with our own brand. The plan is practical tools for the people doing the work: quote, crew, and closeout on one job record.</p>
+        <p class="repo-desc">I am the solo founder. The idea grew out of my Blue Ocean Window Cleaning internship, where quoting and coordination data were scattered. I am seeking an operating partner. No partnership is confirmed yet; the unit economics on the site are illustrative, not results.</p>
+
+        <div class="repo-meta">
+          <span class="venture-tag">Home services</span>
+          <span class="venture-tag">AI ops</span>
+          <span class="venture-tag">Idea stage</span>
+        </div>
+
+        <div class="repo-actions">
+          <a href="https://ali-raza-clearstead.vercel.app/" class="repo-btn live" target="_blank" rel="noopener noreferrer" aria-label="Website: Clearstead plan - opens in new tab">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+            Website
+          </a>
+          <a href="https://www.linkedin.com/in/ali-raza-2548880/" class="repo-btn" target="_blank" rel="noopener noreferrer" aria-label="Connect on LinkedIn - opens in new tab">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            Connect
+          </a>
+        </div>
+      </article>
+
       <article class="repo-card venture-card">
         <div class="repo-card-img-wrap">
           <img

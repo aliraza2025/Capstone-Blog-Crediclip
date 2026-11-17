@@ -62,6 +62,12 @@ Identity: "Ali Raza" is a common name. This profile is the Ali Raza at alirazaai
 
 ## Products and projects
 
+### Clearstead (https://ali-raza-clearstead.vercel.app/)
+- Role: solo founder, idea stage. Seeking an operating partner. No operating partnership is confirmed.
+- What it is: AI-enabled home services, starting with recurring residential window cleaning in a compact East Bay territory. Customers book directly with the Clearstead brand.
+- Origin: grew out of Ali's Blue Ocean Window Cleaning internship, where quoting and coordination data were scattered.
+- Caveats: the unit economics on the page are illustrative planning numbers, not results. Crew-lead discussions have begun.
+
 ### CrediClip (https://alirazaai.page/crediclip)
 - Role: product owner and builder, end to end.
 - What it does: turns TikTok, Instagram, and YouTube Shorts links into credibility scores, risk flags, evidence coverage, and claim-level explanations.
