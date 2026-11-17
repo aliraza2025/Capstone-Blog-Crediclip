@@ -62,12 +62,6 @@ Identity: "Ali Raza" is a common name. This profile is the Ali Raza at alirazaai
 
 ## Products and projects
 
-### Clearstead (https://ali-raza-clearstead.vercel.app/)
-- Role: solo founder, idea stage. Seeking an operating partner. No operating partnership is confirmed.
-- What it is: AI-enabled home services, starting with recurring residential window cleaning in a compact East Bay territory. Customers book directly with the Clearstead brand.
-- Origin: grew out of Ali's Blue Ocean Window Cleaning internship, where quoting and coordination data were scattered.
-- Caveats: the unit economics on the page are illustrative planning numbers, not results. Crew-lead discussions have begun.
-
 ### CrediClip (https://alirazaai.page/crediclip)
 - Role: product owner and builder, end to end.
 - What it does: turns TikTok, Instagram, and YouTube Shorts links into credibility scores, risk flags, evidence coverage, and claim-level explanations.
@@ -99,6 +93,7 @@ Identity: "Ali Raza" is a common name. This profile is the Ali Raza at alirazaai
 
 ## Presentations (https://alirazaai.page/presentations)
 
+- Clearstead (Nov 2026, https://ali-raza-clearstead.vercel.app/): idea-stage venture pitch for AI-enabled home services, starting with recurring residential window cleaning in a compact East Bay territory. Ali is solo founder and seeking an operating partner. Unit economics on the page are illustrative, not results. No operating partnership is confirmed.
 - Walgreens digital product plan (Nov 2026, https://ali-raza-walgreens-plan.vercel.app/): an independent one-page plan made as a candidate for the Walgreens Associate Product Manager, Digital and Marketing role. Idea 1 makes Walgreens pages readable by AI tools so it shows up in AI answers, tracked weekly by asking five AI assistants the same 200 shopper questions. Idea 2 is an opt-in voice and chat helper for myWalgreens members, tested in an 8-week pilot against a control group. All metrics on the page are labeled goals, not results. Not affiliated with Walgreens.
 - Deel Local XI (Oct 2026): an independent growth proposal for a 6-week Bay Area pilot with one community football club, measured by cost per sales-accepted qualified meeting.
 - Analogic AVA RF generator launch (2025 to 2026): product identity, launch kit, and digital presence for SEMICON West 2025.

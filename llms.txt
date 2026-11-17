@@ -17,7 +17,6 @@ Every claim on the site is meant to be traceable; the Sources page lists where e
 
 ## Case studies
 
-- [Clearstead](https://ali-raza-clearstead.vercel.app/): Idea-stage AI-enabled home services, starting with recurring residential window cleaning; Ali is solo founder and seeking an operating partner; figures on the page are illustrative
 - [CrediClip](https://alirazaai.page/crediclip): AI product that turns TikTok, Instagram, and YouTube Shorts links into explainable credibility scores; problem framing, architecture, scoring, and evaluation
 - [irha.ai](https://irha.ai/): AI receptionist for service businesses; past work: Ali led product there and is no longer involved
 - [Blue Ocean Window Cleaning estimator](https://alirazaai.page/notes/estimator-data-plane): Phone-ready quoting tool built from 11,000+ Housecall Pro jobs and parcel records during a business operations internship
@@ -26,7 +25,8 @@ Every claim on the site is meant to be traceable; the Sources page lists where e
 
 ## Presentations
 
-- [Presentations](https://alirazaai.page/presentations): A Walgreens digital product plan (AI search visibility and an opt-in member assistant), a Deel growth proposal, the Analogic AVA RF generator launch, a MrBeast YouTube engagement analysis, and a San Francisco 49ers content pitch
+- [Presentations](https://alirazaai.page/presentations): A Clearstead venture pitch, a Walgreens digital product plan (AI search visibility and an opt-in member assistant), a Deel growth proposal, the Analogic AVA RF generator launch, a MrBeast YouTube engagement analysis, and a San Francisco 49ers content pitch
+- [Clearstead pitch](https://ali-raza-clearstead.vercel.app/): Idea-stage AI-enabled home services one-pager; Ali is solo founder and seeking an operating partner; figures are illustrative
 - [Walgreens digital plan](https://ali-raza-walgreens-plan.vercel.app/): Independent one-page plan for the Walgreens Associate Product Manager, Digital and Marketing role; every metric is a labeled goal
 
 ## Field notes
